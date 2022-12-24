@@ -65,7 +65,7 @@ class Zombie extends Entity{
     }
     if (performDraw){//Zombies not drawn in Invisighoul
       switch(this.type){
-        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: ///Regulars
+        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54:
           stroke(60,80,100,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -99,7 +99,7 @@ class Zombie extends Entity{
               quad(-10,-85,10,-85,5,-93,-5,-93)
             }
             strokeJoin(MITER)
-          }else if(this.type==2&&this.health>200){
+          }else if((this.type==2||this.type==52)&&this.health>200){
             fill(180,185,190,this.fade)
             if(this.health>930){
               quad(-15,-81,15,-81,10,-101,-10,-101)
@@ -211,6 +211,32 @@ class Zombie extends Entity{
               quad(0,-91,3,-91,0,-88,-3,-88)
               rect(-18,-88,18,3)
             }
+          }else if(this.type==54&&this.health>200){
+            stroke(100,200,100,this.fade/2)
+            fill(75,150,75,this.fade/2)
+            strokeWeight(1)
+            if(this.health>5670){
+              rect(-20,-95,8,40)
+              rect(-12,-95,8,40)
+              rect(-4,-95,8,40)
+              rect(4,-95,8,40)
+              rect(12,-95,8,40)
+            }else if(this.health>2930){
+              rect(12,-91,8,36)
+              rect(4,-83,8,28)
+              rect(-4,-87,8,32)
+              rect(-12,-79,8,24)
+              rect(-20,-75,8,20)
+            }else{
+              rect(12,-79,8,24)
+              rect(4,-71,8,16)
+              rect(-4,-75,8,20)
+              rect(-12,-67,8,12)
+              rect(-20,-63,8,8)
+            }
+          }
+          if(this.type==52&&this.shieldHealth>0){
+            image(graphics.minor[9],-36,-78,24,60)
           }
         break
         case 7://Newspaper
@@ -872,7 +898,7 @@ class Zombie extends Entity{
             ellipse(-55,-48,6,12);
           }
           break;
-        case 29://Squash Zombie
+        case 29:/*Squash Zombie*/case 51: case 53:
           stroke(60,80,100,this.fade);
           strokeWeight(4);
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0);
@@ -905,6 +931,50 @@ class Zombie extends Entity{
             fill(0);
             ellipse(-40,-45,6,6);
             ellipse(-55,-45,6,6);
+          }
+          if(this.type==51&&this.health>200){
+            strokeJoin(ROUND)
+            stroke(255,150,0,this.fade)
+            strokeWeight(4)
+            fill(255,150,0,this.fade)
+            line(-15,-85,15,-85)
+            if(this.health>440){
+              triangle(-10,-85,10,-85,0,-101)
+            }else if(this.health>320){
+              quad(-10,-85,10,-85,5,-93,-5,-93)
+            }
+            strokeJoin(MITER)
+          }else if(this.type==53&&this.health>200){
+            translate(0,-75)
+            rotate(this.rate[0]*30)
+            if(this.health>730){
+              for(let a=0;a<12;a++){
+                fill(200+(a%3)*20,this.fade)
+                if(this.health>1270||a!=11&&a!=9){
+                  arc(0,0,36,36,a*30,a*30+30)
+                }
+              }
+            }else{
+              for(let a=0;a<6;a++){
+                fill(200+(a%3)*20,this.fade)
+                arc(0,0,36,36,a*60,a*60+30)
+              }
+            }
+            rotate(this.rate[0]*-30)
+            translate(0,75)
+            if(this.health>1800){
+              strokeJoin(ROUND)
+              stroke(255,150,0,this.fade)
+              strokeWeight(4)
+              fill(255,150,0,this.fade)
+              line(-15,-90,15,-90)
+              if(this.health>2040){
+                triangle(-10,-90,10,-90,0,-106)
+              }else if(this.health>1920){
+                quad(-10,-90,10,-90,5,-98,-5,-98)
+              }
+              strokeJoin(MITER)
+            }
           }
           break;
         case 30://Dazey Zombie
@@ -1587,7 +1657,7 @@ class Zombie extends Entity{
     }else{//Normal or No Shield
       finalEatSpeed = 1.4*levelSpeed*jamMultiplier*this.eatSpeed*chillMultiplier;
     }
-    if ((this.type === 29)&&(this.shieldHealth > 0)){//Squash Zombie
+    if ((this.maxShieldHealth==400)&&(this.shieldHealth > 0)){//Squash Zombie
       finalEatSpeed = 2000;
       this.shieldHealth = 0;
       new Particle(10,this.x-20,this.y+60);

@@ -14,7 +14,20 @@ function rich(){
 }
 
 function shut(){
-    daveIndex=9999
+    daveIndex=99999
+}
+
+function go(){
+    spawnWave()
+    for(currentZombie of allZombies){
+        currentZombie.x=800
+    }
+}
+
+function test(){
+    l1()
+    rich()
+    shut()
 }
 
 function l1(){
@@ -94,4 +107,15 @@ function setupGraphics(){
             graphics.minor[8].ellipse(a*50+random(90,110),b*50+random(90,110),random(120,160))
         }
     }
+    graphics.minor.push(createGraphics(50,100))
+    setupLayer(graphics.minor[9])
+    graphics.minor[9].noFill()
+    graphics.minor[9].strokeWeight(4)
+    graphics.minor[9].stroke(200)
+    for(let a=1;a<15;a++){
+        graphics.minor[9].line(2+a*15,2,2,2+a*15)
+        graphics.minor[9].line(48-a*15,2,48,2+a*15)
+    }
+    graphics.minor[9].stroke(240)
+    graphics.minor[9].rect(25,50,46,96)
 }

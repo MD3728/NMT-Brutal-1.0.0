@@ -25,7 +25,7 @@ const levels = {
     jams:[0,0,0,0,0,0,0,0,0,0,0,0],
     waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[54,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -2419,7 +2419,7 @@ const zombieStat = [
     health: 200,
     name:'Squash',
     description: "Squash shield damages first plant it meets and gives him extra health\nSpecial: Squashes first plant",
-    shield: 300,
+    shield: 400,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 2.5,
@@ -2455,6 +2455,61 @@ const zombieStat = [
     degrade: [280],
     sun: 75,
     jam: -1
-  }
+  },
+  {},{},{},{},{},{},{},{},{},
+  {},{},{},{},{},{},{},{},{},{},
+  {//Conehead Squash 51 
+    type: 51,
+    health: 560,
+    name:'Conehead Squash',
+    description: "",
+    shield: 400,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 2.5,
+    altEatSpeed: 0,
+    degrade: [170],
+    sun: 75,
+    jam: -1
+  },{//Buckethead Screendoor 52
+    type: 52,
+    health: 1300,
+    name:'Buckethead Screendoor',
+    description: "",
+    shield: 1100,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [940,580,200,100],
+    sun: 125,
+    jam: -1
+  },{//Discohead Conehead Squash 53 
+    type: 51,
+    health: 2160,
+    name:'Discohead Conehead Squash',
+    description: "",
+    shield: 400,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 2.5,
+    altEatSpeed: 0,
+    degrade: [170],
+    sun: 75,
+    jam: -1
+  },{//ultra-Holohead 54
+    type: 5,
+    health: 8400,
+    name:'Ultra-Holohead',
+    description: "",
+    shield: 0,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [1660,940,200,100],
+    sun: 175,
+    jam: -1
+  },
 ];
 

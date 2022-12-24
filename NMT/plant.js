@@ -762,15 +762,16 @@ class Plant extends Entity{
         if ((this.projectileType !== 6)&&(this.projectileType !== 7)){//Normal projectiles
           if (this.type === 16){//Puff-shroom Fires Lower
             new Projectile(this.x + 20, this.y + 40, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
-          }else if(this.type==18){//peashooter rng lol
-            if(floor(random(0,5))<2){
-              new Projectile(this.x + 35, this.y + 15, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
-            }else if(floor(random(0,3))==0){
-              new Projectile(this.x + 35, this.y + 15, this.lane, 3, this.damage, 1, this.tier, this.splashDamage);
-            }else if(floor(random(0,2))==0){
-              new Projectile(this.x + 35, this.y + 15, this.lane, 8, this.damage, 1, this.tier, this.splashDamage);
-            }else{
-              new Projectile(this.x + 35, this.y + 15, this.lane, 11, this.damage*2, 1, this.tier, this.splashDamage);
+          }else if(this.type===18){//Peashooter RNG Fest
+            let result = floor(random(4));
+            if(result === 0){//Normal Pea
+              new Projectile(this.x + 35, this.y + 15, this.lane, 1, 25, 1, this.tier, 0);
+            }else if(result === 1){//Snow Pea
+              new Projectile(this.x + 35, this.y + 15, this.lane, 3, 20, 1, this.tier, 0);
+            }else if(result === 2){//Pepper
+              new Projectile(this.x + 35, this.y + 15, this.lane, 8, 50, 1, this.tier, 30);
+            }else{//Basketball
+              new Projectile(this.x + 35, this.y + 15, this.lane, 11, 40, 1, this.tier, 0);
             }
           }else{//Normal
             new Projectile(this.x + 35, this.y + 15, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);

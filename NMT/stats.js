@@ -20,13 +20,13 @@
 52-Buckethead Screendoor
 53-Discohead Conehead Squash
 54-Ultra Holohead
-55-Cool (Garlic) Football (Test Functionality)
+55-Cool (Garlic) Football
 56-Giga Football
 57-Rally Screendoor
 58-Red Stinger Punk (Test Functionality)
-59-Conehead Banger (Test Functionality)
+59-Conehead Banger
 60-Dazey Sparkly (Needs Functionality)
-61-MC Squash-B (Test Functionality)
+61-MC Squash-B
 62-Fume Shroom Breakdancer (Test Functionality)
 63-Screendoor Arcade (Test Functionality)
 64-8-Bit Peashooter
@@ -40,11 +40,12 @@ const levels = {
   "l1": {//Level 1 Normal 2 Flag
     type: [1],
     daveSpeech: ["This is your neighbor Crazy Dave","There are zombies \nattacking your house","You have been given the \nfollowing plants to \ndefend your house","Be sure to read the \nalmanac on the level select \nscreen for more information on \nplants and zombies"],
-    startingSun: 75,
+    startingSun: 7500,
     flag: [false,false,false,false,false,true,false,false,false,false,false,true],
-    jams:[0,0,0,0,0,0,0,0,0,0,0,0],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    jams:[8,8,8,8,8,0,0,0,0,0,0,0],
+    waveDelay: [20,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
+      [[61,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[52,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
@@ -1656,7 +1657,7 @@ const plantStat = [
       startingRecharge: 300,
       health: 300,
       eatable: true,
-      damage: 20,
+      damage: 25,
       splashDamage: 0,
 
       reload: 90,
@@ -1713,7 +1714,7 @@ const plantStat = [
       eatable: true,
       damage: 20,
       splashDamage: 0,
-      reload: 90,
+      reload: 72,
       projectile: 1
     },
     t2:{

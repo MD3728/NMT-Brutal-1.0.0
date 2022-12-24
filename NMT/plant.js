@@ -458,7 +458,7 @@ class Plant extends Entity{
       case 22://Fume Shroom
         if(this.graphical.previousAttackAnim>0){
           fill(200,100,250,this.graphical.previousAttackAnim*8)
-          ellipse(200-this.graphical.previousAttackAnim*9,-24,360-this.graphical.previousAttackAnim*18,60-this.graphical.previousAttackAnim*3)
+          ellipse(380-this.graphical.previousAttackAnim*18,-24,720-this.graphical.previousAttackAnim*36,60-this.graphical.previousAttackAnim*3)
           this.graphical.previousAttackAnim--
         }
         fill(200,150,200)
@@ -762,6 +762,16 @@ class Plant extends Entity{
         if ((this.projectileType !== 6)&&(this.projectileType !== 7)){//Normal projectiles
           if (this.type === 16){//Puff-shroom Fires Lower
             new Projectile(this.x + 20, this.y + 40, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
+          }else if(this.type==18){//peashooter rng lol
+            if(floor(random(0,5))<2){
+              new Projectile(this.x + 35, this.y + 15, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
+            }else if(floor(random(0,3))==0){
+              new Projectile(this.x + 35, this.y + 15, this.lane, 3, this.damage, 1, this.tier, this.splashDamage);
+            }else if(floor(random(0,2))==0){
+              new Projectile(this.x + 35, this.y + 15, this.lane, 8, this.damage, 1, this.tier, this.splashDamage);
+            }else{
+              new Projectile(this.x + 35, this.y + 15, this.lane, 11, this.damage*2, 1, this.tier, this.splashDamage);
+            }
           }else{//Normal
             new Projectile(this.x + 35, this.y + 15, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
           }

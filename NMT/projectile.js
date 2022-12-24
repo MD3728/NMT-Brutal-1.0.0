@@ -19,7 +19,8 @@ class Projectile extends Entity{
 
   draw(){
     //Types: 1: Pea, 2: Red Stinger, 3: Snow Pea, 4: Spore Shroom Spore, 5: Puff Projectile
-    //6: Fume shroom (Does not exist), 7: Phat Beet Wave (Does not exist), 8: Pepper Cannon Pepper, 9: Coconut, 10: Lily (Valley Lily)
+    //6: Fume shroom (Does not exist), 7: Phat Beet Wave (Does not exist), 8: Pepper Cannon Pepper, 9: Coconut, 10: Lily (Valley Lily),
+    //11 basketball, 12: freeze pea
     translate(this.x+10,this.y+10);
     noStroke();
     switch(this.type){
@@ -77,6 +78,26 @@ class Projectile extends Entity{
         rect(-4,-4,8,8);
         rotate(this.time*-2);
         break;
+        case 11://basketball
+          fill(200,100,50)
+          ellipse(0,0,24,24)
+          rotate(this.time*2)
+          stroke(0)
+          strokeWeight(1)
+          line(0,-12,0,12)
+          arc(9,0,6,16,90,270)
+          arc(-9,0,6,16,-90,90)
+          rotate(-this.time*2)
+        break
+        case 12://Ice Pea (freeze)
+        fill(180,255,255)
+        ellipse(0,0,24,24)
+        triangle(0,-12,0,12,-24,0)
+        fill(130,235,230);
+        ellipse(0,0,20,20);
+        fill(180,240,240);
+        ellipse(-2,-2,12,12);
+      break
       default:
         fill(255,0,0);
         rect(-10,-10,20, 20);

@@ -15,6 +15,17 @@
 // 13: Unsodded
 // 14: I, Zombie
 
+/*New Zombies
+51-Conehead Squash
+52-Buckethead Screendoor
+53-Discohead Conehead Squash
+54-Ultra Holohead
+55-Cool (Garlic) Football
+56-Giga Football
+57-Rally Screendoor
+58-Red Stinger Punk
+*/
+
 //Level Data
 const levels = {
   "l1": {//Level 1 Normal 2 Flag
@@ -25,7 +36,7 @@ const levels = {
     jams:[0,0,0,0,0,0,0,0,0,0,0,0],
     waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[54,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[58,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -2485,7 +2496,7 @@ const zombieStat = [
     sun: 125,
     jam: -1
   },{//Discohead Conehead Squash 53 
-    type: 51,
+    type: 53,
     health: 2160,
     name:'Discohead Conehead Squash',
     description: "",
@@ -2497,8 +2508,8 @@ const zombieStat = [
     degrade: [170],
     sun: 75,
     jam: -1
-  },{//ultra-Holohead 54
-    type: 5,
+  },{//Ultra-Holohead 54
+    type: 54,
     health: 8400,
     name:'Ultra-Holohead',
     description: "",
@@ -2510,6 +2521,58 @@ const zombieStat = [
     degrade: [1660,940,200,100],
     sun: 175,
     jam: -1
+  },{//Cool Football 55
+    type: 55,
+    health: 1600,
+    name:'Cool Football',
+    description: "",
+    shield: 0,
+    speed: 2.5,
+    eatSpeed: 2,
+    altSpeed: 2.5,
+    altEatSpeed: 2,
+    degrade: [1130,660,200,100],
+    sun: 200,
+    jam: -1
+  },{//Giga Football 56
+    type: 56,
+    health: 3200,
+    name:'Giga Football',
+    description: "",
+    shield: 0,
+    speed: 2.5,
+    eatSpeed: 2,
+    altSpeed: 2.5,
+    altEatSpeed: 2,
+    degrade: [1130,660,200,100],
+    sun: 200,
+    jam: -1
+  },{//Rally Screendoor 57
+    type: 57,
+    health: 350,
+    name:'Rally Screendoor',
+    description: "",
+    shield: 1100,
+    speed: 2,
+    eatSpeed: 2,
+    altSpeed: 2,
+    altEatSpeed: 2,
+    degrade: [175],
+    sun: 75,
+    jam: -1
+  },{//Red Stinger Punk 58
+    type: 58,
+    health: 340,
+    name:'Red Stinger Punk',
+    description: "n",
+    shield: 350,
+    speed: 1.25,
+    eatSpeed: 1,
+    altSpeed: 1.25,
+    altEatSpeed: 1,
+    degrade: [170],
+    sun: 75,
+    jam: 1
   },
 ];
 

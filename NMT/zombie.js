@@ -25,6 +25,7 @@ class Zombie extends Entity{
     this.garlicCounter = 0;//For garlic, zombie switches lane when it gets to 60
     this.playedMusic = false;//For Boombox (Cannot Play Music Twice)
     this.permanentDamage = 0;//For Valley Lily Damage Over Time
+    this.offSetY=0
     //Determine Reload and Max Shield Health
     switch (this.type){
       case 18://Gargantuar
@@ -52,7 +53,7 @@ class Zombie extends Entity{
   draw(){
     noStroke();
     fill(0,0,0,50);
-    translate(this.x+15,this.y+80);
+    translate(this.x+15,this.y+80+this.offSetY);
     scale(this.size);
     noStroke();
     let performDraw = false;
@@ -65,7 +66,7 @@ class Zombie extends Entity{
     }
     if (performDraw){//Zombies not drawn in Invisighoul
       switch(this.type){
-        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54:
+        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54: case 57:
           stroke(60,80,100,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -119,7 +120,7 @@ class Zombie extends Entity{
             quad(-15,-81,-12,-81,-15,-78,-18,-78)
             quad(0,-81,3,-81,0,-78,-3,-78)
             rect(-18,-78,18,3)
-          }else if(this.type==3){
+          }else if(this.type==3||this.type==57&&this.shieldHealth<=0){
             fill(200,120,40,this.fade)
             rect(-28,-84,4,48)
             fill(240,40,40,this.fade)
@@ -234,9 +235,20 @@ class Zombie extends Entity{
               rect(-12,-67,8,12)
               rect(-20,-63,8,8)
             }
+          }else if(this.type==57&&this.shieldHealth>0){
+            fill(200,120,40,this.fade)
+            rect(-28,-102,4,24)
+            fill(240,40,40,this.fade)
+            rect(-52,-100,24,20)
           }
-          if(this.type==52&&this.shieldHealth>0){
-            image(graphics.minor[9],-36,-78,24,60)
+          if((this.type==52||this.type==57)&&this.shieldHealth>0){
+            if(this.shieldHealth>730){
+              image(graphics.minor[9],-36,-78,24,60)
+            }else if(this.shieldHealth>370){
+              image(graphics.minor[10],-36,-78,24,60)
+            }else{
+              image(graphics.minor[11],-36,-78,24,60)
+            }
           }
         break
         case 7://Newspaper
@@ -292,14 +304,14 @@ class Zombie extends Entity{
           }
           strokeJoin(MITER)
         break
-        case 8:
+        case 8: case 55: //futbol
           stroke(200,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
           line(4,-30,8+sin(this.rate[0]*18)*3,0)
           stroke(200,20,20,this.fade)
           line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-          if(this.health>this.maxHealth/2){
+          if(this.health>100){
             line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
           }
           noStroke()
@@ -328,8 +340,14 @@ class Zombie extends Entity{
             fill(200,20,20,this.fade)
             arc(0,-75,36,36,-150,15)
           }
+          if(this.type==55){
+            stroke(0,255,100,this.fade)
+            strokeWeight(2)
+            ellipse(-4,-72,8,5)
+            ellipse(-12,-72,8,5)
+          }
         break
-        case 9://Punk
+        case 9: case 58://Punk
           stroke(100,120,120,this.fade);
           strokeWeight(4);
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0);
@@ -351,6 +369,21 @@ class Zombie extends Entity{
           fill(0,this.fade);
           ellipse(-4,-72,4,4);
           ellipse(-12,-72,4,4);
+          if(this.type==58&&this.shieldHealth>0){
+            translate(-40,40)
+            fill(235,25,30)
+            ellipse(-10,-78,20,8)
+            ellipse(10,-78,20,8)
+            arc(0,-105,40,54,0,180)
+            triangle(-20,-105,-10,-105,-19,-114)
+            triangle(-10,-105,0,-105,-8,-117)
+            triangle(20,-105,10,-105,19,-114)
+            triangle(10,-105,0,-105,8,-117)
+            fill(0)
+            ellipse(-4,-90,6,6)
+            ellipse(-12,-90,6,6)
+            translate(40,-40)
+          }
           break;
         case 10:
           stroke(40,50,40,this.fade)
@@ -1077,11 +1110,48 @@ class Zombie extends Entity{
           ellipse(-4,-72,4,4);
           ellipse(-12,-72,4,4);
           break;
-        default://Placeholder Hitbox for Nonexistent Zombies
-          scale(1/this.size);
-          translate(-this.x-15,-this.y-80);
-          fill(0,0,0);
-          rect(this.x, this.y,30,80);
+          case 56: //gig futbol
+            stroke(200,this.fade)
+            strokeWeight(4)
+            line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
+            line(4,-30,8+sin(this.rate[0]*18)*3,0)
+            stroke(40,this.fade)
+            line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
+            if(this.health>100){
+              line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
+            }
+            noStroke()
+            fill(40,this.fade)
+            ellipse(0,-45,18,36)
+            fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
+            ellipse(0,-75,30,30)
+            fill(0,this.fade) 
+            ellipse(-4,-72,4,4)
+            ellipse(-12,-72,4,4)
+            if(this.health>2200){
+              fill(40,this.fade)
+              arc(0,-75,36,36,-180,90)
+              fill(120,this.fade)
+              rect(-15,-71,15,2)
+              rect(-15,-75,2,4)
+              rect(-9,-75,2,4)
+            }else if(this.health>1200){
+              fill(40,this.fade)
+              arc(0,-75,36,36,-180,60)
+              fill(120,this.fade)
+              rect(-15,-71,8,2)
+              rect(-15,-75,2,4)
+              rect(-9,-75,2,4)
+            }else if(this.health>200){
+              fill(40,this.fade)
+              arc(0,-75,36,36,-150,15)
+            }
+          break
+          default://Placeholder Hitbox for Nonexistent Zombies
+            scale(1/this.size);
+            translate(-this.x-15,-this.y-80);
+            fill(0,0,0);
+            rect(this.x, this.y,30,80);
           return;
       }
     }else if(this.determineColor()[0]!==0||this.determineColor()[1]!==0||this.determineColor()[2]!==0){
@@ -1089,7 +1159,7 @@ class Zombie extends Entity{
       ellipse(0,-30,40,40)
     }
     scale(1/this.size);
-    translate(-this.x-15,-this.y-80);
+    translate(-this.x-15,-this.y-80-this.offSetY);
   }
 
   //Determine color of zombie face
@@ -1147,6 +1217,11 @@ class Zombie extends Entity{
     this.solarStunTimer -= levelSpeed;
     this.chillTimer -= levelSpeed;
     this.damageTimer -= levelSpeed;
+    if(this.offSetY<0){
+      this.offSetY=round(this.offSetY/10+1)*10
+    }else if(this.offSetY>0){
+      this.offSetY=round(this.offSetY/10-1)*10
+    }
     if (!this.isStunned()){//Not Stunned
       if (this.chillTimer > 0){
         this.reload -= levelSpeed/2;
@@ -1214,13 +1289,16 @@ class Zombie extends Entity{
       if (this.lane === 1){
         this.lane = 2;
         this.y += 100;
+        this.offSetY-=100
       }else if (this.lane === 5){
         this.lane = 4;
         this.y -= 100;
+        this.offSetY+=100
       }else{
         let laneChange = -1 + 2*floor(random()*2);
         this.lane += laneChange;
         this.y += laneChange*100;
+        this.offSetY-=laneChange*100
       }
     }
     //Glitter Protection
@@ -1491,6 +1569,9 @@ class Zombie extends Entity{
       }else{
         currentPlant.take(this.determineEatSpeed(this))
         this.rate[1] += this.determineEatSpeed(this);
+        if(currentPlant.health<0&&this.type==55){
+          this.garlicCounter=60
+        }
       }
     }
     //Collision with projectile
@@ -1500,7 +1581,7 @@ class Zombie extends Entity{
         &&(currentProjectile.used === false)&&(currentProjectile.toZombie === true)){
           currentProjectile.used = true;
           //Punk Zombie and jam is on and not stunned (Coconuts are not counted)
-          if ((this.type === 9)&&((currentJam === 1)||(currentJam === 8))&&!(this.isStunned())&&(currentProjectile.type !== 9)){
+          if ((this.type === 9||this.type==58)&&((currentJam === 1)||(currentJam === 8))&&!(this.isStunned())&&(currentProjectile.type !== 9)){
             this.determineDamage(currentProjectile.damage, 0.2);//Punk takes 20% damage
             new Projectile(currentProjectile.x, currentProjectile.y, currentProjectile.lane,
               currentProjectile.type, currentProjectile.damage, -1.5*currentProjectile.speed, currentProjectile.tier, 0, false);//Send Projectile back

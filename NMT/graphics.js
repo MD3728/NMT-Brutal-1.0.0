@@ -120,8 +120,12 @@ function setupGraphics(){
         graphics.minor[9+b].stroke(240)
         graphics.minor[9+b].rect(25,50,46,96)
     }
+    graphics.minor[10].noStroke()
+    graphics.minor[11].noStroke()
+    graphics.minor[10].fill(0)
+    graphics.minor[11].fill(0)
     graphics.minor[10].erase()
+    graphics.minor[10].triangle(50,100,50,70,20,100)
     graphics.minor[11].erase()
-    graphics.minor[10].triangle(50,100,50,70,80,100)
-    graphics.minor[11].triangle(50,100,50,60,50,100)
+    graphics.minor[11].triangle(50,100,50,30,0,100)
 }

@@ -1296,11 +1296,12 @@ class Zombie extends Entity{
     if (this.stunTimer > 0){//Noxious Stun Poison Effect
       this.health -= levelSpeed;//Do Not Use this.determineDamage()
     }
+    //Zombotanies
     //Garlic Zombie Garlic Counter
     if ((this.type === 31)&&(this.shieldHealth > 0)&&(!this.isStunned())){
       this.garlicCounter += 0.2*levelSpeed;
     }
-    //Peashooter Zombie Shooting
+    //(Any) Peashooter Zombie Shooting
     if ((this.reload <= 0)&&(this.type === 25)&&(this.shieldHealth > 0)){
       this.reload = 90;
       new Projectile(this.x-30, this.y+23, this.lane, 1, 25, -1, 1, 0, false);//Spawn Pea
@@ -1418,7 +1419,7 @@ class Zombie extends Entity{
         default:
           jamMultiplier = 1;
       }
-      if ((this.shieldHealth > 0)||(this.inJam())){//With Shield or In Jam
+      if (this.shieldHealth > 0){//With Shield or In Jam
         this.x -= this.altSpeed*0.3*jamMultiplier*chillMultiplier*levelSpeed*positionMultiplier; 
         this.rate[0] += this.altSpeed*0.3*jamMultiplier*chillMultiplier*levelSpeed*positionMultiplier;
       }else{//Regular Speed 
@@ -1446,11 +1447,11 @@ class Zombie extends Entity{
       if (oldPlant.sunCost <= 25){//Puff Shroom Tier 1
         plantType = 16;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 100){//Potato Mine Tier 1
+      }else if (oldPlant.sunCost <= 75){//Potato Mine Tier 1
         plantType = 4;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 200){//Pepper Cannon Tier 1
-        plantType = 24;
+      }else if (oldPlant.sunCost <= 200){//Celery Stalker Tier 1
+        plantType = 6;
         plantTier = 1;
       }else if (oldPlant.sunCost <= 300){//Peashooter Tier 1
         plantType = 18;
@@ -1475,7 +1476,7 @@ class Zombie extends Entity{
         }
       }
       //Set old plant to be new plant
-      if ((plantType === 4)||(plantType === 25)){//Immediately Arm Potato Mine and Coconut Cannon
+      if ((plantType === 4)){//Immediately Arm Potato Mine and Coconut Cannon
         oldPlant.type = plantType;
         oldPlant.sun = plantData.sun;
         oldPlant.damage = plantData.damage; 

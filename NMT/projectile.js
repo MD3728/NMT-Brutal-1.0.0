@@ -12,15 +12,15 @@ class Projectile extends Entity{
     this.toZombie = toZombie;
     this.tier = tier;
     this.time = 0;
-    this.goDownTimer=0
-    this.goUpTimer=0
+    this.goDownTimer=0;
+    this.goUpTimer=0;
     allProjectiles.push(this);
   }
 
   draw(){
     //Types: 1: Pea, 2: Red Stinger, 3: Snow Pea, 4: Spore Shroom Spore, 5: Puff Projectile
     //6: Fume shroom (Does not exist), 7: Phat Beet Wave (Does not exist), 8: Pepper Cannon Pepper, 9: Coconut, 10: Lily (Valley Lily),
-    //11 basketball, 12: freeze pea
+    //11 Basketball, 12: Frozen Pea
     translate(this.x+10,this.y+10);
     noStroke();
     switch(this.type){

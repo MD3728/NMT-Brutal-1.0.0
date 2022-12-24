@@ -42,18 +42,18 @@ class SeedPacket extends Entity{
       }
       text(this.sun,this.x+15,this.y+30);
     }
-    if (!currentLevel.type.includes(14)){//Show Tier (Not I Zombie)
-      if(this.tier === 1){
-        stroke(120,80,40);
-        strokeWeight(3);
-        line(this.x+108,this.y+26,this.x+108,this.y+32);
-      }else if(this.tier === 2){
-        stroke(160);
-        strokeWeight(2.5);
-        line(this.x+106,this.y+26,this.x+106,this.y+32);
-        line(this.x+110,this.y+26,this.x+110,this.y+32);
-      }
-    }
+    // if (!currentLevel.type.includes(14)){//Show Tier (Not I Zombie)
+    //   if(this.tier === 1){
+    //     stroke(120,80,40);
+    //     strokeWeight(3);
+    //     line(this.x+108,this.y+26,this.x+108,this.y+32);
+    //   }else if(this.tier === 2){
+    //     stroke(160);
+    //     strokeWeight(2.5);
+    //     line(this.x+106,this.y+26,this.x+106,this.y+32);
+    //     line(this.x+110,this.y+26,this.x+110,this.y+32);
+    //   }
+    // }
     // else if(this.tier==3){
     //   stroke(255,225,0)
     //   strokeWeight(2)

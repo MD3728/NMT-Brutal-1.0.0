@@ -27,7 +27,11 @@
 59-Conehead Banger (Test Functionality)
 60-Dazey Sparkly (Needs Functionality)
 61-MC Squash-B (Test Functionality)
-62-Fume Shroom Breakdancer
+62-Fume Shroom Breakdancer (Test Functionality)
+63-Screendoor Arcade (Test Functionality)
+64-8-Bit Peashooter
+65-8-Bit Conehead Peashooter
+66-Cherry Bomb Shadow (Test Functionality)
 */
 
 //Level Data
@@ -40,7 +44,7 @@ const levels = {
     jams:[0,0,0,0,0,0,0,0,0,0,0,0],
     waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[62,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[66,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -1653,6 +1657,7 @@ const plantStat = [
       eatable: true,
       damage: 20,
       splashDamage: 0,
+
       reload: 90,
       projectile: 5 //Puff Short Range Spore
     },
@@ -2630,6 +2635,59 @@ const zombieStat = [
     degrade: [300],
     sun: 125,
     jam: 3
+  },{//Screendoor Arcade 63
+    type: 63,
+    health: 1200,
+    name:'Screendoor Arcade',
+    description: "",
+    shield: 1100,
+    speed: 0.75,
+    eatSpeed: 1,
+    altSpeed: 0.75,
+    altEatSpeed: 1,
+    degrade: [600],
+    sun: 200,
+    jam: 4
+  },{//8-bit Normal 64
+    type: 64,
+    health: 200,
+    name:'8-Bit',
+    description: "",
+    shield: 300,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [100],
+    sun: 50,
+    jam: -1
+  },
+  {//8-bit Conehead 65
+    type: 65,
+    health: 560,
+    name:'8-Bit Conehead',
+    description: "",
+    shield: 300,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [440,320,200,100],
+    sun: 75,
+    jam: -1
+  },{//Cherry Bomb Shadow 66
+    type: 66,
+    health: 900,
+    name:'Cherry Bomb Shadow',
+    description: "",
+    shield: 450,
+    speed: 1.5,
+    eatSpeed: 1,
+    altSpeed: 1.5,
+    altEatSpeed: 1,
+    degrade: [450],
+    sun: 175,
+    jam: 5
   },
 ];
 

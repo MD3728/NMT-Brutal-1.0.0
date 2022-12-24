@@ -32,6 +32,7 @@
 64-8-Bit Peashooter
 65-8-Bit Conehead Peashooter
 66-Cherry Bomb Shadow (Test Functionality)
+67-Wall-Nut Boombox (Test Functionality)
 */
 
 //Level Data
@@ -44,7 +45,7 @@ const levels = {
     jams:[0,0,0,0,0,0,0,0,0,0,0,0],
     waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[66,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[67,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -2688,6 +2689,19 @@ const zombieStat = [
     degrade: [450],
     sun: 175,
     jam: 5
+  },{//Wallnut Boombox 67
+    type: 23,
+    health: 240,
+    name:'Wall-Nut Boombox',
+    description: "",
+    shield: 3000,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [120],
+    sun: 100,
+    jam: -1
   },
 ];
 

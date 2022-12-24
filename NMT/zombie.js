@@ -844,7 +844,7 @@ class Zombie extends Entity{
           ellipse(-12,-72,5,5)
           line(-6.5,-72,-9.5,-72)
         break
-        case 23://Boombox
+        case 23: case 67://Boombox
           stroke(255,100,0,this.fade);
           strokeWeight(4);
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0);
@@ -867,6 +867,32 @@ class Zombie extends Entity{
           fill(0,this.fade); 
           ellipse(-4,-72,4,4);
           ellipse(-12,-72,4,4);
+          if(this.type==67){
+            fill(120,60,15);
+            if(this.shieldHealth > this.maxShieldHealth*2/3){
+              ellipse(-42,-48,40,54);
+            }else if(this.shieldHealth > this.maxShieldHealth/3){
+              arc(-42,-48,40,54,-60,285);
+            }else if(this.shieldHealth > 0){
+              arc(-42,-48,40,54,-115,-75);
+              arc(-42,-48,40,54,-60,230);
+            }
+            if(this.shieldHealth > 0){
+              fill(0);
+              ellipse(-36,-54,6,6);
+              ellipse(-48,-54,6,6);
+            }
+            noFill();
+            stroke(0);
+            strokeWeight(2);
+            if(this.shieldHealth > (this.maxShieldHealth-200)/2){
+              arc(-42,-38,20,-6+12*(this.shieldHealth)/(this.maxShieldHealth),0,180);
+            }else if(this.shieldHealth === this.maxShieldHealth/2){
+              line(-42,-28,10,-40);
+            }else if(this.shieldHealth > 0){
+              arc(-42,-38,20,-6+12*(this.shieldHealth)/(this.maxShieldHealth),-180,0);
+            }
+          }
           break;
         case 24:
           break;
@@ -1589,7 +1615,7 @@ class Zombie extends Entity{
       this.rate[2]++
     }
     //Boombox Activate on 7th column for 10 seconds
-    if ((this.type === 23)&&(this.x <= 680)&&(this.playedMusic === false)){
+    if ((this.type === 23||this.type==67)&&(this.x <= 680)&&(this.playedMusic === false)){
       this.playedMusic = true;
       boomboxActive = true;
       currentJam = 7;

@@ -249,6 +249,16 @@ function spawnWave(){
   if ((boomberryActive === false)&&(boomboxActive === false)){//Make sure boomberry is not in effect
     currentJam = currentLevel["jams"][currentWave];
   }
+  //Spawn 3 Additional Peashooter Zombies
+  for (let b = 0; b < 3; b++){
+    let zombieRow = ceil(random(5));
+    let zombieColumn = 9;
+    let zombieTypeData = zombieStat[25];
+    new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 25, zombieTypeData["health"], 
+    zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
+    zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
+  }
+  //Regular Zombie Spawn
   for (let a = 0; a < waveLength; a++){
     let currentZombie = currentWaveData[a];//Zombie [Type,Lane,Column (Optional)]
     let zombieColumn = currentZombie.length === 2 ? 9 : currentZombie[2];
@@ -276,7 +286,7 @@ function levelMainloop(){
         currentJam = currentLevel["jams"][currentWave];
       }
       //Boss Moves
-      if (Math.floor(Math.floor((globalTimer/2))%240) === 0){
+      if (Math.floor(Math.floor((globalTimer/2))%120) === 0){
         globalTimer += 2;
         if ((Math.floor(Math.random()*4) === 0)&&(allPlants.length !== 0)){//Missile Attack (25% Chance)
           //Find Random Plants
@@ -406,7 +416,7 @@ function levelMainloop(){
         }
       }
       //Advance Phase
-      if (bossDamage >= 10000){
+      if (bossDamage >= 40000){
         bossDamage = 0;
         currentWave++;
       }
@@ -506,7 +516,7 @@ function levelMainloop(){
           }
         }
       }
-      if ((waveTimer > currentLevel["waveDelay"][currentWave])||(spawnNextWave === true)){
+      if ((waveTimer > currentLevel["waveDelay"][currentWave]*0.75)||(spawnNextWave === true)){
         spawnWave();
         waveTimer = 0;
         currentWave++;
@@ -532,14 +542,8 @@ function levelMainloop(){
         new Zombie(currentZombie.x - 40, currentZombie.y, currentZombie.lane, zombieType, zombieTypeData["health"], zombieTypeData["shield"], zombieTypeData["degrade"], 
         zombieTypeData["speed"], zombieTypeData["eatSpeed"], zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], -1, 0);
       }
-      if ((currentZombie.type === 21)&&((currentJam === 6)||(currentJam === 8))){//Techie Shield Regen
-        if ((currentZombie.shieldHealth < 600)&&(currentZombie.reload <= 0)){//Shield not at full health and not regenerating
-          currentZombie.reload = 900;//Wait 15 seconds to regenerate         
-        }
-        if ((currentZombie.shieldHealth < 600)&&(currentZombie.reload > 1)&&(currentZombie.reload < 10)){//Regenerate when timer runs out
-          currentZombie.shieldHealth = 600;
-          currentZombie.reload = 0;       
-        }
+      if ((currentZombie.type === 21)&&(currentZombie.inJam())){//Techie Shield Regen
+        currentZombie.health += 1.66*levelSpeed;
       }
     }
     //Move

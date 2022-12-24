@@ -252,7 +252,7 @@ function drawStack(){
   //Draw Lawnmowers
   for (let currentMower of lawnMowers){
     if (currentMower.active === true){
-      currentMower.x += 3*levelSpeed;
+      currentMower.x += 6*levelSpeed;
     }
     noStroke(0);
     fill(80,160,160);

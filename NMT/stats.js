@@ -1219,20 +1219,21 @@ const levels = {
 };
 
 //Plant Data
+//Brutal Mode Only Uses Tier 1, Tier 2 Data is Not Used
 const plantStat = [
   {//1 Sunflower
     type: 1,
     name: "Sunflower",
-    description: "Produces sun every 29 seconds, Damage denotes sun produced",
+    description: "Produces sun every 24 seconds, Damage denotes sun produced",
     t1:{
       sun: 50,
-      recharge: 540,
+      recharge: 300,
       startingRecharge: 0,
-      health: 450,
+      health: 300,
       eatable: true,
       damage: 50,
       splashDamage: 0,
-      reload: 1740,
+      reload: 1440,
       projectile: 0
     },
     t2:{
@@ -1250,16 +1251,16 @@ const plantStat = [
   {//2 Twin Sunflower
     type: 2,
     name: "Twin Sunflower",
-    description: "Produces 2 sun every 29 seconds, Damage denotes sun produced per sun",
+    description: "Produces 2 sun every 24 seconds, Damage denotes sun produced per sun",
     t1:{
-      sun: 150,
-      recharge: 900,
-      startingRecharge: 900,
-      health: 450,
+      sun: 125,
+      recharge: 600,
+      startingRecharge: 600,
+      health: 600,
       eatable: true,
       damage: 50,
       splashDamage: 0,
-      reload: 1740,
+      reload: 1440,
       projectile: 0
     },
     t2:{
@@ -1279,13 +1280,13 @@ const plantStat = [
     name: "Solar Tomato",
     description: "Produces 50 sun for every zombie in a 3x3 area\nSpecial: Stuns Zombies (Denoted by splashDamage Field)",
     t1:{
-      sun: 100,
-      recharge: 900,
-      startingRecharge: 600,
+      sun: 50,
+      recharge: 1200,
+      startingRecharge: 900,
       health: 100000,
       eatable: false,
       damage: 25,//Sun Given Per Zombie
-      splashDamage: 360,//Stun Time
+      splashDamage: 300,//Stun Time
       reload: 60,
       projectile: 0
     },
@@ -1306,14 +1307,14 @@ const plantStat = [
     name: "Potato Mine",
     description: "Takes time to arm and explodes in tile area\nSpecial: Takes time to arm (Denoted by reload field)",
     t1:{
-      sun: 25,
-      recharge: 900,
-      startingRecharge: 600,
+      sun: 0,
+      recharge: 720,
+      startingRecharge: 720,
       health: 300,
       eatable: true,
       damage: 1800,
       splashDamage: 0,
-      reload: 720,
+      reload: 600,
       projectile: 0
     },
     t2:{
@@ -1333,8 +1334,8 @@ const plantStat = [
     name: "Squash",
     description: "Squashes all zombies in a tile area",
     t1:{
-      sun: 100,
-      recharge: 1500,
+      sun: 50,
+      recharge: 1200,
       startingRecharge: 600,
       health: 100000,
       eatable: false,
@@ -1360,8 +1361,8 @@ const plantStat = [
     name: "Celery Stalker",
     description: "Pops up behind zombies and deals heavy damage",
     t1:{
-      sun: 75,
-      recharge: 1200,
+      sun: 50,
+      recharge: 900,
       startingRecharge: 600,
       health: 1200,
       eatable: false,
@@ -1388,11 +1389,11 @@ const plantStat = [
     description: "Deals massive damage to zombies in a 3x3 area",
     t1:{
       sun: 150,
-      recharge: 2400,
-      startingRecharge: 2400,
+      recharge: 2100,
+      startingRecharge: 2100,
       health: 100000,
       eatable: false,
-      damage: 1800,
+      damage: 3600,
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1415,12 +1416,12 @@ const plantStat = [
     description: "Deals damage to zombies in 3x3 area and freezes zombies in 5x5 area\nSpecial: Stuns zombies in 5x5 with duration stated by splashDamage field",
     t1:{
       sun: 150,
-      recharge: 1800,
-      startingRecharge: 1800,
+      recharge: 2100,
+      startingRecharge: 2100,
       health: 100000,
       eatable: false,
-      damage: 480,//Damage in 3x3
-      splashDamage: 240,//Freeze in 5x5 duration
+      damage: 750,//Damage in 3x3
+      splashDamage: 600,//Freeze in 5x5 duration
       reload: 60,
       projectile: 0
     },
@@ -1441,14 +1442,14 @@ const plantStat = [
     name: "Primal Potato Mine",
     description: "Takes time to arm and explodes in a 5x5 area\nSpecial: Takes time to arm (Denoted by reload field)",
     t1:{
-      sun: 100,
+      sun: 125,
       recharge: 1500,
       startingRecharge: 600,
-      health: 300,
+      health: 450,
       eatable: true,
-      damage: 600,
+      damage: 1800,
       splashDamage: 0,
-      reload: 600,
+      reload: 1200,
       projectile: 0
     },
     t2:{
@@ -1466,14 +1467,14 @@ const plantStat = [
   {//10 Dazey
     type: 10,
     name: "Dazey",
-    description: "Stuns zombies in a 3x3 area\nSpecial: Tier 2 damages zombies denoted by splashDamage field",
+    description: "Stuns and poisons zombies in a 3x3 area\nSpecial: Tier 2 damages zombies denoted by splashDamage field",
     t1:{
-      sun: 0,
-      recharge: 720,
+      sun: 25,
+      recharge: 900,
       startingRecharge: 300,
       health: 100000,
       eatable: false,
-      damage: 240,
+      damage: 300,
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1495,14 +1496,14 @@ const plantStat = [
     name: "Spring Bean",
     description: "Knocks back zombies by distance specified by damage\nSpecial: Must sleep for time specified by reload",
     t1:{
-      sun: 25,
-      recharge: 900,
+      sun: 75,
+      recharge: 1200,
       startingRecharge: 300,
-      health: 300,
+      health: 600,
       eatable: true,
-      damage: 240,
+      damage: 320,
       splashDamage: 0,
-      reload: 1200,
+      reload: 240,
       projectile: 0
     },
     t2:{
@@ -1522,10 +1523,10 @@ const plantStat = [
     name: "Wall-nut",
     description: "Defensive wall against the zombies",
     t1:{
-      sun: 50,
-      recharge: 1200,
+      sun: 75,
+      recharge: 900,
       startingRecharge: 600,
-      health: 4000,
+      health: 8000,
       eatable: true,
       damage: 0,
       splashDamage: 0,
@@ -1549,12 +1550,12 @@ const plantStat = [
     name: "Explode-O-Nut",
     description: "Wall-nut that blows up when killed",
     t1:{
-      sun: 75,
-      recharge: 1500,
-      startingRecharge: 1500,
-      health: 2000,
+      sun: 50,
+      recharge: 900,
+      startingRecharge: 900,
+      health: 1500,
       eatable: true,
-      damage: 600,
+      damage: 1000,
       splashDamage: 0,
       reload: 0,
       projectile: 0
@@ -1576,12 +1577,12 @@ const plantStat = [
     name: "Boomberry",
     description: "Stops all jams for time specified by damage",
     t1:{
-      sun: 225,
-      recharge: 3000,
-      startingRecharge: 1200,
+      sun: 0,
+      recharge: 4500,
+      startingRecharge: 1800,
       health: 100000,
       eatable: false,
-      damage: 900,//Jam Stop Time
+      damage: 1200,//Jam Stop Time
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1604,9 +1605,9 @@ const plantStat = [
     description: "Makes a zombie go to a random adjacent lane",
     t1:{
       sun: 50,
-      recharge: 600,
+      recharge: 300,
       startingRecharge: 300,
-      health: 900,
+      health: 2400,
       eatable: true,
       damage: 0,
       splashDamage: 0,
@@ -1630,14 +1631,14 @@ const plantStat = [
     name: "Puff Shroom",
     description: "Shoots puffs\nSpecial: Has 3 tile range",
     t1:{
-      sun: 25,
-      recharge: 360,
-      startingRecharge: 360,
-      health: 450,
+      sun: 0,
+      recharge: 300,
+      startingRecharge: 300,
+      health: 300,
       eatable: true,
-      damage: 25,
+      damage: 20,
       splashDamage: 0,
-      reload: 60,
+      reload: 90,
       projectile: 5 //Puff Short Range Spore
     },
     t2:{
@@ -1657,12 +1658,12 @@ const plantStat = [
     name: "Red Stinger",
     description: "Overpowered attacker with an extremely long recharge",
     t1:{
-      sun: 100,
-      recharge: 2700,
+      sun: 150,
+      recharge: 2400,
       startingRecharge: 600,
-      health: 300,
+      health: 600,
       eatable: true,
-      damage: 60,
+      damage: 100,
       splashDamage: 0,
       reload: 90,
       projectile: 2
@@ -1685,11 +1686,11 @@ const plantStat = [
     description: "Simple attacking plant, shoots peas at zombies",
     t1:{
       sun: 100,
-      recharge: 180,
-      startingRecharge: 180,
+      recharge: 300,
+      startingRecharge: 300,
       health: 300,
       eatable: true,
-      damage: 25,
+      damage: 20,
       splashDamage: 0,
       reload: 90,
       projectile: 1
@@ -1711,12 +1712,12 @@ const plantStat = [
     name: "Phat Beet",
     description: "Damages zombies in 3x3 area",
     t1:{
-      sun: 200,
+      sun: 300,
       recharge: 600,
       startingRecharge: 600,
-      health: 600,
+      health: 750,
       eatable: true,
-      damage: 25,
+      damage: 30,
       splashDamage: 0,
       reload: 90,
       projectile: 7 //The Beats (Not actually a projectile)
@@ -1738,14 +1739,14 @@ const plantStat = [
     name: "Spore Shroom",
     description: "Shoots damaging spores\nSpecial: Zombies killed by a spore will spawn a new spore shroom",
     t1:{
-      sun: 150,
-      recharge: 600,
-      startingRecharge: 600,
+      sun: 300,
+      recharge: 1200,
+      startingRecharge: 1200,
       health: 600,
       eatable: true,
-      damage: 50,
+      damage: 1000,
       splashDamage: 0,
-      reload: 180,
+      reload: 900,
       projectile: 4 //Spore
     },
     t2:{
@@ -1763,17 +1764,17 @@ const plantStat = [
   {//21 Threepeater
     type: 21,
     name: "Threepeater",
-    description: "Shoots peas in three lanes\nSpecial: Shoots two peas if placed in bottom or top lane",
+    description: "Shoots snow peas in three lanes\nSpecial: Shoots two peas if placed in bottom or top lane",
     t1:{
-      sun: 300,
+      sun: 350,
       recharge: 300,
       startingRecharge: 300,
-      health: 450,
+      health: 300,
       eatable: true,
       damage: 20,
       splashDamage: 0,
       reload: 90,
-      projectile: 1
+      projectile: 3
     },
     t2:{
       sun: 475,
@@ -1790,14 +1791,14 @@ const plantStat = [
   {//22 Fume Shroom
     type: 22,
     name: "Fume Shroom",
-    description: "Damages all zombies 4 tiles ahead of it",
+    description: "Damages all zombies in tiles ahead of it",
     t1:{
-      sun: 150,
+      sun: 225,
       recharge: 300,
       startingRecharge: 300,
-      health: 300,
+      health: 600,
       eatable: true,
-      damage: 25,
+      damage: 30,
       splashDamage: 0,
       reload: 90,
       projectile: 6 //Fumes (Not actually a projectile) 
@@ -1819,14 +1820,14 @@ const plantStat = [
     name: "Valley Lily",
     description: "Poisonous lilies deal damage over time\nSpecial: Each extra lily will increase permanent damage\nSpecial: Permanent damage goes through shields",
     t1:{
-      sun: 275,
-      recharge: 300,
-      startingRecharge: 300,
+      sun: 300,
+      recharge: 1500,
+      startingRecharge: 1500,
       health: 300,
       eatable: true,
-      damage: 5,
+      damage: 10,
       splashDamage: 0,
-      reload: 90,
+      reload: 60,
       projectile: 10 //Lily Bud
     },
     t2:{
@@ -1846,7 +1847,7 @@ const plantStat = [
     name: "Pepper Cannon",
     description: "Fires fiery peppers which deal splash damage in a 3x3 area",
     t1:{
-      sun: 250,
+      sun: 150,
       recharge: 600,
       startingRecharge: 600,
       health: 300,
@@ -1873,14 +1874,14 @@ const plantStat = [
     name: "Coconut Cannon",
     description: "Tap to fire explosive coconut with 3x3 splash damage\nSpecial: Projectile cannot be reflected by punk",
     t1:{
-      sun: 400,
-      recharge: 600,
-      startingRecharge: 600,
+      sun: 500,
+      recharge: 1200,
+      startingRecharge: 1200,
       health: 600,
       eatable: true,
-      damage: 900,
-      splashDamage: 400,
-      reload: 1320,
+      damage: 1800,
+      splashDamage: 1200,
+      reload: 1440,
       projectile: 9 //Coconut
     },
     t2:{
@@ -1898,16 +1899,16 @@ const plantStat = [
   {//26 Snow Pea
     type: 26,
     name: "Snow Pea",
-    description: "Fires slowing projectiles",
+    description: "Fires freezing projectiles",
     t1:{
-      sun: 150,
+      sun: 225,
       recharge: 300,
       startingRecharge: 300,
       health: 300,
       eatable: true,
-      damage: 3.4,
+      damage: 20,
       splashDamage: 0,
-      reload: 30,
+      reload: 90,
       projectile: 3//Snow Pea
     },
     t2:{
@@ -1927,12 +1928,12 @@ const plantStat = [
     name: "Stunion",
     description: "Stuns Zombies In Front of It",
     t1:{
-      sun: 50,
-      recharge: 1500,
+      sun: 150,
+      recharge: 1200,
       startingRecharge: 600,
       health: 100000,
       eatable: false,
-      damage: 900,//Stun Timer
+      damage: 1800,//Stun Timer
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1954,12 +1955,12 @@ const plantStat = [
     name: "Endurian",
     description: "Hurts Zombies That Eat It",
     t1:{
-      sun: 125,
+      sun: 250,
       recharge: 1500,
       startingRecharge: 900,
-      health: 2500,
+      health: 9000,
       eatable: true,
-      damage: 50,
+      damage: 80,
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1981,14 +1982,14 @@ const plantStat = [
     name: "Spikeweed",
     description: "Hurts Zombies That Step On It",
     t1:{
-      sun: 100,
+      sun: 75,
       recharge: 300,
       startingRecharge: 300,
-      health: 500,
+      health: 300,
       eatable: false,
-      damage: 20,
+      damage: 25,
       splashDamage: 0,
-      reload: 70,
+      reload: 60,
       projectile: 0
     },
     t2:{

@@ -624,8 +624,8 @@ class Plant extends Entity{
     if (this.stunTimer <= 0){//Plant not stunned
       this.reload -= levelSpeed;
     }
-    if(this.shakeTimer>0){
-      this.shakeTimer--
+    if(this.shakeTimer > 0){
+      this.shakeTimer -= levelSpeed;
     }
     if (this.reload <= 0){
       switch (this.type){
@@ -748,10 +748,10 @@ class Plant extends Entity{
         }else if ((currentZombie.lane === this.lane)&&(currentZombie.x > this.x)&&(currentZombie.x < this.x + 320)&&(this.type === 16)){//Puff Shroom
           zombieInRange = true;
           break;
-        }else if ((currentZombie.lane === this.lane)&&(currentZombie.x > this.x)&&(currentZombie.x < this.x + 400)&&(this.type === 22)){//Fume Shroom
+        }else if ((currentZombie.lane === this.lane)&&(currentZombie.x > this.x)&&(this.type === 22)){//Fume Shroom
           zombieInRange = true;
           break;
-        }else if ((currentZombie.x + 30 > this.x - 90)&&(currentZombie.x < this.x + 150)&&(currentZombie.lane >= this.lane - 1)&&(currentZombie.lane <= this.lane + 1)&&(this.type === 19)){//Phat Beet
+        }else if ((currentZombie.x + 30 > this.x - 170)&&(currentZombie.x < this.x + 230)&&(currentZombie.lane >= this.lane - 2)&&(currentZombie.lane <= this.lane + 2)&&(this.type === 19)){//Phat Beet
           zombieInRange = true;
           break;
         }
@@ -783,14 +783,14 @@ class Plant extends Entity{
           }
         }else if (this.projectileType === 6){//Fume Shroom
           for (let currentZombie of allZombies){
-            if ((currentZombie.x > this.x)&&(currentZombie.x < this.x + 400)&&(this.lane === currentZombie.lane)&&(currentZombie.protected === false)){
+            if ((currentZombie.x > this.x)&&(this.lane === currentZombie.lane)){
               currentZombie.determineDamage(this.damage);
               this.graphical.previousAttackAnim=20;
             }
           }
         }else if (this.projectileType === 7){//Phat Beet
           for (let currentZombie of allZombies){
-            if ((currentZombie.x + 30 > this.x - 90)&&(currentZombie.x < this.x + 150)&&(currentZombie.lane >= this.lane - 1)&&(currentZombie.lane <= this.lane + 1)&&(currentZombie.protected === false)){
+            if ((currentZombie.x + 30 > this.x - 170)&&(currentZombie.x < this.x + 230)&&(currentZombie.lane >= this.lane - 2)&&(currentZombie.lane <= this.lane + 2)){
               currentZombie.determineDamage(this.damage);
               this.graphical.previousAttackAnim=10;
             }

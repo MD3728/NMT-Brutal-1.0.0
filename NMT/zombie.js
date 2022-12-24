@@ -31,7 +31,7 @@ class Zombie extends Entity{
         this.reload = 0;
         break;
       case 22://Gadgeter
-        this.reload = 600;
+        this.reload = 180;
         break;
       case 27: case 30://Cherry Bomb Zombie OR Dazey Zombie
         this.reload = -1;
@@ -1084,6 +1084,9 @@ class Zombie extends Entity{
         this.reload -= levelSpeed;
       }
     }
+    if (this.stunTimer > 0){//Noxious Stun Poison Effect
+      this.health -= levelSpeed;//Do Not Use this.determineDamage()
+    }
     //Garlic Zombie Garlic Counter
     if ((this.type === 31)&&(this.shieldHealth > 0)&&(!this.isStunned())){
       this.garlicCounter += 0.2*levelSpeed;
@@ -1098,8 +1101,8 @@ class Zombie extends Entity{
       this.reload = 90;
       this.graphical.previousAttackAnim=20;
       for (let currentPlant of allPlants){
-        if ((currentPlant.lane === this.lane)&&(currentPlant.x + 60 > this.x - 320)&&(currentPlant.x < this.x)){
-          currentPlant.take(15);
+        if ((currentPlant.lane === this.lane)&&(currentPlant.x + 60 > this.x - 400)&&(currentPlant.x < this.x)){
+          currentPlant.take(30);
         }
       }
     }
@@ -1110,7 +1113,7 @@ class Zombie extends Entity{
       new Particle(0, this.x, this.y+50);
       for (let currentPlant of allPlants){
         if ((currentPlant.x + 40 > this.x - 85)&&(currentPlant.x + 40 < this.x + 115)&&(currentPlant.lane >= this.lane - 1)&&(currentPlant.lane <= this.lane + 1)){//3x3 Range
-          currentPlant.take(2000);
+          currentPlant.take(4000);
         }
       }
     }
@@ -1118,10 +1121,9 @@ class Zombie extends Entity{
     if ((this.reload > 0)&&(this.reload < 10)&&(this.type === 30)){
       this.shieldHealth = 0;
       this.reload = -1;
-      //new Particle(0, this.x, this.y+30);//Needs to be replaced
       for (let currentPlant of allPlants){
         if ((currentPlant.x + 40 > this.x - 85)&&(currentPlant.x + 40 < this.x + 115)&&(currentPlant.lane >= this.lane - 1)&&(currentPlant.lane <= this.lane + 1)){//3x3 Range
-          currentPlant.stunTimer = 300;
+          currentPlant.stunTimer = 900;
         }
       }
       new Particle(2,this.x,this.y+50);
@@ -1235,12 +1237,12 @@ class Zombie extends Entity{
       }else if (oldPlant.sunCost <= 100){//Potato Mine Tier 1
         plantType = 4;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 200){//Pepper Cannon Tier 2
+      }else if (oldPlant.sunCost <= 200){//Pepper Cannon Tier 1
         plantType = 24;
-        plantTier = 2;
-      }else if (oldPlant.sunCost <= 300){//Peashooter Tier 2
+        plantTier = 1;
+      }else if (oldPlant.sunCost <= 300){//Peashooter Tier 1
         plantType = 18;
-        plantTier = 2;
+        plantTier = 1;
       }else if (oldPlant.sunCost <= 450){//Threepeater Tier 1
         plantType = 21;
         plantTier = 1;
@@ -1404,11 +1406,8 @@ class Zombie extends Entity{
         }
         currentPlant.reload = currentPlant.maxReload;
       }else if ((currentPlant.type === 9)&&(currentPlant.reload <= 0)){//Primal Potato Mine
-        for (let currentZombie of allZombies){
-          if ((currentZombie.x + 30 > currentPlant.x - 170)&&(currentZombie.x < currentPlant.x + 230)&&(currentZombie.lane >= currentPlant.lane - 2)&&
-          (currentZombie.lane <= currentPlant.lane + 2)&&(currentZombie.protected === false)){//Damage zombies in 5x5
-            currentZombie.determineDamage(currentPlant.damage);
-          }
+        for (let currentZombie of allZombies){//Damage All Zombies
+          currentZombie.determineDamage(currentPlant.damage);
         }
         currentPlant.health = 0;
         new Particle(7,currentPlant.x+30,currentPlant.y+30);
@@ -1431,13 +1430,12 @@ class Zombie extends Entity{
           currentProjectile.used = true;
           //Punk Zombie and jam is on and not stunned (Coconuts are not counted)
           if ((this.type === 9)&&((currentJam === 1)||(currentJam === 8))&&!(this.isStunned())&&(currentProjectile.type !== 9)){
-            this.determineDamage(currentProjectile.damage, 0.2);//Punk takes 20% damage
             new Projectile(currentProjectile.x, currentProjectile.y, currentProjectile.lane,
               currentProjectile.type, currentProjectile.damage, -1.5*currentProjectile.speed, currentProjectile.tier, 0, false);//Send Projectile back
           }else{
             this.determineDamage(currentProjectile.damage);
-            if ((currentProjectile.type === 3)&&(this.chillTimer < 480)){//Snow Pea
-              this.determineChill(480);
+            if (currentProjectile.type === 3){//Snow Pea
+              this.determineChill(600);
             }else if ((currentProjectile.type === 4)&&(this.health <= 0)){//Spore Shroom Spore Spawn
               let spawnX = this.x + 15;
               //Find tile
@@ -1648,7 +1646,7 @@ class Zombie extends Entity{
   //Determine if zombie is under any stun effect
   isStunned(){
     if ((this.stunTimer > 0)||(this.freezeTimer > 0)||(this.solarStunTimer > 0)){
-      return true
+      return true;
     }else{
       return false;
     }

@@ -620,7 +620,7 @@ class Zombie extends Entity{
             ellipse(-55,-48,6,12);
           }
         break
-        case 15:
+        case 15: case 63:
           stroke(160,80,80,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -651,8 +651,17 @@ class Zombie extends Entity{
           ellipse(-4,-72,5,5)
           ellipse(-12,-72,5,5)
           line(-6.5,-72,-9.5,-72)
+          if(this.type==63&&this.shieldHealth>0){
+            if(this.shieldHealth>730){
+              image(graphics.minor[9],-36,-78,24,60)
+            }else if(this.shieldHealth>370){
+              image(graphics.minor[10],-36,-78,24,60)
+            }else{
+              image(graphics.minor[11],-36,-78,24,60)
+            }
+          }
         break
-        case 16: case 17://8-bit
+        case 16: case 17:/*8-bit*/case 64: case 65:
           stroke(60,80,100,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -674,7 +683,7 @@ class Zombie extends Entity{
           fill(0,this.fade)
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
-          if(this.type==17&&this.health>200){
+          if((this.type==17||this.type==65)&&this.health>200){
             strokeJoin(ROUND)
             stroke(255,150,0,this.fade)
             strokeWeight(4)
@@ -686,6 +695,16 @@ class Zombie extends Entity{
               quad(-10,-87,10,-87,5,-95,-5,-95)
             }
             strokeJoin(MITER)
+          }
+          if ((this.type==64||this.type==65)&&this.shieldHealth > 0){//Peashooter Head
+            noStroke()
+            fill(25,200,25);
+            ellipse(-21,-48,30,30);
+            rect(-51,-55,30,16);
+            ellipse(-51,-47,6,16);
+            fill(0);
+            ellipse(-51,-47,4,12);
+            ellipse(-28,-54,5,5);
           }
         break
         case 18:
@@ -734,7 +753,7 @@ class Zombie extends Entity{
             ellipse(-4,-57,4,4)
             ellipse(-12,-57,4,4)
           break
-        case 20:
+        case 20: case 66://Shadow
           stroke(50,0,50,this.fade/3)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -752,6 +771,21 @@ class Zombie extends Entity{
           fill(0,this.fade/3) 
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
+          if (this.shieldHealth > 0&&this.type==66){
+            stroke(25,175,25);
+            strokeWeight(6);
+            line(-42,-36,-22,-53);
+            line(-2,-36,-22,-53);
+            noStroke();
+            fill(225,25,25);
+            ellipse(-42,-28,30,30);
+            ellipse(-2,-28,30,30);
+            fill(0);
+            ellipse(-50,-26,6,6);
+            ellipse(-40,-26,6,6);
+            ellipse(-4,-26,6,6);
+            ellipse(6,-26,6,6);
+          }
         break
         case 21://Techie
           strokeWeight(2);
@@ -810,7 +844,7 @@ class Zombie extends Entity{
           ellipse(-12,-72,5,5)
           line(-6.5,-72,-9.5,-72)
         break
-        case 23://Boombox
+        case 23: case 67://Boombox
           stroke(255,100,0,this.fade);
           strokeWeight(4);
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0);
@@ -833,6 +867,32 @@ class Zombie extends Entity{
           fill(0,this.fade); 
           ellipse(-4,-72,4,4);
           ellipse(-12,-72,4,4);
+          if(this.type==67){
+            fill(120,60,15);
+            if(this.shieldHealth > this.maxShieldHealth*2/3){
+              ellipse(-42,-48,40,54);
+            }else if(this.shieldHealth > this.maxShieldHealth/3){
+              arc(-42,-48,40,54,-60,285);
+            }else if(this.shieldHealth > 0){
+              arc(-42,-48,40,54,-115,-75);
+              arc(-42,-48,40,54,-60,230);
+            }
+            if(this.shieldHealth > 0){
+              fill(0);
+              ellipse(-36,-54,6,6);
+              ellipse(-48,-54,6,6);
+            }
+            noFill();
+            stroke(0);
+            strokeWeight(2);
+            if(this.shieldHealth > (this.maxShieldHealth-200)/2){
+              arc(-42,-38,20,-6+12*(this.shieldHealth)/(this.maxShieldHealth),0,180);
+            }else if(this.shieldHealth === this.maxShieldHealth/2){
+              line(-42,-28,10,-40);
+            }else if(this.shieldHealth > 0){
+              arc(-42,-38,20,-6+12*(this.shieldHealth)/(this.maxShieldHealth),-180,0);
+            }
+          }
           break;
         case 24:
           break;
@@ -1301,8 +1361,8 @@ class Zombie extends Entity{
     if ((this.type === 31)&&(this.shieldHealth > 0)&&(!this.isStunned())){
       this.garlicCounter += 0.2*levelSpeed;
     }
-    //(Any) Peashooter Zombie Shooting
-    if ((this.reload <= 0)&&(this.type === 25)&&(this.shieldHealth > 0)){
+    //Peashooter Zombie Shooting
+    if ((this.reload <= 0)&&(this.maxShieldHealth===300)&&(this.shieldHealth > 0)){
       this.reload = 90;
       new Projectile(this.x-30, this.y+23, this.lane, 1, 25, -1, 1, 0, false);//Spawn Pea
     }
@@ -1317,7 +1377,7 @@ class Zombie extends Entity{
       }
     }
     //Cherry Bomb Zombie Explosion
-    if ((this.reload > 0)&&(this.reload < 10)&&(this.type === 27)){
+    if ((this.reload > 0)&&(this.reload < 10)&&(this.shieldHealth>0)&&(this.maxShieldHealth===450)){
       this.shieldHealth = 0;
       this.reload = -1;
       new Particle(0, this.x, this.y+50);
@@ -1556,7 +1616,7 @@ class Zombie extends Entity{
       this.rate[2]++
     }
     //Boombox Activate on 7th column for 10 seconds
-    if ((this.type === 23)&&(this.x <= 680)&&(this.playedMusic === false)){
+    if ((this.type === 23||this.type==67)&&(this.x <= 680)&&(this.playedMusic === false)){
       this.playedMusic = true;
       boomboxActive = true;
       currentJam = 7;

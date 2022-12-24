@@ -385,14 +385,14 @@ class Zombie extends Entity{
             translate(40,-40)
           }
           break;
-        case 10:
+        case 10: case 59:
           stroke(40,50,40,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
           line(4,-30,8+sin(this.rate[0]*18)*3,0)
           stroke(30,this.fade)
           line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-          if(this.health>this.maxHealth/2){
+          if(this.health>120){
             line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
           }
           noFill()
@@ -414,6 +414,19 @@ class Zombie extends Entity{
           arc(0,-72,16,40,-90,0)
           fill(100,this.fade)
           ellipse(8,-72,12,12)
+          if(this.type==59&&this.health>240){
+            strokeJoin(ROUND)
+            stroke(255,150,0,this.fade)
+            strokeWeight(4)
+            fill(255,150,0,this.fade)
+            line(-15,-85,15,-85)
+            if(this.health>480){
+              triangle(-10,-85,10,-85,0,-101)
+            }else if(this.health>360){
+              quad(-10,-85,10,-85,5,-93,-5,-93)
+            }
+            strokeJoin(MITER)
+          }
         break
         case 11:
           if(currentJam===2||currentJam===8){
@@ -452,7 +465,7 @@ class Zombie extends Entity{
             ellipse(sin(this.rate[0]*(36+a)+a*a*25)*24,-96+a*8,3,3)
           }
         break
-        case 12:
+        case 12: case 60:
           strokeWeight(6)
           noFill()
           stroke(255,this.fade*(1-(this.time%30)/30))
@@ -474,8 +487,28 @@ class Zombie extends Entity{
           fill(0,this.fade)
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
+          if(this.type==60&&this.shieldHealth > 0){
+            fill(120,180,85);
+            rect(-33,-40,6,18);
+            fill(130,190,95);
+            ellipse(-38,-22,11,7);
+            ellipse(-22,-22,11,7);
+            ellipse(-30,-19,11,7);
+            translate(-30,-56);
+            fill(255,75,75);
+            for(let a=0;a<15;a++){
+              rotate(24);
+              arc(14,0,12,7,-90,90);
+            }
+            translate(30,56);
+            fill(255,125,125);
+            ellipse(-30,-56,30,30);
+            fill(0);
+            ellipse(-36,-59,5,5);
+            ellipse(-24,-59,5,5);
+          }
         break
-        case 13:
+        case 13: case 61:
           stroke(40,40,80,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -523,8 +556,26 @@ class Zombie extends Entity{
           fill(80,120,200,this.fade)
           arc(0,-80,30,20,-180,0)
           line(-24,-80,15,-80)
+          if(this.type==61&&this.shieldHealth>0){
+            noStroke()
+            fill(100,150,100);
+            rect(-42,-83,4,4);
+            fill(100,200,100);
+            arc(-40,-40,50,40,0,180);
+            quad(-15,-40,-65,-40,-55,-70,-25,-70);
+            arc(-40,-70,30,20,-180,0);
+            fill(0);
+            ellipse(-40,-45,6,6);
+            ellipse(-55,-45,6,6);
+          }
         break
-        case 14:
+        case 14: case 62:
+        if(this.graphical.previousAttackAnim>0){
+          fill(200,100,250,this.graphical.previousAttackAnim*8)
+          ellipse(-260+this.graphical.previousAttackAnim*11,-48,440-this.graphical.previousAttackAnim*22,60-this.graphical.previousAttackAnim*3)
+          this.graphical.previousAttackAnim--
+        }
+
           stroke(40,80,120,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -555,6 +606,19 @@ class Zombie extends Entity{
           fill(80,200,200,this.fade)
           arc(0,-80,30,20,-180,0)
           line(-24,-80,16,-80)
+
+          if (this.shieldHealth > 0){
+            noStroke()
+            fill(150,50,200);
+            ellipse(-30,-48,48,30);
+            rect(-55,-54,20,12);
+            ellipse(-55,-48,10,18);
+            fill(100,50,150);
+            ellipse(-39,-50,14,14);
+            ellipse(-21,-46,12,12);
+            fill(0);
+            ellipse(-55,-48,6,12);
+          }
         break
         case 15:
           stroke(160,80,80,this.fade)
@@ -894,7 +958,7 @@ class Zombie extends Entity{
         case 28://Fume Shroom Zombie
           if(this.graphical.previousAttackAnim>0){
             fill(200,100,250,this.graphical.previousAttackAnim*8)
-            ellipse(-220+this.graphical.previousAttackAnim*9,-48,360-this.graphical.previousAttackAnim*18,60-this.graphical.previousAttackAnim*3)
+            ellipse(-260+this.graphical.previousAttackAnim*11,-48,440-this.graphical.previousAttackAnim*22,60-this.graphical.previousAttackAnim*3)
             this.graphical.previousAttackAnim--
           }
           stroke(60,80,100,this.fade)
@@ -1242,7 +1306,7 @@ class Zombie extends Entity{
       new Projectile(this.x-30, this.y+23, this.lane, 1, 25, -1, 1, 0, false);//Spawn Pea
     }
     //Fume Shroom Zombie Shooting
-    if ((this.reload <= 0)&&(this.type === 28)&&(this.shieldHealth > 0)){
+    if ((this.reload <= 0)&&(this.maxShieldHealth===550)&&(this.shieldHealth > 0)){
       this.reload = 90;
       this.graphical.previousAttackAnim=20;
       for (let currentPlant of allPlants){
@@ -1263,7 +1327,7 @@ class Zombie extends Entity{
       }
     }
     //Dazey Zombie Stun
-    if ((this.reload > 0)&&(this.reload < 10)&&(this.type === 30)){
+    if ((this.reload > 0)&&(this.reload < 10)&&(this.type === 30||this.type==60)){
       this.shieldHealth = 0;
       this.reload = -1;
       for (let currentPlant of allPlants){
@@ -1466,7 +1530,7 @@ class Zombie extends Entity{
       }
     }
     //MC Collision
-    if ((this.type === 13)&&!(this.isStunned())&&(this.inJam())){
+    if ((this.type === 13||this.type==61)&&!(this.isStunned())&&(this.inJam())){
       //Mark for pointbox
       for (let currentPlant of allPlants){
         if ((currentPlant.x + 60 > this.x - 80)&&(currentPlant.x < this.x + 110)
@@ -1521,7 +1585,7 @@ class Zombie extends Entity{
         return;
       }
       //Dazey Zombie Stun Setup
-      if ((this.type === 30)&&(this.reload < 0)&&(this.shieldHealth > 0)){
+      if ((this.type === 30||this.type==60)&&(this.reload < 0)&&(this.shieldHealth > 0)){
         this.reload = 60;
         return;
       }

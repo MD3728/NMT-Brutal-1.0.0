@@ -20,10 +20,14 @@
 52-Buckethead Screendoor
 53-Discohead Conehead Squash
 54-Ultra Holohead
-55-Cool (Garlic) Football
+55-Cool (Garlic) Football (Test Functionality)
 56-Giga Football
 57-Rally Screendoor
-58-Red Stinger Punk
+58-Red Stinger Punk (Test Functionality)
+59-Conehead Banger (Test Functionality)
+60-Dazey Sparkly (Needs Functionality)
+61-MC Squash-B (Test Functionality)
+62-Fume Shroom Breakdancer
 */
 
 //Level Data
@@ -36,7 +40,7 @@ const levels = {
     jams:[0,0,0,0,0,0,0,0,0,0,0,0],
     waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[58,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[62,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -2417,7 +2421,7 @@ const zombieStat = [
     health: 200,
     name:'Fume Shroom',
     description: "Fume Shroom shield gives extra health and damages plants 4 tiles ahead\nSpecial: Damages all plants in 4 tile area ahead of it",
-    shield: 400,
+    shield: 550,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 1,
@@ -2574,6 +2578,58 @@ const zombieStat = [
     degrade: [170],
     sun: 75,
     jam: 1
+  },{//Conehead Banger 59
+    type: 59,
+    health: 600,
+    name:'Conehead Banger',
+    description: "",
+    shield: 0,
+    speed: 1.5,
+    eatSpeed: 1,
+    altSpeed: 1.5,
+    altEatSpeed: 100000,
+    degrade: [120],
+    sun: 100,
+    jam: 1
+  },{//Dazey Sparkly 60
+    type: 60,
+    health: 200,
+    name:'Dazey Sparkly',
+    description: "",
+    shield: 500,
+    speed: 2,
+    eatSpeed: 1,
+    altSpeed: 2,
+    altEatSpeed: 1,
+    degrade: [100],
+    sun: 75,
+    jam: 2
+  },{//MC Squash-B 61
+    type: 61,
+    health: 240,
+    name:'MC Squash-B',
+    description: "",
+    shield: 400,
+    speed: 1.5,
+    eatSpeed: 1,
+    altSpeed: 3,
+    altEatSpeed: 0,
+    degrade: [120],
+    sun: 125,
+    jam: 3
+  },{//Fume Breakdancer 62
+    type: 62,
+    health: 900,
+    name:'Fume Breakdancer',
+    description: "",
+    shield: 550,
+    speed: 0.75,
+    eatSpeed: 1,
+    altSpeed: 0.75,
+    altEatSpeed: 1,
+    degrade: [300],
+    sun: 125,
+    jam: 3
   },
 ];
 

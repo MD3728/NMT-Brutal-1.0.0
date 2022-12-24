@@ -86,13 +86,13 @@ function createPlant(type, tier, x, y){
   let plantData;
   for (let currentPlant of plantStat){//Find correct plant
     if (currentPlant.type === type){
-      if (tier === 1){//Tier 1
-        plantData = currentPlant["t1"];
-        break;
-      }else{//Tier 2
-        plantData = currentPlant["t2"];
-        break;
-      }
+      // if (tier === 1){//Tier 1
+      plantData = currentPlant["t1"];
+      break;
+      // }else{//Tier 2
+      //   plantData = currentPlant["t2"];
+      //   break;
+      // }
     }
   }
   let newPlant = new Plant(type, x, y, plantData.sun, plantData.damage, plantData.health, plantData.eatable, 
@@ -836,7 +836,7 @@ function draw(){
       displayPlant.draw();
       noStroke();
       fill(110);
-      rect(width/2-70,350,140,50,5);
+      //rect(width/2-70,350,140,50,5);
       rect(50,350,100,50,5);
       rect(width-150,350,100,50,5);
       rect(50,50,100,50,5);
@@ -845,53 +845,30 @@ function draw(){
       text(plantStat[displayPlant.type-1].name,width/2,100);
       textSize(20);
       text(plantStat[displayPlant.type-1].description,width/2,585);
-      text('Tier 1',width/3,360);
-      text('Tier 2',width*2/3,360);
+      text('Stats',width/2,360);
       textAlign(CENTER,TOP);
       genText[0]+='\nSun: '+plantStat[displayPlant.type-1].t1.sun;
-      genText[1]+='\nSun: '+plantStat[displayPlant.type-1].t2.sun;
       if(plantStat[displayPlant.type-1].t1.recharge>0){
         genText[0]+='\nRecharge: '+plantStat[displayPlant.type-1].t1.recharge/60;
-      }
-      if(plantStat[displayPlant.type-1].t2.recharge>0){
-        genText[1]+='\nRecharge: '+plantStat[displayPlant.type-1].t2.recharge/60;
       }
       if(plantStat[displayPlant.type-1].t1.recharge!=plantStat[displayPlant.type-1].t1.startRecharge){
         genText[0]+='\nStarting Recharge: '+ plantStat[displayPlant.type-1].t1.startingRecharge/60;
       }
-      if(plantStat[displayPlant.type-1].t2.recharge!=plantStat[displayPlant.type-1].t2.startRecharge){
-        genText[1]+='\nStarting Recharge: '+ plantStat[displayPlant.type-1].t2.startingRecharge/60;
-      }
-      if(plantStat[displayPlant.type-1].t1.health<10000){
+      if(plantStat[displayPlant.type-1].t1.health<100000){
         genText[0]+='\nHealth: '+plantStat[displayPlant.type-1].t1.health;
-      }
-      if(plantStat[displayPlant.type-1].t2.health<10000){
-        genText[1]+='\nHealth: '+plantStat[displayPlant.type-1].t2.health;
       }
       if(plantStat[displayPlant.type-1].t1.damage>0){
         genText[0]+='\nDamage: '+plantStat[displayPlant.type-1].t1.damage;
       }
-      if(plantStat[displayPlant.type-1].t2.damage>0){
-        genText[1]+='\nDamage: '+plantStat[displayPlant.type-1].t2.damage;
-      }
       if(plantStat[displayPlant.type-1].t1.splashDamage>0){
         genText[0]+='\nSplash Damage: '+plantStat[displayPlant.type-1].t1.splashDamage;
-      }
-      if(plantStat[displayPlant.type-1].t2.splashDamage>0){
-        genText[1]+='\nSplash Damage: '+plantStat[displayPlant.type-1].t2.splashDamage;
       }
       if(plantStat[displayPlant.type-1].t1.reload>0){
         genText[0]+='\nReload: '+ round(plantStat[displayPlant.type-1].t1.reload/60);
       }
-      if(plantStat[displayPlant.type-1].t2.reload>0){
-        genText[1]+='\nReload: '+ round(plantStat[displayPlant.type-1].t2.reload/60);
-      }
       textSize(16);
-      text(genText[0],width/3,400);
-      text(genText[1],width*2/3,400);
-      text(`Current Tier: ${plantTier[displayPlant.type-1]}`,width/2,330);
+      text(genText[0],width/2,400);
       textAlign(CENTER,CENTER);
-      text('Change Tier\n1000 Coins',width/2,375);
       text('Previous', 100, 375);
       text('Next', width-100, 375);
       text('Back',100,75);

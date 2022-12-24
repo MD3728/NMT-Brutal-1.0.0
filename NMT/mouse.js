@@ -135,7 +135,8 @@ document.addEventListener("mouseup",function(e){
               //Make sure to not plant on boss or unsodded lane
               currentTile.occupied = true;
               sun -= readyPlant.sun;
-              let newPlant = createPlant(readyPlant.type, readyPlant.tier, currentTile.x + 10, currentTile.y + 10);            currentTile.plantID = newPlant.id;
+              let newPlant = createPlant(readyPlant.type, readyPlant.tier, currentTile.x + 10, currentTile.y + 10);            
+              currentTile.plantID = newPlant.id;
               readyPlant.recharge = readyPlant.maxRecharge;//Assign plant to tile
               if (readyPlant.moving === true){//Conveyor Packets
                 allPackets.splice(allPackets.indexOf(readyPlant), 1);

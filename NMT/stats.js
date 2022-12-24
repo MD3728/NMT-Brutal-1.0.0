@@ -15,7 +15,8 @@
 // 13: Unsodded
 // 14: I, Zombie
 
-/*New Zombies
+/*
+New Zombies
 51-Conehead Squash
 52-Buckethead Screendoor
 53-Discohead Conehead Squash
@@ -23,16 +24,16 @@
 55-Cool (Garlic) Football
 56-Giga Football
 57-Rally Screendoor
-58-Red Stinger Punk (Test Functionality)
+58-Red Stinger Punk
 59-Conehead Banger
-60-Dazey Sparkly (Needs Functionality)
+60-Dazey Sparkly 
 61-MC Squash-B
-62-Fume Shroom Breakdancer (Test Functionality)
-63-Screendoor Arcade (Test Functionality)
+62-Fume Shroom Breakdancer
+63-Screendoor Arcade 
 64-8-Bit Peashooter
 65-8-Bit Conehead Peashooter
-66-Cherry Bomb Shadow (Test Functionality)
-67-Wall-Nut Boombox (Test Functionality)
+66-Cherry Bomb Shadow 
+67-Wall-Nut Boombox 
 */
 
 //Level Data
@@ -45,7 +46,7 @@ const levels = {
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
     waveDelay: [20,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[61,0],[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[58,0],[0,0]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -1930,7 +1931,7 @@ const plantStat = [
       damage: 20,
       splashDamage: 0,
       reload: 90,
-      projectile: 3//Snow Pea
+      projectile: 12//Frozen Pea
     },
     t2:{
       sun: 300,
@@ -2319,7 +2320,7 @@ const zombieStat = [
     speed: 1.5,
     eatSpeed: 1,
     altSpeed: 1.5,
-    altEatSpeed: 1,
+    altEatSpeed: 0,
     degrade: [450],
     sun: 175,
     jam: 5
@@ -2385,7 +2386,7 @@ const zombieStat = [
     health: 200,
     name:'Peashooter',
     description: "Peashooter shield gives extra health and shoots at plants\nSpecial: Plants are hit by pea projectile",
-    shield: 200,
+    shield: 300,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 1,
@@ -2413,7 +2414,7 @@ const zombieStat = [
     health: 200,
     name:'Cherry Bomb',
     description: "His cherry bomb shield gives him extra health and an explosive effect\nSpecial: Explodes and kills plants in 3x3 area upon contact",
-    shield: 300,
+    shield: 450,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 1.5,
@@ -2455,7 +2456,7 @@ const zombieStat = [
     health: 200,
     name:'Dazey',
     description: "Dazey shield gives extra health and stuns plants in 3x3 area upon contact\nSpecial: Stuns plants in 3x3 area after encountering first plant",
-    shield: 400,
+    shield: 500,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 2,
@@ -2575,7 +2576,7 @@ const zombieStat = [
     type: 58,
     health: 340,
     name:'Red Stinger Punk',
-    description: "n",
+    description: "",
     shield: 350,
     speed: 1.25,
     eatSpeed: 1,

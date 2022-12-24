@@ -3,6 +3,14 @@
 class Zombie extends Entity{
   constructor(x,y,row,type,health,shield,degrade,speed,eatSpeed,altSpeed,altEatSpeed,specialJam,wave,stunned = 0){
     super(type,x,y);//Call Entity Constructor
+    //Determine Real Type of Zombie
+    switch (type){
+      case 1:
+        break;
+      default:
+        break;
+    }
+
     this.lane = row;//Current Lane
     this.isZombie = true;//For tracking object types
     this.health = health;//Maximum Health
@@ -32,9 +40,9 @@ class Zombie extends Entity{
         this.reload = 0;
         break;
       case 22://Gadgeter
-        this.reload = 180;
+        this.reload = 300;
         break;
-      case 27: case 30://Cherry Bomb Zombie OR Dazey Zombie
+      case 27: case 30: case 60: case 66://Cherry Bomb Zombie OR Dazey Zombie
         this.reload = -1;
         break;
       default://Arcade Spawn Timer OR Regular
@@ -304,7 +312,7 @@ class Zombie extends Entity{
           }
           strokeJoin(MITER)
         break
-        case 8: case 55: //futbol
+        case 8: case 55: //Football
           stroke(200,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -385,7 +393,7 @@ class Zombie extends Entity{
             translate(40,-40)
           }
           break;
-        case 10: case 59:
+        case 10: case 59://Banger
           stroke(40,50,40,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -465,7 +473,7 @@ class Zombie extends Entity{
             ellipse(sin(this.rate[0]*(36+a)+a*a*25)*24,-96+a*8,3,3)
           }
         break
-        case 12: case 60:
+        case 12: case 60://Sparkly
           strokeWeight(6)
           noFill()
           stroke(255,this.fade*(1-(this.time%30)/30))
@@ -508,7 +516,7 @@ class Zombie extends Entity{
             ellipse(-24,-59,5,5);
           }
         break
-        case 13: case 61:
+        case 13: case 61://MC
           stroke(40,40,80,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -569,13 +577,12 @@ class Zombie extends Entity{
             ellipse(-55,-45,6,6);
           }
         break
-        case 14: case 62:
-        if(this.graphical.previousAttackAnim>0){
-          fill(200,100,250,this.graphical.previousAttackAnim*8)
-          ellipse(-260+this.graphical.previousAttackAnim*11,-48,440-this.graphical.previousAttackAnim*22,60-this.graphical.previousAttackAnim*3)
-          this.graphical.previousAttackAnim--
-        }
-
+        case 14: case 62://Breakdancer
+          if(this.graphical.previousAttackAnim>0){
+            fill(200,100,250,this.graphical.previousAttackAnim*8)
+            ellipse(-260+this.graphical.previousAttackAnim*11,-48,440-this.graphical.previousAttackAnim*22,60-this.graphical.previousAttackAnim*3)
+            this.graphical.previousAttackAnim--
+          }
           stroke(40,80,120,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -620,7 +627,7 @@ class Zombie extends Entity{
             ellipse(-55,-48,6,12);
           }
         break
-        case 15: case 63:
+        case 15: case 63://Arcade
           stroke(160,80,80,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -651,7 +658,7 @@ class Zombie extends Entity{
           ellipse(-4,-72,5,5)
           ellipse(-12,-72,5,5)
           line(-6.5,-72,-9.5,-72)
-          if(this.type==63&&this.shieldHealth>0){
+          if((this.type==63)&&(this.shieldHealth>0)){
             if(this.shieldHealth>730){
               image(graphics.minor[9],-36,-78,24,60)
             }else if(this.shieldHealth>370){
@@ -897,27 +904,27 @@ class Zombie extends Entity{
         case 24:
           break;
         case 25://Peashooter Zombie
-        stroke(60,80,100,this.fade)
-        strokeWeight(4)
-        line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
-        line(4,-30,8+sin(this.rate[0]*18)*3,0)
-        stroke(120,80,40,this.fade)
-        line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-        if((this.health>100)||((this.health > 175)&&(this.type === 3))){//Flag Zombie
-          line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
-        }
-        noStroke()
-        fill(120,80,40,this.fade)
-        ellipse(0,-45,18,36)
-        fill(255,this.fade)
-        triangle(4,-70,-20/3,-70,-4,-50)
-        fill(200,50,50,this.fade)
-        quad(-4,-49,-14/3,-55,-4/3,-70,-2,-55)
-        fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
-        ellipse(0,-75,30,30)
-        fill(0,this.fade)
-        ellipse(-4,-72,4,4)
-        ellipse(-12,-72,4,4)
+          stroke(60,80,100,this.fade)
+          strokeWeight(4)
+          line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
+          line(4,-30,8+sin(this.rate[0]*18)*3,0)
+          stroke(120,80,40,this.fade)
+          line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
+          if((this.health>100)||((this.health > 175)&&(this.type === 3))){//Flag Zombie
+            line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
+          }
+          noStroke()
+          fill(120,80,40,this.fade)
+          ellipse(0,-45,18,36)
+          fill(255,this.fade)
+          triangle(4,-70,-20/3,-70,-4,-50)
+          fill(200,50,50,this.fade)
+          quad(-4,-49,-14/3,-55,-4/3,-70,-2,-55)
+          fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
+          ellipse(0,-75,30,30)
+          fill(0,this.fade)
+          ellipse(-4,-72,4,4)
+          ellipse(-12,-72,4,4)
           if (this.shieldHealth > 0){//Peashooter Head
             fill(25,200,25);
             ellipse(-21,-48,30,30);
@@ -1362,12 +1369,17 @@ class Zombie extends Entity{
       this.garlicCounter += 0.2*levelSpeed;
     }
     //Peashooter Zombie Shooting
-    if ((this.reload <= 0)&&(this.maxShieldHealth===300)&&(this.shieldHealth > 0)){
+    if ((this.reload <= 0)&&(this.maxShieldHealth === 300)&&(this.shieldHealth > 0)){
       this.reload = 90;
       new Projectile(this.x-30, this.y+23, this.lane, 1, 25, -1, 1, 0, false);//Spawn Pea
     }
+    //Red Stinger Punk Zombie Shooting
+    if ((this.reload <= 0)&&(this.maxShieldHealth === 350)&&(this.shieldHealth > 0)){
+      this.reload = 90;
+      new Projectile(this.x-30, this.y+23, this.lane, 2, 100, -1, 1, 0, false);//Spawn Red Stinger Projectile
+    }
     //Fume Shroom Zombie Shooting
-    if ((this.reload <= 0)&&(this.maxShieldHealth===550)&&(this.shieldHealth > 0)){
+    if ((this.reload <= 0)&&(this.maxShieldHealth === 550)&&(this.shieldHealth > 0)){
       this.reload = 90;
       this.graphical.previousAttackAnim=20;
       for (let currentPlant of allPlants){
@@ -1377,7 +1389,7 @@ class Zombie extends Entity{
       }
     }
     //Cherry Bomb Zombie Explosion
-    if ((this.reload > 0)&&(this.reload < 10)&&(this.shieldHealth>0)&&(this.maxShieldHealth===450)){
+    if ((this.reload > 0)&&(this.reload < 10)&&(this.shieldHealth>0)&&(this.maxShieldHealth === 450)){
       this.shieldHealth = 0;
       this.reload = -1;
       new Particle(0, this.x, this.y+50);
@@ -1504,19 +1516,19 @@ class Zombie extends Entity{
       let plantType = null;
       let plantTier = null;
       let plantData = null;
-      if (oldPlant.sunCost <= 25){//Puff Shroom Tier 1
+      if (oldPlant.sunCost <= 25){//Puff Shroom 
         plantType = 16;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 75){//Potato Mine Tier 1
+      }else if (oldPlant.sunCost <= 75){//Potato Mine 
         plantType = 4;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 200){//Celery Stalker Tier 1
+      }else if (oldPlant.sunCost <= 200){//Celery Stalker 
         plantType = 6;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 300){//Peashooter Tier 1
-        plantType = 18;
+      }else if (oldPlant.sunCost <= 300){//Fume Shroom
+        plantType = 22;
         plantTier = 1;
-      }else if (oldPlant.sunCost <= 450){//Threepeater Tier 1
+      }else if (oldPlant.sunCost <= 450){//Threepeater 
         plantType = 21;
         plantTier = 1;
       }else{//Coconut Cannon Tier 1
@@ -1591,7 +1603,7 @@ class Zombie extends Entity{
       }
     }
     //MC Collision
-    if ((this.type === 13||this.type==61)&&!(this.isStunned())&&(this.inJam())){
+    if (((this.type === 13)||(this.type===61))&&!(this.isStunned())&&(this.inJam())){
       //Mark for pointbox
       for (let currentPlant of allPlants){
         if ((currentPlant.x + 60 > this.x - 80)&&(currentPlant.x < this.x + 110)
@@ -1603,7 +1615,7 @@ class Zombie extends Entity{
       this.rate[2]++;
     }
     //Breakdancer Collision
-    if ((this.type === 14)&&(this.inJam())){
+    if (((this.type === 14)||(this.type === 62))&&(this.inJam())){
       for (let currentZombie of allZombies){
         if ((currentZombie.x + 30 > this.x)&&(currentZombie.x < this.x + 30)
         &&(currentZombie.lane === this.lane)&&(currentZombie !== this)){//Breakdancer Jumps Other Zombies Forward
@@ -1615,12 +1627,12 @@ class Zombie extends Entity{
       }
       this.rate[2]++
     }
-    //Boombox Activate on 7th column for 10 seconds
-    if ((this.type === 23||this.type==67)&&(this.x <= 680)&&(this.playedMusic === false)){
+    //Boombox Activate on 7th column for 20 seconds
+    if ((this.type === 23||this.type === 67)&&(this.x <= 680)&&(this.playedMusic === false)){
       this.playedMusic = true;
       boomboxActive = true;
       currentJam = 7;
-      setTimeout(function(){boomboxActive = false; currentJam = currentLevel["jams"][currentWave - 1];}, 10000);
+      setTimeout(function(){boomboxActive = false; currentJam = currentLevel["jams"][currentWave - 1];}, 20000);
     }
     //Glitter Clear Effect
     if (this.protected === true){
@@ -1641,12 +1653,12 @@ class Zombie extends Entity{
     if (plantCollision.length > 0){
       this.eating = true;
       //Cherry Bomb Zombie Explosion Setup
-      if ((this.type === 27)&&(this.reload < 0)&&(this.shieldHealth > 0)){
+      if ((this.maxShieldHealth === 450)&&(this.reload < 0)&&(this.shieldHealth > 0)){
         this.reload = 60;
         return;
       }
       //Dazey Zombie Stun Setup
-      if ((this.type === 30||this.type==60)&&(this.reload < 0)&&(this.shieldHealth > 0)){
+      if ((this.maxShieldHealth === 500)&&(this.reload < 0)&&(this.shieldHealth > 0)){
         this.reload = 60;
         return;
       }
@@ -1694,7 +1706,7 @@ class Zombie extends Entity{
         currentPlant.take(this.determineEatSpeed(this))
         this.rate[1] += this.determineEatSpeed(this);
         if(currentPlant.health<0&&this.type==55){
-          this.garlicCounter=60
+          this.garlicCounter=60;
         }
       }
     }
@@ -1705,14 +1717,16 @@ class Zombie extends Entity{
         &&(currentProjectile.used === false)&&(currentProjectile.toZombie === true)){
           currentProjectile.used = true;
           //Punk Zombie and jam is on and not stunned (Coconuts are not counted)
-          if ((this.type === 9||this.type==58)&&((currentJam === 1)||(currentJam === 8))&&!(this.isStunned())&&(currentProjectile.type !== 9)){
-            this.determineDamage(currentProjectile.damage, 0.2);//Punk takes 20% damage
+          if (((this.type === 9)||(this.type===58))&&(this.inJam())&&!(this.isStunned())&&(currentProjectile.type !== 9)){
             new Projectile(currentProjectile.x, currentProjectile.y, currentProjectile.lane,
               currentProjectile.type, currentProjectile.damage, -1.5*currentProjectile.speed, currentProjectile.tier, 0, false);//Send Projectile back
           }else{
             this.determineDamage(currentProjectile.damage);
             if (currentProjectile.type === 3){//Snow Pea
               this.determineChill(600);
+            }else if (currentProjectile.type === 12){
+              this.determineFreeze(180);
+              this.determineChill(780);
             }else if ((currentProjectile.type === 4)&&(this.health <= 0)){//Spore Shroom Spore Spawn
               let spawnX = this.x + 15;
               //Find tile

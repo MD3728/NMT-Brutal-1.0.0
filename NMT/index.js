@@ -102,12 +102,13 @@ function createPlant(type, tier, x, y){
 
 //Create Zombie Shortcut (Primarily for Zomboss)
 function createZombie(type, lane = 5){//Keep in mind that lane 0 -> 4 are lanes 1 -> 5, "lane" 5 points to a random lane
-  let zombieInfo = zombieStat[type];
+  let finalType = redirectZombieType(type);
+  let zombieInfo = zombieStat[finalType];
   let finalLane = lane;
   if (lane === 5){//Random Lane Assignment
     finalLane = Math.floor(Math.random()*5) + 1;
   }
-  new Zombie(580 + Math.floor(50*Math.random()), finalLane*100 + 20, finalLane, type, 
+  new Zombie(580 + Math.floor(random(50)), finalLane*100 + 20, finalLane, finalType, 
   zombieInfo["health"], zombieInfo["shield"], zombieInfo["degrade"], zombieInfo["speed"], 
   zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
 }
@@ -264,14 +265,15 @@ function spawnWave(){
     let zombieColumn = currentZombie.length === 2 ? 9 : currentZombie[2];
     let zombieXVariation = zombieColumn === 9 ? random(50) : 0;
     let zombieRow = currentZombie[1];
-    let zombieTypeData = zombieStat[currentZombie[0]];//Data from zombieStat array
+    let zombieType = redirectZombieType(currentZombie[0]);
+    let zombieTypeData = zombieStat[zombieType];//Data from zombieStat array
     //Determine lane and column
     if (zombieRow === 5){
       zombieRow = ceil(random(5));
     }else{
       zombieRow = currentZombie[1] + 1;
     }
-    new Zombie(zombieColumn*80 + 230 + zombieXVariation, zombieRow*100 + 20, zombieRow, currentZombie[0], zombieTypeData["health"], 
+    new Zombie(zombieColumn*80 + 230 + zombieXVariation, zombieRow*100 + 20, zombieRow, zombieType, zombieTypeData["health"], 
     zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
     zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
   }
@@ -465,7 +467,7 @@ function levelMainloop(){
     if ((currentLevel["type"].includes(2) === true)&&(((currentWave <= currentLevel["waves"].length)&&(currentLevel["type"].includes(10) === false))||((currentWave < currentLevel["waves"].length)&&(currentLevel["type"].includes(10))))){
       let currentWaveConveyorProbability = currentLevel["conveyorProbability"][currentWave][1];
       if ((conveyorTimer >= currentLevel["conveyorProbability"][currentWave][0])&&(allPackets.length < 11)){//If greater than time between packets and conveyor not full
-        let randomNumber = floor(random()*100);
+        let randomNumber = floor(random(100));
         let startingPoint = 0;
         let seedData = null;
         for (let nextProb of currentWaveConveyorProbability){
@@ -529,14 +531,14 @@ function levelMainloop(){
       if ((currentLevel["type"].includes(12))&&(globalTimer%1200 > 800)){
         currentZombie.protected = true;
       }
-      if ((currentZombie.type === 15||currentZombie.type === 63)&&(currentZombie.reload <= 0)&&((currentJam === 4)||(currentJam === 8))){//Arcade Zombie Spawn
+      if (((currentZombie.type === 15)||(currentZombie.type === 63))&&(currentZombie.reload <= 0)&&((currentJam === 4)||(currentJam === 8))){//Arcade Zombie Spawn
         currentZombie.reload = 720;
         let zombieTypeData = null;
         let zombieType = null;
         if (floor(random()*2) === 0){//Normal 8-bit
-          zombieType = 16;
+          zombieType = redirectZombieType(16);
         }else{//Conehead 8-bit
-          zombieType = 17;
+          zombieType = redirectZombieType(17);
         }
         zombieTypeData = zombieStat[zombieType];
         new Zombie(currentZombie.x - 40, currentZombie.y, currentZombie.lane, zombieType, zombieTypeData["health"], zombieTypeData["shield"], zombieTypeData["degrade"], 
@@ -590,6 +592,27 @@ function levelMainloop(){
       text(`You Got:\n${finalReward}`,450,95);
     }
   }
+}
+
+function redirectZombieType(inputType){
+  for (let currentLink of zombieLink){
+    if (currentLink[0] === inputType){//Find Original Type
+      if (currentLink[1].length === 1){//One Variation
+        return currentLink[1][0];
+      }else{//Multiple Variations
+        let probabilityCounter = currentLink[1][0][1];
+        let generatedNumber = random(100);
+        for (let a = 0; a < currentLink[1].length; a++){
+          let currentVariation = currentLink[1][a];
+          if (generatedNumber <= probabilityCounter){
+            return currentVariation[0];
+          }
+          probabilityCounter += currentLink[1][a + 1][1];
+        }
+      }
+    }
+  }
+  return 0;
 }
 
 //Save Current Game Data (Current Level Data Not Included)
@@ -903,25 +926,26 @@ function draw(){
       rect(width-150,350,100,50,5);
       rect(50,50,100,50,5);
       fill(0);
-      textSize(60);
-      text(zombieStat[displayZombie.type].name,width/2, 100);
+      textSize(60);//Temp Solution
+      let finalType = redirectZombieType[displayZombie.type];
+      text(zombieStat[finalType].name,width/2, 100);
       textSize(20);
-      text(zombieStat[displayZombie.type].description,width/2, 550);
+      text(zombieStat[finalType].description,width/2, 550);
       textAlign(CENTER,TOP);
-      if(zombieStat[displayZombie.type].health>0){
-        genText[0]+='\nHealth: '+ zombieStat[displayZombie.type].health;
+      if(zombieStat[finalType].health>0){
+        genText[0]+='\nHealth: '+ zombieStat[finalType].health;
       }
-      if(zombieStat[displayZombie.type].shield>0){
-        genText[0]+='\nShield: '+ zombieStat[displayZombie.type].shield;
+      if(zombieStat[finalType].shield>0){
+        genText[0]+='\nShield: '+ zombieStat[finalType].shield;
       }
-      if(zombieStat[displayZombie.type].speed>0){
-        genText[0]+='\nSpeed: '+ zombieStat[displayZombie.type].speed;
+      if(zombieStat[finalType].speed>0){
+        genText[0]+='\nSpeed: '+ zombieStat[finalType].speed;
       }
-      if(zombieStat[displayZombie.type].eatSpeed>0){
-        genText[0]+='\nEat Speed: '+ zombieStat[displayZombie.type].eatSpeed;
+      if(zombieStat[finalType].eatSpeed>0){
+        genText[0]+='\nEat Speed: '+ zombieStat[finalType].eatSpeed;
       }
-      if((zombieStat[displayZombie.type].altEatSpeed > 0)&&(zombieStat[displayZombie.type].altEatSpeed !== zombieStat[displayZombie.type].eatSpeed)){
-        genText[0]+='\nAlternate Eat Speed: '+ zombieStat[displayZombie.type].altEatSpeed;
+      if((zombieStat[finalType].altEatSpeed > 0)&&(zombieStat[finalType].altEatSpeed !== zombieStat[finalType].eatSpeed)){
+        genText[0]+='\nAlternate Eat Speed: '+ zombieStat[finalType].altEatSpeed;
       }
       textSize(16);
       text(genText[0], width/2,400);

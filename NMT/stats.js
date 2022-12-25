@@ -46,7 +46,7 @@ const levels = {
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
     waveDelay: [20,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[58,0],[0,0]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[8,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -2028,7 +2028,6 @@ const plantStat = [
   }
 ];
 
-
 //Zombie Data
 const zombieStat = [
   {//Normal 0
@@ -2115,12 +2114,12 @@ const zombieStat = [
     sun: 175,
     jam: -1
   },
-  {//Speakerhead 6
+  {//Buff Speakerhead 6
     type: 6,
     health: 200,
     name:'Speakerhead',
     description: "His speaker gives him health and allows him to eat faster",
-    shield: 1000,
+    shield: 2200,
     speed: 1,
     eatSpeed: 1,
     altSpeed: 1,
@@ -2129,14 +2128,14 @@ const zombieStat = [
     sun: 150,
     jam: -1
   },
-  {//Newspaper 7
+  {//Insane Newspaper 7
     type: 7,
-    health: 400,
+    health: 300,
     name:'Newspaper',
     description: "Gets enraged once its newspaper is destroyed",
-    shield: 1000,
-    speed: 2,
-    eatSpeed: 4,
+    shield: 100,
+    speed: 6,
+    eatSpeed: 10,
     altSpeed: 1,
     altEatSpeed: 1,
     degrade: [1070,730,400,200],
@@ -2552,9 +2551,9 @@ const zombieStat = [
     name:'Giga Football',
     description: "",
     shield: 0,
-    speed: 2.5,
+    speed: 1.5,
     eatSpeed: 2,
-    altSpeed: 2.5,
+    altSpeed: 1.5,
     altEatSpeed: 2,
     degrade: [1130,660,200,100],
     sun: 200,
@@ -2706,3 +2705,32 @@ const zombieStat = [
   },
 ];
 
+//For Brutal Mode Only, Links Zombie ID in Levels to New Zombies
+const zombieLink = [
+  [0,[25]],// Example: [Original Zombie Type, [New Zombie Type]] IF New Zombie Type Will Spawn 100% of the Time
+  [1,[51]],
+  [2,[52]],
+  [3,[57]],
+  [4,[53]],
+  [5,[54]],
+  [8,[[55,50],[56,50]]],// Different Example: [Original Zombie Type, [[New Zombie Type, Probability],[New Zombie Type, Probability]...]]
+  [9,[58]],
+  [10,[59]],
+  [12,[60]],
+  [13,[61]],
+  [14,[62]],
+  [15,[63]],
+  [16,[64]],
+  [17,[65]],
+  [20,[66]],
+  [23,[67]]
+];
+
+//New Zombies: 
+//
+//
+//
+//
+//
+//
+//

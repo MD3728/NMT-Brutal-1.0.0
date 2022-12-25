@@ -34,6 +34,12 @@ New Zombies
 65-8-Bit Conehead Peashooter
 66-Cherry Bomb Shadow 
 67-Wall-Nut Boombox 
+68-Sun Stealer
+69-Conehead Jetpack
+70-Sunday Edition
+71-Head Office Impgantuar
+72-Dancing Zombie
+73-Angry Dancing Zombie
 */
 
 //Level Data

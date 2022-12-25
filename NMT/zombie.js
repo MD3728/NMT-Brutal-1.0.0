@@ -63,11 +63,21 @@ class Zombie extends Entity{
         performDraw = true;
       } 
     }catch(e){//Almanac draw
+
       performDraw = true;
     }
     if (performDraw){//Zombies not drawn in Invisighoul
       switch(this.type){
-        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54: case 57:
+        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54: case 57: case 68: case 69:
+          if(this.type==69){
+            translate(0,-15)
+            fill(255,150,0)
+            triangle(9,-33,15,-33,12,-18)
+            fill(125)
+            rect(7,-36,10,3)
+            fill(150)
+            rect(6,-60,12,24)
+          }
           stroke(60,80,100,this.fade)
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
@@ -89,7 +99,7 @@ class Zombie extends Entity{
           fill(0,this.fade)
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
-          if(this.type==1&&this.health>200){
+          if((this.type==1||this.type==69)&&this.health>200){
             strokeJoin(ROUND)
             stroke(255,150,0,this.fade)
             strokeWeight(4)
@@ -241,6 +251,23 @@ class Zombie extends Entity{
             rect(-28,-102,4,24)
             fill(240,40,40,this.fade)
             rect(-52,-100,24,20)
+          }else if(this.type==68){
+            fill(255,255,150,this.fade/3);
+            beginShape();
+            for(var e=0;e<10;e++){
+              vertex(sin(e*36)*24-36,cos(e*36)*24-48);
+              vertex(sin(e*36+18)*15-36,cos(e*36+18)*15-48);
+            }
+            endShape();
+            fill(255,255,100,this.fade/2);
+            beginShape();
+            for(e=0;e<10;e++){
+              vertex(sin(e*36)*15-36,cos(e*36)*15-48);
+              vertex(sin(e*36+18)*24-36,cos(e*36+18)*24-48);
+            }
+            endShape();
+            fill(255,235,50,this.fade*2/3);
+            ellipse(-36,-48,24,24);
           }
           if((this.type==52||this.type==57)&&this.shieldHealth>0){
             if(this.shieldHealth>730){
@@ -251,9 +278,12 @@ class Zombie extends Entity{
               image(graphics.minor[11],-36,-78,24,60)
             }
           }
+          if(this.type==69){
+            translate(0,15)
+          }
         break
-        case 7://Insane Newspaper
-          if(this.shieldHealth > 0){
+        case 7: case 70://Insane Newspaper
+          if(this.shieldHealth > 0&&this.type==7){
             strokeWeight(4)
             stroke(220,this.fade)
             strokeJoin(ROUND)
@@ -268,6 +298,23 @@ class Zombie extends Entity{
               vertex(-12,-48)
             }
             vertex(-12,-36)
+            endShape(CLOSE)
+          }
+          if(this.shieldHealth > 0&&this.type==70){
+            strokeWeight(4)
+            stroke(220,this.fade)
+            strokeJoin(ROUND)
+            fill(140,190,200,this.fade)
+            beginShape()
+            vertex(-36,-24)
+            vertex(-36,-72)
+            if(this.health>730){
+              vertex(-12,-78)
+            }else{
+              vertex(-24,-74)
+              vertex(-12,-42)
+            }
+            vertex(-12,-30)
             endShape(CLOSE)
           }
           stroke(80,70,60,this.fade)
@@ -287,7 +334,7 @@ class Zombie extends Entity{
           fill(0,this.fade) 
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
-          if(this.shieldHealth > 0){
+          if(this.shieldHealth > 0&&this.type==7){
             strokeWeight(4)
             stroke(220,this.fade)
             fill(180,190,200,this.fade)
@@ -301,6 +348,22 @@ class Zombie extends Entity{
               vertex(-12,-48)
             }
             vertex(-12,-24)
+            endShape(CLOSE)
+          }
+          if(this.shieldHealth > 0&&this.type==70){
+            strokeWeight(4)
+            stroke(220,this.fade)
+            fill(140,190,200,this.fade)
+            beginShape()
+            vertex(-36,-24)
+            vertex(-36,-72)
+            if(this.shieldHealth > 1200){
+              vertex(-12,-66)
+            }else{
+              vertex(-24,-70)
+              vertex(-12,-42)
+            }
+            vertex(-12,-18)
             endShape(CLOSE)
           }
           strokeJoin(MITER)
@@ -734,7 +797,10 @@ class Zombie extends Entity{
             }
           }
         break
-        case 19:
+        case 19: case 71:
+          if(this.type==71){
+            scale(2.5)
+          }
             stroke(75,this.fade)
             strokeWeight(4)
             line(-4,-24,-7-sin(this.rate[0]*18)*3,0)
@@ -752,6 +818,9 @@ class Zombie extends Entity{
             fill(0,this.fade) 
             ellipse(-4,-57,4,4)
             ellipse(-12,-57,4,4)
+            if(this.type==71){
+              scale(0.4)
+            }
           break
         case 20: case 66://Shadow
           stroke(50,0,50,this.fade/3)
@@ -1213,6 +1282,38 @@ class Zombie extends Entity{
             fill(0);
             ellipse(-36,-46,6,6);
             ellipse(-48,-46,6,6);
+          }
+        break
+        case 72: case 73:
+          if(this.type==73){
+            scale(-1,1)
+          }
+          stroke(180,160,140,this.fade);
+          strokeWeight(4);
+          line(-4,-30,-8-sin(this.rate[0]*18)*3,0);
+          line(4,-30,8+sin(this.rate[0]*18)*3,0);
+          stroke(150,200,200,this.fade);
+          line(-6,-45,-24,-39-sin(this.rate[1]*9)*3);
+          if(this.health>this.maxHealth/2){
+            line(-6,-51,-24,-57+sin(this.rate[1]*9)*3);
+          }
+          noStroke();
+          fill(180,160,140,this.fade);
+          ellipse(0,-45,18,36);
+          fill(150,200,200,this.fade)
+          arc(0,-45,18,36,-180,0)
+          fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade);
+          ellipse(0,-75,30,30);
+          fill(0,this.fade);
+          ellipse(-4,-72,4,4);
+          ellipse(-12,-72,4,4);
+          fill(255,255,0,this.fade)
+          stroke(120,this.fade)
+          strokeWeight(3)
+          ellipse(-4,-72,8,8)
+          ellipse(-12,-72,8,8)
+          if(this.type==73){
+            scale(-1,1)
           }
         break
         case 9999://Test

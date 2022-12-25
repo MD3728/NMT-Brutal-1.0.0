@@ -53,7 +53,7 @@ const levels = {
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
     waveDelay: [20,12000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[20,2],[3,1]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[72,1],[73,2]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],

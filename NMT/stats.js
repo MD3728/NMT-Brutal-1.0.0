@@ -42,6 +42,9 @@ New Zombies
 73-Angry Dancing Zombie
 */
 
+//Fixes
+//
+
 //Level Data
 const levels = {
   "l1": {//Level 1 Normal 2 Flag
@@ -52,7 +55,7 @@ const levels = {
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
     waveDelay: [20,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[8,5]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[11,2],[4,2]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -1420,7 +1423,7 @@ const plantStat = [
       startingRecharge: 2100,
       health: 100000,
       eatable: false,
-      damage: 3600,
+      damage: 2500,
       splashDamage: 0,
       reload: 60,
       projectile: 0
@@ -1983,10 +1986,10 @@ const plantStat = [
     name: "Endurian",
     description: "Hurts Zombies That Eat It",
     t1:{
-      sun: 250,
+      sun: 200,
       recharge: 1500,
       startingRecharge: 900,
-      health: 9000,
+      health: 6000,
       eatable: true,
       damage: 80,
       splashDamage: 0,
@@ -2136,7 +2139,7 @@ const zombieStat = [
   },
   {//Insane Newspaper 7
     type: 7,
-    health: 300,
+    health: 400,
     name:'Newspaper',
     description: "Gets enraged once its newspaper is destroyed",
     shield: 100,
@@ -2194,11 +2197,11 @@ const zombieStat = [
     type: 11,
     health: 600,
     name:'Glitter',
-    description: "Protective rainbow reduces damage taken and takes away negative effects",
+    description: "Protective rainbow reduces damage taken and takes away negative effects and heals zombies to full health",
     shield: 0,
-    speed: 1.25,
+    speed: 1.3,
     eatSpeed: 1,
-    altSpeed: 1.25,
+    altSpeed: 1.3,
     altEatSpeed: 1,
     degrade: [300],
     sun: 100,
@@ -2484,8 +2487,8 @@ const zombieStat = [
     sun: 75,
     jam: -1
   },
-  {},{},{},{},{},{},{},{},{},
   {},{},{},{},{},{},{},{},{},{},
+  {},{},{},{},{},{},{},{},{},
   {//Conehead Squash 51 
     type: 51,
     health: 560,
@@ -2682,7 +2685,8 @@ const zombieStat = [
     degrade: [440,320,200,100],
     sun: 75,
     jam: -1
-  },{//Cherry Bomb Shadow 66
+  },
+  {//Cherry Bomb Shadow 66
     type: 66,
     health: 900,
     name:'Cherry Bomb Shadow',
@@ -2695,8 +2699,9 @@ const zombieStat = [
     degrade: [450],
     sun: 175,
     jam: 5
-  },{//Wallnut Boombox 67
-    type: 23,
+  },
+  {//Wallnut Boombox 67
+    type: 67,
     health: 240,
     name:'Wall-Nut Boombox',
     description: "",
@@ -2709,6 +2714,90 @@ const zombieStat = [
     sun: 100,
     jam: -1
   },
+  {//Sun Stealer 68
+    type: 68,
+    health: 240,
+    name:'Sun Stealer',
+    description: "",
+    shield: 0,
+    speed: 1,
+    eatSpeed: 1,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [120],
+    sun: 100,
+    jam: -1
+  },
+  {//Jetpack Conehead 69
+    type: 69,
+    health: 560,
+    name:'Jetpack Conehead',
+    description: "",
+    shield: 0,
+    speed: 1.5,
+    eatSpeed: 0,
+    altSpeed: 1.5,
+    altEatSpeed: 0,
+    degrade: [],
+    sun: 100,
+    jam: -1
+  },
+  {//Sunday Edition 70
+    type: 70,
+    health: 400,
+    name:'Jetpack Conehead',
+    description: "",
+    shield: 2000,
+    speed: 2,
+    eatSpeed: 4,
+    altSpeed: 1,
+    altEatSpeed: 1,
+    degrade: [],
+    sun: 100,
+    jam: -1
+  },
+  {//Head Office Impgantuar 71
+    type: 71,
+    health: 2400,
+    name:'Impgantuar',
+    description: "",
+    shield: 0,
+    speed: 2.5,
+    eatSpeed: 0,
+    altSpeed: 2.5,
+    altEatSpeed: 0,
+    degrade: [],
+    sun: 100,
+    jam: 5
+  },
+  {//Dancing Zombie 72
+    type: 72,
+    health: 600,
+    name:'Dancer',
+    description: "",
+    shield: 0,
+    speed: 0.8,
+    eatSpeed: 1,
+    altSpeed: 0.8,
+    altEatSpeed: 1,
+    degrade: [],
+    sun: 100,
+    jam: -1
+  },
+  {//Angry Dancing Zombie 73
+    type: 73,
+    health: 600,
+    name:'Dancer',
+    description: "",
+    shield: 0,
+    speed: 1.5,
+    eatSpeed: 0,
+    altSpeed: 1.5,
+    altEatSpeed: 0,
+    degrade: [],
+    sun: 100,
+    jam: -1
+  }
 ];
 
 //For Brutal Mode Only, Links Zombie ID in Levels to New Zombies

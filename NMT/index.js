@@ -251,14 +251,14 @@ function spawnWave(){
     currentJam = currentLevel["jams"][currentWave];
   }
   //Spawn 3 Additional Peashooter Zombies
-  for (let b = 0; b < 3; b++){
-    let zombieRow = ceil(random(5));
-    let zombieColumn = 9;
-    let zombieTypeData = zombieStat[25];
-    new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 25, zombieTypeData["health"], 
-    zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
-    zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
-  }
+  // for (let b = 0; b < 3; b++){
+  //   let zombieRow = ceil(random(5));
+  //   let zombieColumn = 9;
+  //   let zombieTypeData = zombieStat[25];
+  //   new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 25, zombieTypeData["health"], 
+  //   zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
+  //   zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
+  // }
   //Regular Zombie Spawn
   for (let a = 0; a < waveLength; a++){
     let currentZombie = currentWaveData[a];//Zombie [Type,Lane,Column (Optional)]
@@ -612,7 +612,7 @@ function redirectZombieType(inputType){
       }
     }
   }
-  return 0;
+  return inputType;
 }
 
 //Save Current Game Data (Current Level Data Not Included)

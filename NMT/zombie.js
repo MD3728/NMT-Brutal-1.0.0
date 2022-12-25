@@ -3,14 +3,6 @@
 class Zombie extends Entity{
   constructor(x,y,row,type,health,shield,degrade,speed,eatSpeed,altSpeed,altEatSpeed,specialJam,wave,stunned = 0){
     super(type,x,y);//Call Entity Constructor
-    //Determine Real Type of Zombie
-    switch (type){
-      case 1:
-        break;
-      default:
-        break;
-    }
-
     this.lane = row;//Current Lane
     this.isZombie = true;//For tracking object types
     this.health = health;//Maximum Health
@@ -118,7 +110,7 @@ class Zombie extends Entity{
               vertex(15,-81)
               vertex(10,-101)
               vertex(-4,-101)
-              vertex(-6,-91)
+              vertex(-6,-91)+
               vertex(-8,-101)
               vertex(-10,-101)
               endShape()
@@ -176,7 +168,7 @@ class Zombie extends Entity{
             }
           }else if(this.type==6&&this.shieldHealth>0){//Speakerhead
             fill(80,this.fade);
-            if(this.shieldHealth>500){
+            if(this.shieldHealth>1100){
               rect(-18,-105,36,60);
               fill(60,this.fade);
               ellipse(-6,-90,18,18);
@@ -259,7 +251,7 @@ class Zombie extends Entity{
             }
           }
         break
-        case 7://Newspaper
+        case 7://Insane Newspaper
           if(this.shieldHealth > 0){
             strokeWeight(4)
             stroke(220,this.fade)
@@ -301,7 +293,7 @@ class Zombie extends Entity{
             beginShape()
             vertex(-30,-30)
             vertex(-30,-66)
-            if(this.shieldHealth > 670){
+            if(this.shieldHealth > 50){
               vertex(-12,-60)
             }else{
               vertex(-24,-64)
@@ -1640,6 +1632,7 @@ class Zombie extends Entity{
       this.freezeTimer = 0;
       this.solarStunTimer = 0;
       this.chillTimer = 0;
+      this.health = this.maxHealth;
     }
     //Collision with plants
     let plantCollision = [];
@@ -1702,11 +1695,12 @@ class Zombie extends Entity{
           this.garlicCounter += levelSpeed;
         }
         this.rate[1] += this.determineEatSpeed(this);
-      }else{
+      }else{//Cool (Garlic) Football
+        this.garlicCounter += levelSpeed;
         currentPlant.take(this.determineEatSpeed(this))
         this.rate[1] += this.determineEatSpeed(this);
-        if(currentPlant.health<0&&this.type==55){
-          this.garlicCounter=60;
+        if(currentPlant.health<=0&&this.type==55){
+          this.garlicCounter = 60;
         }
       }
     }
@@ -1876,8 +1870,8 @@ class Zombie extends Entity{
     }else{//Normal or No Shield
       finalEatSpeed = 1.4*levelSpeed*jamMultiplier*this.eatSpeed*chillMultiplier;
     }
-    if ((this.maxShieldHealth==400)&&(this.shieldHealth > 0)){//Squash Zombie
-      finalEatSpeed = 2000;
+    if ((this.maxShieldHealth === 400)&&(this.shieldHealth > 0)){//Squash Zombie
+      finalEatSpeed = 4000;
       this.shieldHealth = 0;
       new Particle(10,this.x-20,this.y+60);
     }
@@ -1887,8 +1881,8 @@ class Zombie extends Entity{
   //Calculate damage to zombie
   determineDamage(pureDamageAmount, damageMultiplier = 1){
     let damageAmount = pureDamageAmount*damageMultiplier;
-    if (this.protected === true){//Glitter reduces damage by 75%
-      damageAmount *= 0.25;
+    if (this.protected === true){//Glitter reduces damage by 90%
+      damageAmount *= 0.1;
     }
     if (this.type === 24){//Boss
       bossDamage += damageAmount; 

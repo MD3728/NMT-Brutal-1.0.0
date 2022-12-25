@@ -25,10 +25,11 @@ class Zombie extends Entity{
     this.garlicCounter = 0;//For garlic, zombie switches lane when it gets to 60
     this.playedMusic = false;//For Boombox (Cannot Play Music Twice)
     this.permanentDamage = 0;//For Valley Lily Damage Over Time
-    this.offSetY=0
+    this.offSetY=0;
+    this.spawnTimer = 480;//Time for creating new zombies (Qigong Garg and Dancing Zombie)
     //Determine Reload and Max Shield Health
     switch (this.type){
-      case 18://Gargantuar
+      case 18: case 71: case 74://Gargantuar
         this.reload = 0;
         break;
       case 22://Gadgeter
@@ -1348,8 +1349,10 @@ class Zombie extends Entity{
     if (!this.isStunned()){//Not Stunned
       if (this.chillTimer > 0){
         this.reload -= levelSpeed/2;
+        this.spawnTimer -= levelSpeed/2;
       }else{
         this.reload -= levelSpeed;
+        this.spawnTimer -= levelSpeed;
       }
     }
     if (this.stunTimer > 0){//Noxious Stun Poison Effect
@@ -1403,8 +1406,20 @@ class Zombie extends Entity{
       new Particle(2,this.x,this.y+50);
     }
     //Garg Smash Stun
-    if ((this.reload > 0)&&(this.type === 18)){
+    if ((this.reload > 0)&&((this.type === 18)||(this.type === 71)||(this.type === 74))){
       this.eating = true;
+    }
+    //Qigong Garg Spawn
+    if ((this.spawnTimer <= 0)&&(this.type === 74)){
+      if (this.lane !== 1){
+        createZombie2(51,this.lane - 1, 0, this.x);
+      }
+      createZombie2(51,this.lane, 0, this.x + 80);
+      createZombie2(51,this.lane, 0, this.x - 40);
+      if (this.lane !== 5){
+        createZombie2(51,this.lane + 1, 0, this.x);
+      }
+      this.spawnTimer = 720;
     }
     //Techie shield only on during jam
     if ((this.type === 21)&&(!this.inJam())){
@@ -1420,16 +1435,16 @@ class Zombie extends Entity{
       if (this.lane === 1){
         this.lane = 2;
         this.y += 100;
-        this.offSetY-=100
+        this.offSetY-=100;
       }else if (this.lane === 5){
         this.lane = 4;
         this.y -= 100;
-        this.offSetY+=100
+        this.offSetY+=100;
       }else{
         let laneChange = -1 + 2*floor(random()*2);
         this.lane += laneChange;
         this.y += laneChange*100;
-        this.offSetY-=laneChange*100
+        this.offSetY-=laneChange*100;
       }
     }
     //Glitter Protection
@@ -1493,7 +1508,7 @@ class Zombie extends Entity{
     }
     //Gadgeter Change Plant
     if ((this.type === 22)&&(this.reload <= 0)&&(this.inJam())){
-      this.reload = 1080;
+      this.reload = 240;
       let unchangedPlants = [];
       for (let a = 0; a < allPlants.length; a++){
         if ((allPlants[a].changed === false)&&(allPlants[a].health < 8000)&&(allPlants[a].endangered === false)){//Cannot be previously changed or be an instant kill
@@ -1620,7 +1635,7 @@ class Zombie extends Entity{
       this.rate[2]++
     }
     //Boombox Activate on 7th column for 20 seconds
-    if ((this.type === 23||this.type === 67)&&(this.x <= 680)&&(this.playedMusic === false)){
+    if (((this.type === 23)||(this.type === 67))&&(this.x <= 680)&&(this.playedMusic === false)){
       this.playedMusic = true;
       boomboxActive = true;
       currentJam = 7;
@@ -1695,17 +1710,20 @@ class Zombie extends Entity{
           this.garlicCounter += levelSpeed;
         }
         this.rate[1] += this.determineEatSpeed(this);
-      }else{//Cool (Garlic) Football
+      }else if (this.type === 55){//Cool (Garlic) Football
         this.garlicCounter += levelSpeed;
-        currentPlant.take(this.determineEatSpeed(this))
+        currentPlant.take(this.determineEatSpeed(this));
         this.rate[1] += this.determineEatSpeed(this);
         if(currentPlant.health<=0&&this.type==55){
           this.garlicCounter = 60;
         }
+      }else{
+        currentPlant.take(this.determineEatSpeed(this));
+        this.rate[1] += this.determineEatSpeed(this);
       }
     }
     //Collision with projectile
-    if (!((this.type === 20)&&(this.eating === false)&&((currentJam === 5)||(currentJam === 8)))){//If not shadow zobmie during metal jam
+    if (!(((this.type === 20)||(this.type === 66))&&(this.eating === false)&&((currentJam === 5)||(currentJam === 8)))){//If not shadow zobmie during metal jam
       for (let currentProjectile of allProjectiles){
         if ((this.x + 30 > currentProjectile.x)&&(this.x < currentProjectile.x + 20)&&(this.lane === currentProjectile.lane)
         &&(currentProjectile.used === false)&&(currentProjectile.toZombie === true)){
@@ -1795,7 +1813,8 @@ class Zombie extends Entity{
 
   //Calculate individual eat speed for zombies
   determineEatSpeed(currentGarg = null){
-    if (this.type === 18){//Gargantuar Smash
+    if ((this.type === 18)||(this.type === 71)||(this.type === 74)){//Gargantuar Smash
+      console.log(this.reload);
       if (this.reload <= 0){//Prepare to smash
         this.reload = 160;
         return 0;
@@ -1819,10 +1838,10 @@ class Zombie extends Entity{
             }
           }
           if (rightPlant !== null){//Such plant exists
-            rightPlant.take(500)
+            rightPlant.take(1000);
           }        
         }        
-        return 2000;
+        return 4000;
       }else{//While smashing
         return 0;
       }

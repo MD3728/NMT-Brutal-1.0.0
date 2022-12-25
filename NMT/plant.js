@@ -10,7 +10,6 @@ class Plant extends Entity{
     this.animationTimer = 0;
     this.reloadTimer = 0;
     this.shakeTimer = 0;//Eating Animation
-    this.stunTimer = 0;
     this.stunTimer = 0;//Stun From Stunner and Dazey Zombie
     //Determine default reload time
     if ((eatable === false)||(this.type === 4)||(this.type === 9)){//Instant Use OR Potato Mine OR Primal Potato Mine
@@ -735,7 +734,7 @@ class Plant extends Entity{
       //Shoot only if there is a zombie ahead (Coconut Cannon is excluded)
       let zombieInRange = false
       for (let currentZombie of allZombies){
-        if ((currentZombie.type === 20)&&(currentZombie.eating === false)&&((currentJam === 5)||(currentJam === 8))){//Shadow zombie during jam
+        if (((currentZombie.type === 20)||(currentZombie.type === 66))&&(currentZombie.eating === false)&&((currentJam === 5)||(currentJam === 8))){//Shadow zombie during jam
           continue;
         }
         if ((currentZombie.lane === this.lane)&&(currentZombie.x > this.x)&&((this.type === 17)||(this.type === 18)||(this.type === 20)||(this.type === 23)||(this.type === 24)||(this.type === 26))){

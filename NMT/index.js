@@ -113,6 +113,26 @@ function createZombie(type, lane = 5){//Keep in mind that lane 0 -> 4 are lanes 
   zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
 }
 
+function createZombie2(type, lane = 5, column = 9, specificX = null){
+  let finalType = redirectZombieType(type);
+  let zombieInfo = zombieStat[finalType];
+  let finalLane = lane;
+  let finalX;
+  if (lane === 5){//Random Lane Assignment
+    finalLane = Math.floor(Math.random()*5) + 1;
+  }
+  if (specificX !== null){
+    finalX = specificX;
+  }else{
+    finalX = 230 + column*80 + Math.floor(random(50));
+  }
+  console.log(finalX)
+  let nz = new Zombie(finalX, finalLane*100 + 20, finalLane, finalType, 
+  zombieInfo["health"], zombieInfo["shield"], zombieInfo["degrade"], zombieInfo["speed"], 
+  zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
+  console.log(nz)
+}
+
 //Finds reward from current level and returns final string
 function determineReward(){
   let finalText = ``;
@@ -172,11 +192,11 @@ function collision(){
   for (let b = 0; b < allZombies.length; b++){
     let currentZombie = allZombies[b];
     if ((currentZombie.health <= 0)||(currentZombie.x < -100)){
-      if ((currentZombie.type === 12)&&(currentZombie.inJam())){//Stunner Zombie
+      if (((currentZombie.type === 12)||(currentZombie.type === 60))&&(currentZombie.inJam())){//Stunner Zombie
         for (let currentPlant of allPlants){
           if ((currentPlant.x + 70 > currentZombie.x - 90)&&(currentPlant.x < currentZombie.x + 150)
           &&(currentPlant.lane >= currentZombie.lane - 1)&&(currentPlant.lane <= currentZombie.lane + 1)){//3x3 Stun Range
-            currentPlant.stunTimer = 300;
+            currentPlant.stunTimer = 900;
           }
         }
       }
@@ -535,7 +555,7 @@ function levelMainloop(){
         currentZombie.reload = 720;
         let zombieTypeData = null;
         let zombieType = null;
-        if (floor(random()*2) === 0){//Normal 8-bit
+        if (floor(random(2)) === 0){//Normal 8-bit
           zombieType = redirectZombieType(16);
         }else{//Conehead 8-bit
           zombieType = redirectZombieType(17);
@@ -545,7 +565,7 @@ function levelMainloop(){
         zombieTypeData["speed"], zombieTypeData["eatSpeed"], zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], -1, 0);
       }
       if ((currentZombie.type === 21)&&(currentZombie.inJam())){//Techie Shield Regen
-        currentZombie.health += 1.66*levelSpeed;
+        currentZombie.health += 2*levelSpeed;
       }
     }
     //Move

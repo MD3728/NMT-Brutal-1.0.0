@@ -40,10 +40,8 @@ New Zombies
 71-Head Office Impgantuar
 72-Dancing Zombie
 73-Angry Dancing Zombie
+74-Qigong Metal Garg
 */
-
-//Fixes
-//
 
 //Level Data
 const levels = {
@@ -53,9 +51,9 @@ const levels = {
     startingSun: 7500,
     flag: [false,false,false,false,false,true,false,false,false,false,false,true],
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
-    waveDelay: [20,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    waveDelay: [20,12000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[11,2],[4,2]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[20,2],[3,1]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -1312,7 +1310,7 @@ const plantStat = [
     t1:{
       sun: 50,
       recharge: 1200,
-      startingRecharge: 900,
+      startingRecharge: 600,
       health: 100000,
       eatable: false,
       damage: 25,//Sun Given Per Zombie
@@ -2311,10 +2309,10 @@ const zombieStat = [
     name:'Imp',
     description: "Small, fast enemy designed to rush toward your brain",
     shield: 0,
-    speed: 2,
-    eatSpeed: 1,
-    altSpeed: 3,
-    altEatSpeed: 4,
+    speed: 4,
+    eatSpeed: 3,
+    altSpeed: 4,
+    altEatSpeed: 6,
     degrade: [75],
     sun: 75,
     jam: 5
@@ -2686,7 +2684,7 @@ const zombieStat = [
     sun: 75,
     jam: -1
   },
-  {//Cherry Bomb Shadow 66
+  {//Cherry Bomb Shadow 66 (not working)
     type: 66,
     health: 900,
     name:'Cherry Bomb Shadow',
@@ -2695,7 +2693,7 @@ const zombieStat = [
     speed: 1.5,
     eatSpeed: 1,
     altSpeed: 1.5,
-    altEatSpeed: 1,
+    altEatSpeed: 0,
     degrade: [450],
     sun: 175,
     jam: 5
@@ -2745,7 +2743,7 @@ const zombieStat = [
   {//Sunday Edition 70
     type: 70,
     health: 400,
-    name:'Jetpack Conehead',
+    name:'Sunday Edition',
     description: "",
     shield: 2000,
     speed: 2,
@@ -2758,13 +2756,13 @@ const zombieStat = [
   },
   {//Head Office Impgantuar 71
     type: 71,
-    health: 2400,
+    health: 2800,
     name:'Impgantuar',
     description: "",
     shield: 0,
-    speed: 2.5,
+    speed: 3,
     eatSpeed: 0,
-    altSpeed: 2.5,
+    altSpeed: 3,
     altEatSpeed: 0,
     degrade: [],
     sun: 100,
@@ -2787,7 +2785,7 @@ const zombieStat = [
   {//Angry Dancing Zombie 73
     type: 73,
     health: 600,
-    name:'Dancer',
+    name:'Angry Dancer',
     description: "",
     shield: 0,
     speed: 1.5,
@@ -2797,6 +2795,20 @@ const zombieStat = [
     degrade: [],
     sun: 100,
     jam: -1
+  },
+  {//Qigong Metal Gargantuar 74
+    type: 74,
+    health: 7000,
+    name:'Qigong Metal Gargantuar',
+    description: "Smashes plants and has high health\nSpecial: Destroys plants in front of it during metal jam",
+    shield: 0,
+    speed: 0.75,
+    eatSpeed: 0,
+    altSpeed: 0.75,
+    altEatSpeed: 0,
+    degrade: [2700, 1800, 900],
+    sun: 325,
+    jam: 5
   }
 ];
 
@@ -2817,6 +2829,7 @@ const zombieLink = [
   [15,[63]],
   [16,[64]],
   [17,[65]],
+  [18,[[71,0],[74,100]]],
   [20,[66]],
   [23,[67]]
 ];

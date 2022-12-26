@@ -817,9 +817,16 @@ class Zombie extends Entity{
             line(-4,-24,-7-sin(this.rate[0]*18)*3,0)
             line(4,-24,7+sin(this.rate[0]*18)*3,0)
             stroke(50,this.fade)
-            line(-6,-34,-21,-30-sin(this.rate[1]*9)*3)
-            if(this.health>this.maxHealth/2){
-              line(-6,-40,-21,-44+sin(this.rate[1]*9)*3)
+            if(this.type==71){
+              line(-6,-34,-21+this.rate[3],-30-sin(this.rate[1]*9)*3)
+              if(this.health>this.maxHealth/2){
+                line(-6,-40,-21+this.rate[3],-44+sin(this.rate[1]*9)*3)
+              }
+            }else{
+              line(-6,-34,-21,-30-sin(this.rate[1]*9)*3)
+              if(this.health>this.maxHealth/2){
+                line(-6,-40,-21,-44+sin(this.rate[1]*9)*3)
+              }
             }
             noStroke()
             fill(50,this.fade)
@@ -831,6 +838,14 @@ class Zombie extends Entity{
             ellipse(-12,-57,4,4)
             if(this.type==71){
               scale(0.4)
+            }
+            if(this.rate[4]>0&&this.type==71){
+              this.rate[4]--
+              if(this.rate[4]>=5){
+                this.rate[3]+=6
+              }else{
+                this.rate[3]-=6
+              }
             }
           break
         case 20: case 66://Shadow

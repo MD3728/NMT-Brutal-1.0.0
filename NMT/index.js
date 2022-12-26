@@ -1,8 +1,9 @@
 /* Main JS File */
 //Version Brutal 1.0.0
 //To Do:
-//Balance Plants
-//Add Zombies
+//
+//
+//(Chg) to find changes
 
 //Changeable Stats
 let seedSlots = 5;//Number of Seed Slots
@@ -270,15 +271,25 @@ function spawnWave(){
   if ((boomberryActive === false)&&(boomboxActive === false)){//Make sure boomberry is not in effect
     currentJam = currentLevel["jams"][currentWave];
   }
-  //Spawn 3 Additional Peashooter Zombies
-  // for (let b = 0; b < 3; b++){
-  //   let zombieRow = ceil(random(5));
-  //   let zombieColumn = 9;
-  //   let zombieTypeData = zombieStat[25];
-  //   new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 25, zombieTypeData["health"], 
-  //   zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
-  //   zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
-  // }
+  //Spawn 2 Additional Peashooter Zombies OR 1 Dancing Zombie
+  if (currentWave <= 9){
+    for (let b = 0; b < 2; b++){
+      let zombieRow = ceil(random(5));
+      let zombieColumn = 9;
+      let zombieTypeData = zombieStat[25];
+      new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 25, zombieTypeData["health"], 
+      zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
+      zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
+    }
+  }else{
+    let zombieRow = ceil(random(5));
+    let zombieColumn = 9;
+    let zombieTypeData = zombieStat[redirectZombieType(72)];
+    new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 72, zombieTypeData["health"], 
+    zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
+    zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
+  }
+
   //Regular Zombie Spawn
   for (let a = 0; a < waveLength; a++){
     let currentZombie = currentWaveData[a];//Zombie [Type,Lane,Column (Optional)]
@@ -565,7 +576,8 @@ function levelMainloop(){
         zombieTypeData["speed"], zombieTypeData["eatSpeed"], zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], -1, 0);
       }
       if ((currentZombie.type === 21)&&(currentZombie.inJam())){//Techie Shield Regen
-        currentZombie.health += 2*levelSpeed;
+        currentZombie.shieldHealth += 2*levelSpeed;
+        currentZombie.shieldHealth = currentZombie.shieldHealth > currentZombie.maxShieldHealth ? currentZombie.maxShieldHealth : currentZombie.shieldHealth;
       }
     }
     //Move

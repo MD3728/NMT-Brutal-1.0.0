@@ -32,6 +32,9 @@ class Zombie extends Entity{
       case 18: case 71: case 74://Gargantuar
         this.reload = 0;
         break;
+      case 68://Sun Stealer
+        this.reload = 480;
+        break;
       case 22://Gadgeter
         this.reload = 300;
         break;
@@ -334,7 +337,7 @@ class Zombie extends Entity{
           fill(0,this.fade) 
           ellipse(-4,-72,4,4)
           ellipse(-12,-72,4,4)
-          if(this.shieldHealth > 0&&this.type==7){
+          if((this.shieldHealth > 0)&&(this.type===7)){
             strokeWeight(4)
             stroke(220,this.fade)
             fill(180,190,200,this.fade)
@@ -1522,9 +1525,33 @@ class Zombie extends Entity{
       }
       this.spawnTimer = 720;
     }
+    //Dancing Zombie Spawn
+    if ((this.spawnTimer <= 0)&&(this.type === 72)){
+      if (this.lane !== 1){
+        createZombie2(25,this.lane - 1, 0, this.x);
+      }
+      createZombie2(25,this.lane, 0, this.x + 80);
+      createZombie2(25,this.lane, 0, this.x - 40);
+      if (this.lane !== 5){
+        createZombie2(25,this.lane + 1, 0, this.x);
+        console.log("Hello")
+      }
+      this.spawnTimer = 900;
+    }
+    //Angry Dancing Zombie Spawn
+    if ((this.spawnTimer <= 0)&&(this.type === 73)){
+      createZombie2(25,this.lane, 0, this.x + 40);
+      this.spawnTimer = 360;
+    }
     //Techie shield only on during jam
     if ((this.type === 21)&&(!this.inJam())){
       this.shieldHealth = 0;
+    }
+    //Sun Stealer
+    if ((this.type === 68)&&(this.reload <= 0)){
+      sun -= 50;
+      sun = sun < 0 ? 0 : sun;
+      this.reload = 480;
     }
     //Valley Lily Damage
     this.health -= this.permanentDamage*levelSpeed;
@@ -1599,7 +1626,7 @@ class Zombie extends Entity{
         default:
           jamMultiplier = 1;
       }
-      if (this.shieldHealth > 0){//With Shield or In Jam
+      if (this.shieldHealth > 0){//With Shield or In Jam (Chg)
         this.x -= this.altSpeed*0.3*jamMultiplier*chillMultiplier*levelSpeed*positionMultiplier; 
         this.rate[0] += this.altSpeed*0.3*jamMultiplier*chillMultiplier*levelSpeed*positionMultiplier;
       }else{//Regular Speed 
@@ -1609,7 +1636,7 @@ class Zombie extends Entity{
     }
     //Gadgeter Change Plant
     if ((this.type === 22)&&(this.reload <= 0)&&(this.inJam())){
-      this.reload = 240;
+      this.reload = 300;
       let unchangedPlants = [];
       for (let a = 0; a < allPlants.length; a++){
         if ((allPlants[a].changed === false)&&(allPlants[a].health < 8000)&&(allPlants[a].endangered === false)){//Cannot be previously changed or be an instant kill
@@ -1624,33 +1651,20 @@ class Zombie extends Entity{
       let plantType = null;
       let plantTier = null;
       let plantData = null;
-      if (oldPlant.sunCost <= 25){//Puff Shroom 
-        plantType = 16;
-        plantTier = 1;
-      }else if (oldPlant.sunCost <= 75){//Potato Mine 
+      if (oldPlant.sunCost <= 50){//Potato Mine
         plantType = 4;
-        plantTier = 1;
-      }else if (oldPlant.sunCost <= 200){//Celery Stalker 
-        plantType = 6;
-        plantTier = 1;
-      }else if (oldPlant.sunCost <= 300){//Fume Shroom
-        plantType = 22;
-        plantTier = 1;
-      }else if (oldPlant.sunCost <= 450){//Threepeater 
+      }else if (oldPlant.sunCost <= 150){//Explode-O-Nut 
+        plantType = 13;
+      }else if (oldPlant.sunCost <= 300){//Pepper Cannon
+        plantType = 24;
+      }else{//Threepeater
         plantType = 21;
-        plantTier = 1;
-      }else{//Coconut Cannon Tier 1
-        plantType = 25;
-        plantTier = 1;
       }
       //Find Plant Data
       for (let currentPlant of plantStat){
         if (currentPlant.type === plantType){
           if (plantTier === 1){//Tier 1
             plantData = currentPlant["t1"];
-            break;
-          }else{//Tier 2
-            plantData = currentPlant["t2"];
             break;
           }
         }
@@ -1752,7 +1766,7 @@ class Zombie extends Entity{
     }
     //Collision with plants
     let plantCollision = [];
-    if (!this.isStunned()){
+    if ((!this.isStunned())&&(this.type !== 69)&&(this.type !== 73)){//Cannot Be Jetpack Conehead or Angry Dancer
       for (let currentPlant of allPlants){
         if ((this.x + 30 > currentPlant.x)&&(this.x < currentPlant.x + 60)&&(this.lane === currentPlant.lane)&&(currentPlant.eatable === true)){
           plantCollision.push(currentPlant);//Mark for pointbox
@@ -1985,7 +1999,7 @@ class Zombie extends Entity{
       default:
         jamMultiplier = 1;
     }
-    if ((this.shieldHealth > 0)||(this.inJam())){//Has Positive Shield Health or Matching Jam
+    if ((this.shieldHealth > 0)||((this.inJam())&&(this.maxShieldHealth === 0))){//Has Positive Shield Health or Matching Jam
       finalEatSpeed = 1.4*levelSpeed*jamMultiplier*this.altEatSpeed*chillMultiplier;
     }else{//Normal or No Shield
       finalEatSpeed = 1.4*levelSpeed*jamMultiplier*this.eatSpeed*chillMultiplier;

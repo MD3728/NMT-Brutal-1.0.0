@@ -53,7 +53,7 @@ const levels = {
     jams:[8,8,8,8,8,0,0,0,0,0,0,0],
     waveDelay: [20,12000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[72,1],[73,2]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[72,1],[72,3]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -1714,14 +1714,14 @@ const plantStat = [
     name: "Peashooter",
     description: "Simple attacking plant, shoots peas at zombies",
     t1:{
-      sun: 100,
-      recharge: 300,
-      startingRecharge: 300,
+      sun: 125,
+      recharge: 480,
+      startingRecharge: 480,
       health: 300,
       eatable: true,
       damage: 20,
       splashDamage: 0,
-      reload: 72,
+      reload: 70,
       projectile: 1
     },
     t2:{
@@ -2305,7 +2305,7 @@ const zombieStat = [
   },
   {//Imp 19
     type: 19,
-    health: 150,
+    health: 150,//Altspeed vs speed
     name:'Imp',
     description: "Small, fast enemy designed to rush toward your brain",
     shield: 0,
@@ -2636,9 +2636,9 @@ const zombieStat = [
     name:'Fume Breakdancer',
     description: "",
     shield: 550,
-    speed: 0.75,
+    speed: 0.9,
     eatSpeed: 1,
-    altSpeed: 0.75,
+    altSpeed: 0.9,
     altEatSpeed: 1,
     degrade: [300],
     sun: 125,
@@ -2649,14 +2649,14 @@ const zombieStat = [
     name:'Screendoor Arcade',
     description: "",
     shield: 1100,
-    speed: 0.75,
+    speed: 0.8,
     eatSpeed: 1,
-    altSpeed: 0.75,
+    altSpeed: 0.8,
     altEatSpeed: 1,
     degrade: [600],
     sun: 200,
     jam: 4
-  },{//8-bit Normal 64
+  },{//8-bit Normal Peashooter 64
     type: 64,
     health: 200,
     name:'8-Bit',
@@ -2670,7 +2670,7 @@ const zombieStat = [
     sun: 50,
     jam: -1
   },
-  {//8-bit Conehead 65
+  {//8-bit Conehead Peashooter 65
     type: 65,
     health: 560,
     name:'8-Bit Conehead',
@@ -2684,7 +2684,7 @@ const zombieStat = [
     sun: 75,
     jam: -1
   },
-  {//Cherry Bomb Shadow 66 (not working)
+  {//Cherry Bomb Shadow 66
     type: 66,
     health: 900,
     name:'Cherry Bomb Shadow',
@@ -2692,7 +2692,7 @@ const zombieStat = [
     shield: 450,
     speed: 1.5,
     eatSpeed: 1,
-    altSpeed: 1.5,
+    altSpeed: 2,
     altEatSpeed: 0,
     degrade: [450],
     sun: 175,
@@ -2784,13 +2784,13 @@ const zombieStat = [
   },
   {//Angry Dancing Zombie 73
     type: 73,
-    health: 600,
+    health: 240,
     name:'Angry Dancer',
     description: "",
     shield: 0,
-    speed: 1.5,
+    speed: 3.5,
     eatSpeed: 0,
-    altSpeed: 1.5,
+    altSpeed: 3.5,
     altEatSpeed: 0,
     degrade: [],
     sun: 100,
@@ -2814,12 +2814,13 @@ const zombieStat = [
 
 //For Brutal Mode Only, Links Zombie ID in Levels to New Zombies
 const zombieLink = [
-  [0,[25]],// Example: [Original Zombie Type, [New Zombie Type]] IF New Zombie Type Will Spawn 100% of the Time
-  [1,[51]],
+  [0,[[25,50],[68,50]]],// Example: [Original Zombie Type, [New Zombie Type]] IF New Zombie Type Will Spawn 100% of the Time
+  [1,[[51,50],[69,50]]],
   [2,[52]],
   [3,[57]],
   [4,[53]],
   [5,[54]],
+  [7,[[7,50],[70,50]]],
   [8,[[55,50],[56,50]]],// Different Example: [Original Zombie Type, [[New Zombie Type, Probability],[New Zombie Type, Probability]...]]
   [9,[58]],
   [10,[59]],
@@ -2829,16 +2830,9 @@ const zombieLink = [
   [15,[63]],
   [16,[64]],
   [17,[65]],
-  [18,[[71,0],[74,100]]],
+  [18,[[71,50],[74,50]]],
   [20,[66]],
-  [23,[67]]
+  [23,[67]],
+  [72,[[72,50],[73,50]]]
 ];
 
-//New Zombies: 
-//
-//
-//
-//
-//
-//
-//

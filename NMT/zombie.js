@@ -773,7 +773,15 @@ class Zombie extends Entity{
             ellipse(-28,-54,5,5);
           }
         break
-        case 18:
+        case 18: case 74:
+          if(this.type==74){
+            stroke(100,60,20,this.fade)
+            strokeWeight(10)
+            line(-54+this.rate[3],-132,-54+this.rate[3],-48)
+            stroke(120,110,100,this.fade)
+            strokeWeight(25)
+            point(-54+this.rate[3],-132)
+          }
           stroke(40,50,40,this.fade)
           strokeWeight(8)
           line(-10,-45,-15-sin(this.rate[0]*18)*5,0)

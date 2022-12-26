@@ -75,8 +75,8 @@ document.addEventListener("mouseup",function(e){
         transition.screen = "regularLevelSelect";
       }
       //Rent Slot Button
-      if(pointBox(mouseX,mouseY,115,20, 100, 40)&&(!rentSlot)&&(money>=2500)){
-        money -= 2500;
+      if(pointBox(mouseX,mouseY,115,20, 100, 40)&&(!rentSlot)&&(money>=1800)){
+        money -= 1800;
         rentSlot = true;
       }
       break;

@@ -1475,7 +1475,7 @@ class Zombie extends Entity{
     //Red Stinger Punk Zombie Shooting
     if ((this.reload <= 0)&&(this.maxShieldHealth === 350)&&(this.shieldHealth > 0)){
       this.reload = 90;
-      new Projectile(this.x-30, this.y+23, this.lane, 2, 100, -1, 1, 0, false);//Spawn Red Stinger Projectile
+      new Projectile(this.x-30, this.y+23, this.lane, 2, 80, -1, 1, 0, false);//Spawn Red Stinger Projectile
     }
     //Fume Shroom Zombie Shooting
     if ((this.reload <= 0)&&(this.maxShieldHealth === 550)&&(this.shieldHealth > 0)){
@@ -1716,8 +1716,7 @@ class Zombie extends Entity{
       }
     }
     //Collision with flowers (For Don't Trample the Flower Levels)
-    if (currentLevel["type"].includes(7) === true){
-      //Mark for pointbox
+    if ((currentLevel["type"].includes(7) === true)&&(this.type !== 69)&&(this.type !== 73)){//Angry Dancer and Conehead Jetpack Cannot Step On Flowers
       let flowerLineX = currentLevel["flowerLine"];
       if ((this.x > flowerLineX)&&(this.x < flowerLineX + 20)){//If zombie is on flower, lose
         screen = "gameOver";

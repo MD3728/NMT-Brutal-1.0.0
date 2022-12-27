@@ -142,7 +142,7 @@ function chooseSeedLoop(){
     if(rentSlot){
       text('Rented',165,40);
     }else{
-      text('Rent Slot\n2500 Coins',165,40);
+      text('Rent Slot\n1800 Coins',165,40);
     }
     textSize(25);
     if(rentSlot){

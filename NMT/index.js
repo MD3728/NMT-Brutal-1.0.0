@@ -7,7 +7,7 @@
 
 //Changeable Stats
 let seedSlots = 5;//Number of Seed Slots
-let money = 1000000;//In Game Currency
+let money = 0;//In Game Currency
 
 //General Systems
 let screen = "initial";
@@ -36,14 +36,14 @@ let rentSlot = false;//Determines if Seed Slot is Being Rented
 
 //Reward/Unlocking System
 let unlockedPackets = [1,4,7,12,18
-,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+//,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
 ];
 let unlockedLevels = [
 "l1",
-"l2","l3","l4","l5","l6","l7","l8","l9","l10",
-"l11","l12","l13","l14","l15","l16","l17","l18","l19","l20",
-"l21","l22","l23","l24","l25","l26","l27","l28","l29","l30",
-"l31","l32","l33","l34","l35","l36","m1","m2","m3","m4","m5","m6","m7","m8","m9"
+//"l2","l3","l4","l5","l6","l7","l8","l9","l10",
+//"l11","l12","l13","l14","l15","l16","l17","l18","l19","l20",
+//"l21","l22","l23","l24","l25","l26","l27","l28","l29","l30",
+//"l31","l32","l33","l34","l35","l36","m1","m2","m3","m4","m5","m6","m7","m8","m9"
 ];
 
 //Array of classes
@@ -680,19 +680,19 @@ function setup(){
   allZombies = [];
   allEntities = [];
   //Set and Read Save Data
-  //money = localStorage.getItem("money_brutal_1.0.0");
+  money = localStorage.getItem("money_brutal_1.0.0");
   if (money === null){//If Save Data Does Not Exist
     money = 0;
     unlockedPackets = [1,4,7,12,18];
     unlockedLevels = ["l1"];
     saveData();
   }
-  //money = parseInt(localStorage.getItem("money_brutal_1.0.0"));
-  //unlockedPackets = localStorage.getItem("unlockedPlants_brutal_1.0.0").split(",");
+  money = parseInt(localStorage.getItem("money_brutal_1.0.0"));
+  unlockedPackets = localStorage.getItem("unlockedPlants_brutal_1.0.0").split(",");
   for (let currentPacket in unlockedPackets){
     unlockedPackets[currentPacket] = parseInt(unlockedPackets[currentPacket]);
   }
-  //unlockedLevels = localStorage.getItem("unlockedLevels_brutal_1.0.0").split(",");
+  unlockedLevels = localStorage.getItem("unlockedLevels_brutal_1.0.0").split(",");
 }
 
 //Draw/Mainloop

@@ -1,4 +1,6 @@
 /* Game Data File */
+//Fix Angry Dancer
+//Fix Shield Issues (Dazey/Cherry Bomb)
 
 //Level Types: 
 // 1: Normal  
@@ -154,8 +156,8 @@ const levels = {
     daveSpeech: ["Here are some \nprecious flowers","We must not let the \nzombies walk over these"],
     flag: [false,false,false,false,false,false,true,false,false,false,false,false,false,true],
     jams:[0,0,0,0,0,0,0,1,1,1,0,0,0,1],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
-    flowerLine: 410,//X-Coordinate of Flower Line 
+    waveDelay: [2000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    flowerLine: 370,//X-Coordinate of Flower Line 
     waves:[
       [[0,1]], 
       [[0,2]],  
@@ -179,7 +181,7 @@ const levels = {
     daveSpeech: ["This level is extra hard","Be ready to fight \na prolonged level and make \nsure to counter every zombie"],
     flag: [false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,false,false,true],
     jams:[0,0,0,0,1,1,1,1,1,1,0,0,0,1,0,0,1,1,0,0,1],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    waveDelay: [1800,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
       [[0,1]], 
       [[1,5]], 
@@ -210,7 +212,7 @@ const levels = {
     daveSpeech: ["A new jam is coming", "The new zombie can protect\nother zombies from damage"],
     flag: [false,false,false,false,false,true,false,false,false,false,false,true],
     jams:[0,0,0,0,1,1,2,2,2,0,2,2],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    waveDelay: [900,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
       [[1,5]],
       [[0,5], [0,1]],
@@ -293,8 +295,8 @@ const levels = {
     daveSpeech: ["Our plants have \nbeen picked for us", "Tier 2 Spore Shroom \ndoes insane damage \nbut fires slowly"],
     flag: [false,false,false,false,false,true,false,false,false,false,false,true,false,false,false,false,false,true],
     jams:[0,0,0,0,0,0,2,2,2,2,1,1,1,4,4,4,1,1],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
-    givenPlants: [[1,1],[1,1],[4,2],[7,2],[20,2]],//Tier 1 Sunflower (Twice), Tier 2 Potato Mine, Tier 2 Cherry BOmb, Tier 2 Spore Shroom
+    waveDelay: [1800,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    givenPlants: [[1,1],[3,1],[4,1],[7,1],[20,1],[20,1]],//Sunflower, Solar Tomato, Potato Mine, Cherry Bomb, Spore Shroom (Imitated)
     waves:[
       [[1,1]],
       [[1,0]],
@@ -312,8 +314,8 @@ const levels = {
       [[15,0], [15,2], [15,0], [15,2], [15,0], [15,2], [15,2], [15,0], [15,2]],
       [[15,0], [2,1], [15,3], [15,0], [15,1], [15,3], [15,0], [15,1], [15,3]],
       [[15,4], [15,4], [15,4], [15,4], [4,3], [4,0], [4,2], [4,4]],
-      [[4,0,8], [4,1,8], [4,2,8], [4,3,8], [4,4,8], [4,0], [4,1], [4,2], [4,3], [4,4]],
-      [[3,5], [4,0,8], [4,1,8], [4,2,8], [4,3,8], [4,4,8], [4,0], [4,1], [4,2], [4,3], [4,4], [6,0,8], [6,1,8], [6,2,8], [6,3,8], [6,4,8]]//Flag 3  
+      [[4,0,8], [4,1,8], [4,2,8], [4,3,8], [4,4,8], [2,0], [2,1], [2,2], [2,3], [2,4]],
+      [[3,5], [1,0,8], [1,1,8], [1,2,8], [1,3,8], [1,4,8], [2,0], [4,1], [4,2], [4,3], [2,4], [6,0,8], [6,1,8], [6,2,8], [6,3,8], [6,4,8]]//Flag 3  
     ],
     reward:[[1,500], [2,"l12"]]
   },
@@ -322,8 +324,8 @@ const levels = {
     daveSpeech: ["The plants you see \nare the chosen ones","We must not let them die"],
     flag: [false,false,false,false,false,false,true,false,false,false,false,false,false,true],
     jams:[0,4,4,0,2,2,2,1,1,4,4,1,1,1],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
-    endangeredPlant: [[19,1,14],[19,1,32],[12,1,15],[12,1,33]], //Format is [plant type, tier, tile number]
+    waveDelay: [1800,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    endangeredPlant: [[19,1,13],[19,1,31],[12,1,14],[12,1,32]], //Format is [plant type, tier, tile number]
     waves:[
       [[0,0], [0,2], [0,4]],
       [[15,2], [15,4]],
@@ -332,13 +334,13 @@ const levels = {
       [[11,0], [11,2], [11,4], [19,0], [19,2], [19,4]],
       [[2,1], [2,3]],
       [[3,5], [11,0], [11,1], [11,2], [11,3], [11,4], [1,0], [12,1], [2,2], [12,3], [1,4]],//Flag 1
-      [[10,0], [10,1], [10,2], [10,3], [10,4], [9,0], [9,2], [9,4]],
+      [[10,0], [10,1], [10,2], [10,4], [9,0], [9,2], [9,4]],
       [[10,0], [9,1], [2,2], [9,3], [10,4], [19,0]],
-      [[15,1], [15,1], [15,3], [15,3], [9,0], [9,4]],
+      [[15,1], [15,1], [15,3], [15,4], [9,0], [9,4]],
       [[15,0], [15,1], [15,2], [15,3], [15,4], [1,1], [1,3], [9,2]],
       [[9,0], [9,2], [9,4], [2,0], [2,1], [9,2], [2,3], [2,4]],
-      [[10,1], [10,1], [10,1], [10,1], [10,3], [10,3], [10,3], [10,3], [9,0], [9,4], [17,0], [17,4], [17,0], [17,4]],
-      [[3,5], [9,0], [9,1], [9,2], [9,3], [9,4], [10,0], [6,1], [6,3], [10,4], [10,2], [2,0], [2,2], [2,4]]//Flag 2      
+      [[10,1], [10,1], [10,3], [10,3], [9,0], [9,4], [17,0], [17,4], [17,0], [17,4]],
+      [[3,5], [9,0], [9,1], [9,2], [9,3], [9,4], [10,0], [2,1], [6,3], [10,4], [10,2], [2,0], [2,2], [2,4]]//Flag 2      
     ],
     reward:[[0,22], [1,500], [2,"l13"]]
   },
@@ -347,7 +349,7 @@ const levels = {
     daveSpeech: ["Breakdancer zombie can \nkick zombies forward \nduring this new jam"],
     flag: [false,false,false,false,false,true,false,false,false,false,false,true],
     jams: [0,0,0,0,3,3,2,2,2,3,3,3],
-    waveDelay: [720,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    waveDelay: [1500,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
       [[1,5]], 
       [[0,5], [1,5]], 
@@ -359,8 +361,8 @@ const levels = {
       [[1,0], [1,2], [1,4], [0,0], [0,1], [0,2], [0,3], [0,4]], 
       [[12,0], [12,1], [12,2], [12,3], [12,4], [4,1], [1,3], [1,4]], 
       [[9,0], [9,1], [9,2], [9,3], [9,4], [0,2], [0,3], [0,4], [14,2], [14,2], [14,2], [14,0], [14,4]], 
-      [[14,2], [14,2], [14,2], [14,2], [1,2], [4,4], [1,0]], 
-      [[3,5], [14,0], [14,1], [14,2], [14,3], [14,4], [4,0], [4,1], [4,2], [4,3], [4,4], [6,0], [6,1], [6,2], [6,3], [6,4]]//Flag 2 
+      [[14,2], [14,2], [14,2], [1,2], [4,4], [1,0]], 
+      [[3,5], [14,0], [14,1], [14,3], [14,4], [4,0], [4,1], [4,2], [4,3], [4,4], [6,0], [6,1], [6,2], [6,3], [6,4]]//Flag 2 
     ],
     reward:[[1,500], [2,"l14"]]
   },
@@ -369,10 +371,10 @@ const levels = {
     daveSpeech: ["It has suddenly \nbecome night time","No sun will fall from the \nsky and our vision is \nobscured by the fog","But a new jam can \nclear the fog up","Unfortunately, all zombies will \ngain their ability during this jam","Good Luck Surviving"],
     flag: [false,false,false,false,false,false,false,false,false,false,true],
     jams:[0,0,8,8,0,0,8,0,0,8,8],
-    waveDelay: [720,1500,1500,1500,1200,1200,1200,1200,1200,1200,1200],
-    fogLine: 610,//Starting X-Coordinate of Fog
+    waveDelay: [1500,1500,1500,1500,1200,1200,1200,1200,1200,1200,1200],
+    fogLine: 650,//Starting X-Coordinate of Fog
     waves:[
-      [[0,0]],
+      [[2,0]],
       [[1,4]],
       [[2,1], [1,2]],
       [[14,3], [1,3]],
@@ -1338,11 +1340,11 @@ const plantStat = [
       sun: 0,
       recharge: 720,
       startingRecharge: 720,
-      health: 300,
+      health: 450,
       eatable: true,
       damage: 1800,
       splashDamage: 0,
-      reload: 600,
+      reload: 540,
       projectile: 0
     },
     t2:{
@@ -1662,12 +1664,11 @@ const plantStat = [
       sun: 0,
       recharge: 300,
       startingRecharge: 300,
-      health: 300,
+      health: 450,
       eatable: true,
-      damage: 25,
+      damage: 20,
       splashDamage: 0,
-
-      reload: 90,
+      reload: 60,
       projectile: 5 //Puff Short Range Spore
     },
     t2:{
@@ -1721,7 +1722,7 @@ const plantStat = [
       eatable: true,
       damage: 20,
       splashDamage: 0,
-      reload: 70,
+      reload: 65,
       projectile: 1
     },
     t2:{

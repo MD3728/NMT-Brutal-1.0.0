@@ -762,12 +762,12 @@ class Plant extends Entity{
           if (this.type === 16){//Puff-shroom Fires Lower
             new Projectile(this.x + 20, this.y + 40, this.lane, this.projectileType, this.damage, 1, this.tier, this.splashDamage);
           }else if(this.type===18){//Peashooter RNG Fest
-            let result = floor(random(4));
-            if(result === 0){//Normal Pea
+            let result = random(4);
+            if(result <= 1.25){//Normal Pea
               new Projectile(this.x + 35, this.y + 15, this.lane, 1, 25, 1, this.tier, 0);
-            }else if(result === 1){//Snow Pea
+            }else if(result <= 2){//Snow Pea
               new Projectile(this.x + 35, this.y + 15, this.lane, 3, 20, 1, this.tier, 0);
-            }else if(result === 2){//Pepper
+            }else if(result <= 2.75){//Pepper
               new Projectile(this.x + 35, this.y + 15, this.lane, 8, 50, 1, this.tier, 30);
             }else{//Basketball
               new Projectile(this.x + 35, this.y + 15, this.lane, 11, 40, 1, this.tier, 0);

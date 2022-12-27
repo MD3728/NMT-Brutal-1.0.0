@@ -317,7 +317,7 @@ function drawStack(){
     rect(350,60,310,30,5);
     noStroke();
     fill(200,30,30);
-    rect(356,66,bossDamage/10000*297/currentLevel["waves"].length+currentWave*297/currentLevel["waves"].length,18,5);
+    rect(356,66,bossDamage/25000*297/currentLevel["waves"].length+currentWave*297/currentLevel["waves"].length,18,5);
     fill(20);
     for(let a=1;a<7;a++){
       rect(348+a*310/7,60,4,30);

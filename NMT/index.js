@@ -1,9 +1,9 @@
 /* Main JS File */
 //Version Brutal 1.0.0
 //To Do:
+//Spawn Bugs
+//Remove Daemon Print
 //
-//
-//(Chg) to find changes
 
 //Changeable Stats
 let seedSlots = 5;//Number of Seed Slots
@@ -231,10 +231,10 @@ function collision(){
         }
       }
       if (((allPlants[c].type === 1)||(allPlants[c].type === 2))&&(currentLevel.type.includes(14))){//I Zombie Sunflowers
-        new Collectible(allPlants[c].x, allPlants[c].y - 15, 1, 50, 1, false);
-        new Collectible(allPlants[c].x + 50, allPlants[c].y - 15, 1, 50, 1, false);
-        new Collectible(allPlants[c].x , allPlants[c].y + 35, 1, 50, 1, false);
-        new Collectible(allPlants[c].x + 50, allPlants[c].y + 35, 1, 50, 1, false);
+        new Collectible(allPlants[c].x, allPlants[c].y - 15, 1, 60, 1, false);
+        new Collectible(allPlants[c].x + 50, allPlants[c].y - 15, 1, 60, 1, false);
+        new Collectible(allPlants[c].x , allPlants[c].y + 35, 1, 60, 1, false);
+        new Collectible(allPlants[c].x + 50, allPlants[c].y + 35, 1, 60, 1, false);
       }
       for (let currentTile of tiles){
         if (currentTile.plantID === allPlants[c].id){
@@ -264,14 +264,7 @@ function collision(){
   }
 }
 
-//Spawns Zombies in wave
-function spawnWave(){
-  let currentWaveData = currentLevel["waves"][currentWave];
-  let waveLength = currentWaveData.length;
-  if ((boomberryActive === false)&&(boomboxActive === false)){//Make sure boomberry is not in effect
-    currentJam = currentLevel["jams"][currentWave];
-  }
-  //Spawn 2 Additional Peashooter Zombies OR 1 Dancing Zombie
+function spawnExtra(){
   if (currentWave <= 9){
     for (let b = 0; b < 2; b++){
       let zombieRow = ceil(random(5));
@@ -284,12 +277,29 @@ function spawnWave(){
   }else{
     let zombieRow = ceil(random(5));
     let zombieColumn = 9;
-    let zombieTypeData = zombieStat[redirectZombieType(72)];
-    new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, 72, zombieTypeData["health"], 
+    let zombieType = redirectZombieType(72);
+    let zombieTypeData = zombieStat[zombieType];
+    new Zombie(zombieColumn*80 + 230 + random(50), zombieRow*100 + 20, zombieRow, zombieType, zombieTypeData["health"], 
     zombieTypeData["shield"], zombieTypeData["degrade"], zombieTypeData["speed"], zombieTypeData["eatSpeed"], 
     zombieTypeData["altSpeed"], zombieTypeData["altEatSpeed"], zombieTypeData["jam"], currentWave + 1);
   }
+}
 
+//Spawns Zombies in wave
+function spawnWave(){
+  let currentWaveData = currentLevel["waves"][currentWave];
+  let waveLength = currentWaveData.length;
+  if ((boomberryActive === false)&&(boomboxActive === false)){//Make sure boomberry is not in effect
+    currentJam = currentLevel["jams"][currentWave];
+  }
+  //Spawn 2 Additional Peashooter Zombies OR 1 Dancing Zombie
+  try{
+    if (!currentLevel.disabledExtraSpawn){
+      spawnExtra();
+    }
+  }catch(e){
+    spawnExtra();
+  }
   //Regular Zombie Spawn
   for (let a = 0; a < waveLength; a++){
     let currentZombie = currentWaveData[a];//Zombie [Type,Lane,Column (Optional)]
@@ -319,7 +329,7 @@ function levelMainloop(){
         currentJam = currentLevel["jams"][currentWave];
       }
       //Boss Moves
-      if (Math.floor(Math.floor((globalTimer/2))%120) === 0){
+      if (Math.floor(Math.floor((globalTimer/2))%200) === 0){
         globalTimer += 2;
         if ((Math.floor(Math.random()*4) === 0)&&(allPlants.length !== 0)){//Missile Attack (25% Chance)
           //Find Random Plants
@@ -342,7 +352,7 @@ function levelMainloop(){
           }
           //Find target tile
           for (let destroyPlant of randomPlants){
-            destroyPlant.health -= 2001;
+            destroyPlant.health -= 4001;
             new Particle(4, destroyPlant.x+30, destroyPlant.y+30);
           }
         }else{//Spawn Zombie
@@ -354,7 +364,7 @@ function levelMainloop(){
                   createZombie(zombieType);
                 }
               }else{//Themed Zombies
-                for (let a = 0; a < 5; a++){
+                for (let a = 0; a < 4; a++){
                   let zombieType = Math.floor(Math.random()*2) + 9;//Spawn Punk or Banger
                   createZombie(zombieType);
                 }
@@ -376,28 +386,28 @@ function levelMainloop(){
             case 3://Phase 5 (Rap)
               let randomSpawn = Math.floor(Math.random()*3);
               if (randomSpawn === 0){//Normal Zombies
-                for (let a = 0; a < 8; a++){
+                for (let a = 0; a < 7; a++){
                   let zombieType = Math.floor(Math.random()*2) + 1;
                   createZombie(zombieType);//Spawn Conehead or Buckethead
                 }
               }else if (randomSpawn === 1){//Themed Zombies
-                for (let a = 0; a < 4; a++){
+                for (let a = 0; a < 3; a++){
                   createZombie(13);//Spawn MC
                 }
               }else{//Themed Zombies 2
-                for (let a = 0; a < 5; a++){
+                for (let a = 0; a < 4; a++){
                   createZombie(14); //Spawn Breakdancer
                 }
               }
               break;
             case 4://Phase 6 (Arcade)
               if (Math.floor(Math.random()*2) === 0){//Normal Zombies
-                for (let a = 0; a < 20; a++){
+                for (let a = 0; a < 12; a++){
                   let zombieType = Math.floor(Math.random()*2) + 16;
                   createZombie(zombieType);//Spawn 8-bit Normal or 8-bit Conehead
                 }
               }else{//Themed Zombies
-                for (let a = 0; a < 4; a++){
+                for (let a = 0; a < 2; a++){
                   createZombie(15);//Spawn Arcade
                 }
               }
@@ -405,24 +415,24 @@ function levelMainloop(){
             case 5://Phase 3 (Rock)
               if (Math.floor(Math.random()*2) === 0){//Normal Zombies
                 for (let a = 0; a < 4; a++){
-                  let zombieType = Math.floor(Math.random()*2) + 5;
-                  createZombie(zombieType);//Spawn Discohead or Holohead
+                  let zombieType = [2,4][floor(random(2))];
+                  createZombie(zombieType);//Spawn Buckethead or Discohead
                 }
               }else{//Themed Zombies
-                for (let a = 0; a < 6; a++){
-                  let zombieType = Math.floor(Math.random()*2) + 19;
-                  createZombie(zombieType);//Spawn Shadow or Imp
+                for (let a = 0; a < 3; a++){
+                  let zombieType = 20;
+                  createZombie(zombieType);//Spawn Shadow
                 }
               }
               break;
             case 6://Phase 2 (Techno)
               if (Math.floor(Math.random()*2) === 0){//Normal Zombies
-                for (let a = 0; a < 3; a++){
-                  let zombieType = Math.floor(Math.random()*2) + 4;
-                  createZombie(zombieType);//Spawn Discohead or Holohead
+                for (let a = 0; a < 4; a++){
+                  let zombieType = [2,4][floor(random(2))];
+                  createZombie(zombieType);//Spawn Buckethead or Discohead
                 }
               }else{//Themed Zombies
-                for (let a = 0; a < 4; a++){
+                for (let a = 0; a < 7; a++){
                   let zombieType = Math.floor(Math.random()*2) + 21;
                   createZombie(zombieType);//Spawn Gadgeter or Techie
                 }
@@ -430,26 +440,25 @@ function levelMainloop(){
               break;
             case 8://Phase 7 (Ultimate)
               if (Math.floor(Math.random()*2) === 0){//Normal Zombies
-                for (let a = 0; a < 8; a++){
+                for (let a = 0; a < 5; a++){
                   let zombieType = Math.floor(Math.random()*18);
                   createZombie(zombieType);//Spawn Anything
                 }
-              }else{//Spawn Garg and Newspaper
-                createZombie(7);
+              }else{//Spawn Garg
                 createZombie(18);
               }
               break;
             default://During Boomberry
-              for (let a = 0; a < 3; a++){
-                let zombieType = Math.floor(Math.random()*4) + 5;
-                createZombie(zombieType);//Spawn Discohead/Holohead/Newspaper/Football
+              for (let a = 0; a < 4; a++){
+                let zombieType = [2,4,7,8][Math.floor(Math.random()*4)];
+                createZombie(zombieType);//Spawn Buckethead/Discohead/Newspaper/Football
               }
               break;
           }
         }
       }
       //Advance Phase
-      if (bossDamage >= 40000){
+      if (bossDamage >= 25000){
         bossDamage = 0;
         currentWave++;
       }
@@ -559,7 +568,7 @@ function levelMainloop(){
     for (let currentZombie of allZombies){
       currentZombie.protected = false;
       //Pink Paramount Invincibility
-      if ((currentLevel["type"].includes(12))&&(globalTimer%1200 > 800)){
+      if ((currentLevel["type"].includes(12))&&(globalTimer%2100 > 2050)){
         currentZombie.protected = true;
       }
       if (((currentZombie.type === 15)||(currentZombie.type === 63))&&(currentZombie.reload <= 0)&&((currentJam === 4)||(currentJam === 8))){//Arcade Zombie Spawn
@@ -687,6 +696,13 @@ function setup(){
     unlockedLevels = ["l1"];
     saveData();
   }
+  let unPl = [];
+  for (let a = 0; a < 29; a++){
+    unPl.push(a+1);
+  }
+  localStorage.setItem("money_brutal_1.0.0",`30000`);
+  localStorage.setItem("unlockedPlants_brutal_1.0.0", unPl.join(","));
+  localStorage.setItem("unlockedLevels_brutal_1.0.0", "l36");
   money = parseInt(localStorage.getItem("money_brutal_1.0.0"));
   unlockedPackets = localStorage.getItem("unlockedPlants_brutal_1.0.0").split(",");
   for (let currentPacket in unlockedPackets){

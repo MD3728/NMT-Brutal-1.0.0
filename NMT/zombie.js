@@ -1490,7 +1490,7 @@ class Zombie extends Entity{
       this.reload = 90;
       this.graphical.previousAttackAnim=20;
       for (let currentPlant of allPlants){
-        if ((currentPlant.lane === this.lane)&&(currentPlant.x + 60 > this.x - 400)&&(currentPlant.x < this.x)){
+        if ((currentPlant.lane === this.lane)&&(currentPlant.x + 60 > this.x - 400)&&(currentPlant.x < this.x)&&(currentPlant.eatable)){
           currentPlant.take(30);
         }
       }
@@ -1523,14 +1523,8 @@ class Zombie extends Entity{
     }
     //Qigong Garg Spawn
     if ((this.spawnTimer <= 0)&&(this.type === 74)){
-      if (this.lane !== 1){
-        createZombie2(51,this.lane - 1, 0, this.x);
-      }
       createZombie2(51,this.lane, 0, this.x + 80);
       createZombie2(51,this.lane, 0, this.x - 40);
-      if (this.lane !== 5){
-        createZombie2(51,this.lane + 1, 0, this.x);
-      }
       this.spawnTimer = 720;
     }
     //Dancing Zombie Spawn
@@ -1557,9 +1551,14 @@ class Zombie extends Entity{
     }
     //Sun Stealer
     if ((this.type === 68)&&(this.reload <= 0)){
-      sun -= 50;
-      sun = sun < 0 ? 0 : sun;
-      this.reload = 480;
+      if (currentLevel.type.includes(14)){//I Zombie
+        sun += 25;
+        this.reload = 9999999999999;
+      }else{
+        sun -= 50;
+        sun = sun < 0 ? 0 : sun;
+        this.reload = 480;
+      }
     }
     //Valley Lily Damage
     this.health -= this.permanentDamage*levelSpeed;
@@ -1644,7 +1643,7 @@ class Zombie extends Entity{
     }
     //Gadgeter Change Plant
     if ((this.type === 22)&&(this.reload <= 0)&&(this.inJam())){
-      this.reload = 300;
+      this.reload = 450;
       let unchangedPlants = [];
       for (let a = 0; a < allPlants.length; a++){
         if ((allPlants[a].changed === false)&&(allPlants[a].health < 8000)&&(allPlants[a].endangered === false)){//Cannot be previously changed or be an instant kill
@@ -1657,7 +1656,6 @@ class Zombie extends Entity{
       let randomIndex = floor(random()*unchangedPlants.length);
       let oldPlant = allPlants[unchangedPlants[randomIndex]];
       let plantType = null;
-      let plantTier = null;
       let plantData = null;
       if (oldPlant.sunCost <= 50){//Potato Mine
         plantType = 4;
@@ -1671,37 +1669,24 @@ class Zombie extends Entity{
       //Find Plant Data
       for (let currentPlant of plantStat){
         if (currentPlant.type === plantType){
-          if (plantTier === 1){//Tier 1
-            plantData = currentPlant["t1"];
-            break;
-          }
+          plantData = currentPlant["t1"];
+          break;
         }
       }
       //Set old plant to be new plant
+      oldPlant.type = plantType;
+      oldPlant.sun = plantData.sun;
+      oldPlant.damage = plantData.damage; 
+      oldPlant.health = plantData.health;
+      oldPlant.eatable = plantData.eatable;
+      oldPlant.reload = plantData.reload/4;
+      oldPlant.maxReload = plantData.reload;
+      oldPlant.projectileType = plantData.projectile;
+      oldPlant.splashDamage = plantData.splashDamage
+      oldPlant.changed = true;
+      oldPlant.stunTimer = 0;
       if ((plantType === 4)){//Immediately Arm Potato Mine and Coconut Cannon
-        oldPlant.type = plantType;
-        oldPlant.sun = plantData.sun;
-        oldPlant.damage = plantData.damage; 
-        oldPlant.health = plantData.health;
-        oldPlant.eatable = plantData.eatable;
         oldPlant.reload = 0;
-        oldPlant.maxReload = plantData.reload;
-        oldPlant.projectileType = plantData.projectile;
-        oldPlant.splashDamage = plantData.splashDamage
-        oldPlant.changed = true;
-        oldPlant.stunTimer = 0;
-      }else{
-        oldPlant.type = plantType;
-        oldPlant.sun = plantData.sun;
-        oldPlant.damage = plantData.damage; 
-        oldPlant.health = plantData.health;
-        oldPlant.eatable = plantData.eatable;
-        oldPlant.reload = plantData.reload/4;
-        oldPlant.maxReload = plantData.reload;
-        oldPlant.projectileType = plantData.projectile;
-        oldPlant.splashDamage = plantData.splashDamage
-        oldPlant.changed = true;
-        oldPlant.stunTimer = 0;
       }
     }
   }
@@ -1716,6 +1701,7 @@ class Zombie extends Entity{
         if ((this.x + 15 > laneMower.x)&&(this.x < laneMower.x + 40)){
           if (this.type !== 24){//Not Boss
             this.health  = 0;
+            this.maxHealth = 0;
           }
           if (laneMower.active === false){
             laneMower.active = true;
@@ -1889,7 +1875,7 @@ class Zombie extends Entity{
                 }
               }
             }else if (currentProjectile.type === 10){//Valley Lily Damage
-              this.permanentDamage += 0.165;
+              this.permanentDamage += 0.19;
             }
             if (currentProjectile.splashDamage !== 0){//Coconut and Pepper
               if(currentProjectile.type==9){
@@ -1938,7 +1924,7 @@ class Zombie extends Entity{
     if ((this.type === 18)||(this.type === 71)||(this.type === 74)){//Gargantuar Smash
       console.log(this.reload);
       if (this.reload <= 0){//Prepare to smash
-        this.reload = 160;
+        this.reload = 120;
         return 0;
       }else if ((this.reload > 1)&&(this.reload <= 10)){//Smash
         this.reload = 1;

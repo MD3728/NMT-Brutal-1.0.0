@@ -681,7 +681,7 @@ class Plant extends Entity{
           this.health = 0;
           for (let currentZombie of allZombies){
             if ((currentZombie.x + 30 > this.x - 90)&&(currentZombie.x < this.x + 150)&&(currentZombie.lane >= this.lane - 1)&&
-            (currentZombie.lane <= this.lane + 1)&&(currentZombie.protected === false)){//Stun zombies in 3x3
+            (currentZombie.lane <= this.lane + 1)){//Stun zombies in 3x3
               currentZombie.determineStun(this.damage);
               if (this.splashDamage > 0){//Tier 2 Daisy
                 currentZombie.determineDamage(this.splashDamage);
@@ -701,7 +701,7 @@ class Plant extends Entity{
           this.health = 0;
           for (let currentZombie of allZombies){
             if ((currentZombie.x + 30 > this.x - 10)&&(currentZombie.x < this.x + 150)&&
-            (currentZombie.lane === this.lane)&&(currentZombie.protected === false)){//Stun zombies in 3x3
+            (currentZombie.lane === this.lane)){//Stun zombies in 3x3
               currentZombie.determineStun(this.damage);
             }
           }
@@ -710,7 +710,7 @@ class Plant extends Entity{
         case 28://Endurian
           for (let currentZombie of allZombies){
             if ((currentZombie.x + 30 > this.x - 20)&&(currentZombie.x < this.x + 80)&&
-            (currentZombie.lane === this.lane)&&(currentZombie.protected === false)){//Stun zombies in 3x3
+            (currentZombie.lane === this.lane)){//Hurt Zombies in Tile Range
               this.reload = this.maxReload;
               this.firedAtLeastOnce=true
               currentZombie.determineDamage(this.damage);
@@ -734,7 +734,7 @@ class Plant extends Entity{
       //Shoot only if there is a zombie ahead (Coconut Cannon is excluded)
       let zombieInRange = false
       for (let currentZombie of allZombies){
-        if (((currentZombie.type === 20)||(currentZombie.type === 66))&&(currentZombie.eating === false)&&((currentJam === 5)||(currentJam === 8))){//Shadow zombie during jam
+        if (((currentZombie.type === 20)||(currentZombie.type === 66))&&(currentZombie.eating === false)&&(currentZombie.inJam())){//Shadow zombie during jam
           continue;
         }
         if ((currentZombie.lane === this.lane)&&(currentZombie.x > this.x)&&((this.type === 17)||(this.type === 18)||(this.type === 20)||(this.type === 23)||(this.type === 24)||(this.type === 26))){
@@ -828,7 +828,7 @@ class Plant extends Entity{
         }
         //Squash Area Around Specified X
         for (let currentZombie of allZombies){
-          if ((currentZombie.x + 30 > lowestX - 40)&&(currentZombie.x < lowestX + 40)&&(currentZombie.lane === this.lane)&&(currentZombie.protected === false)){
+          if ((currentZombie.x + 30 > lowestX - 40)&&(currentZombie.x < lowestX + 40)&&(currentZombie.lane === this.lane)){
             currentZombie.determineDamage(this.damage);
           }
         }

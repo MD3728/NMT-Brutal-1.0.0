@@ -496,7 +496,7 @@ class Zombie extends Entity{
           }
         break
         case 11:
-          if(currentJam===2||currentJam===8){
+          if(this.inJam()){
             fill(255,50,50,this.fade/5)
             rect(0,-80,240,8)
             fill(255,150,50,this.fade/5)
@@ -581,7 +581,7 @@ class Zombie extends Entity{
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
           line(4,-30,8+sin(this.rate[0]*18)*3,0)
           if(this.eating){
-            if((currentJam === 3)||(currentJam === 8)){
+            if(this.inJam()){
               noStroke()
               fill(40,this.fade/5)
               arc(0,-45,240,240,-this.rate[2]*24+90,-this.rate[2]*24+120)
@@ -646,7 +646,7 @@ class Zombie extends Entity{
           strokeWeight(4)
           line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
           line(4,-30,8+sin(this.rate[0]*18)*3,0)
-          if((currentJam === 3)||(currentJam === 8)){
+          if(this.inJam()){
             strokeWeight(4)
             stroke(60,100,140,this.fade)
             line(0,-45,sin(this.rate[2]*12)*27,-45+cos(this.rate[2]*12)*27)
@@ -989,7 +989,7 @@ class Zombie extends Entity{
             }
           }
           break;
-        case 24:
+        case 24://Zomboss Minion Placeholder
           break;
         case 25://Peashooter Zombie
           stroke(60,80,100,this.fade)
@@ -1024,27 +1024,27 @@ class Zombie extends Entity{
           }
           break;
         case 26://Wall-nut Zombie
-        stroke(60,80,100,this.fade)
-        strokeWeight(4)
-        line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
-        line(4,-30,8+sin(this.rate[0]*18)*3,0)
-        stroke(120,80,40,this.fade)
-        line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-        if((this.health>100)||((this.health > 175)&&(this.type === 3))){//Flag Zombie
-          line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
-        }
-        noStroke()
-        fill(120,80,40,this.fade)
-        ellipse(0,-45,18,36)
-        fill(255,this.fade)
-        triangle(4,-70,-20/3,-70,-4,-50)
-        fill(200,50,50,this.fade)
-        quad(-4,-49,-14/3,-55,-4/3,-70,-2,-55)
-        fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
-        ellipse(0,-75,30,30)
-        fill(0,this.fade)
-        ellipse(-4,-72,4,4)
-        ellipse(-12,-72,4,4)
+          stroke(60,80,100,this.fade)
+          strokeWeight(4)
+          line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
+          line(4,-30,8+sin(this.rate[0]*18)*3,0)
+          stroke(120,80,40,this.fade)
+          line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
+          if((this.health>100)||((this.health > 175)&&(this.type === 3))){//Flag Zombie
+            line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
+          }
+          noStroke()
+          fill(120,80,40,this.fade)
+          ellipse(0,-45,18,36)
+          fill(255,this.fade)
+          triangle(4,-70,-20/3,-70,-4,-50)
+          fill(200,50,50,this.fade)
+          quad(-4,-49,-14/3,-55,-4/3,-70,-2,-55)
+          fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
+          ellipse(0,-75,30,30)
+          fill(0,this.fade)
+          ellipse(-4,-72,4,4)
+          ellipse(-12,-72,4,4)
           //Wall-nut
           fill(120,60,15);
           if(this.shieldHealth > this.maxShieldHealth*2/3){
@@ -1692,6 +1692,7 @@ class Zombie extends Entity{
       oldPlant.sun = plantData.sun;
       oldPlant.damage = plantData.damage; 
       oldPlant.health = plantData.health;
+      oldPlant.maxHealth = plantData.health;
       oldPlant.eatable = plantData.eatable;
       oldPlant.reload = plantData.reload/4;
       oldPlant.maxReload = plantData.reload;
@@ -1828,7 +1829,7 @@ class Zombie extends Entity{
         new Particle(7,currentPlant.x+30,currentPlant.y+30);
       }else if (currentPlant.type === 15){//Garlic
         currentPlant.take(this.determineEatSpeed(this))
-        if (this.type !== 18){//Not Gargantuar
+        if ((this.type !== 18)&&(this.type !== 71)&&(this.type !== 74)){//Not Gargantuar
           this.garlicCounter += levelSpeed;
         }
         this.rate[1] += this.determineEatSpeed(this);
@@ -1845,7 +1846,7 @@ class Zombie extends Entity{
       }
     }
     //Collision with projectile
-    if (!(((this.type === 20)||(this.type === 66))&&(this.eating === false)&&((currentJam === 5)||(currentJam === 8)))){//If not shadow zobmie during metal jam
+    if (!(((this.type === 20)||(this.type === 66))&&(this.eating === false)&&(this.inJam()))){//If not shadow zombie during metal jam
       for (let currentProjectile of allProjectiles){
         if ((this.x + 30 > currentProjectile.x)&&(this.x < currentProjectile.x + 20)&&(this.lane === currentProjectile.lane)
         &&(currentProjectile.used === false)&&(currentProjectile.toZombie === true)){
@@ -1944,7 +1945,7 @@ class Zombie extends Entity{
       }else if ((this.reload > 1)&&(this.reload <= 10)){//Smash
         this.reload = 1;
         this.rate[4]=10;
-        if ((currentJam === 5)||(currentJam === 8)){//Special ability: destroy plants in front only while smashing
+        if (this.inJam()){//Special ability: destroy plants in front only while smashing
           let rightPlant = null;
           //Find Plant farthest to the right in front of garg
           for (let currentPlant of allPlants){

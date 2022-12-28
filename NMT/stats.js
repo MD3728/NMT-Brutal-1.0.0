@@ -1,6 +1,4 @@
 /* Game Data File */
-//Fix Angry Dancer
-//Fix Shield Issues (Dazey/Cherry Bomb)
 
 //Level Types: 
 // 1: Normal  
@@ -50,12 +48,12 @@ const levels = {
   "l1": {//Level 1 Normal 2 Flag
     type: [1],
     daveSpeech: ["This is your neighbor Crazy Dave","There are zombies \nattacking your house","You have been given the \nfollowing plants to \ndefend your house","Be sure to read the \nalmanac on the level select \nscreen for more information on \nplants and zombies"],
-    startingSun: 7500,
+    startingSun: 75,//Here Since Level is Used for Testing
     flag: [false,false,false,false,false,true,false,false,false,false,false,true],
-    jams:[8,8,8,8,8,0,0,0,0,0,0,0],
-    waveDelay: [20,12000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
+    jams:[0,0,0,0,0,0,0,0,0,0,0,0],
+    waveDelay: [720,12000,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200],
     waves:[
-      [[72,1],[74,3]],  //[Zombie Type, Row, Column (Default is 9)]
+      [[0,5]],  //[Zombie Type, Row, Column (Default is 9)]
       [[0,5]],  //For rows: 5 is random, 0 -> 4 correspond to lanes 1 -> 5
       [[0,1], [0,3]],
       [[1,1]],
@@ -897,12 +895,11 @@ const levels = {
     jams:[0,0,0,0,3,3,4,4,1,6,6,5],
     waveDelay: [170,900,900,900,900,900,900,900,900,900,900,900],
     conveyorProbability: [//Format: [Plant Type, Tier, Probability (Out of 100)], Starts at wave 0
-      [60,[[11,2,100]]],//[10,1,30],[11,2,40],[12,1,20],[8,2,10]
-      //[11,2,50],[12,1,40],[8,2,10]
+      [60,[[11,2,100]]],
+      [200,[[10,1,30],[11,2,30],[12,1,20],[8,2,20]]],
       [200,[[10,1,30],[11,2,40],[12,1,20],[8,2,10]]],
       [200,[[10,1,30],[11,2,40],[12,1,20],[8,2,10]]],
-      [200,[[10,1,30],[11,2,40],[12,1,20],[8,2,10]]],
-      [180,[[11,2,40],[12,1,20],[8,2,10]]],
+      [180,[[11,2,50],[12,1,40],[8,2,10]]],
       [180,[[11,2,50],[12,1,40],[8,2,10]]],
       [180,[[11,2,50],[12,1,40],[8,2,10]]],
       [180,[[10,1,40],[11,2,40],[12,1,20]]],

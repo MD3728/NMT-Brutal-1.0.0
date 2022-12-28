@@ -1522,7 +1522,7 @@ class Zombie extends Entity{
       }
     }
     //Dazey Zombie Stun
-    if ((this.reload > 0)&&(this.reload < 10)&&(this.type === 30||this.type==60)){
+    if ((this.reload > 0)&&(this.reload < 10)&&(this.shieldHealth>0)&&(this.type === 30||this.type===60)){
       this.shieldHealth = 0;
       this.reload = -1;
       for (let currentPlant of allPlants){
@@ -1551,7 +1551,6 @@ class Zombie extends Entity{
       createZombie2(25,this.lane, 0, this.x - 40);
       if (this.lane !== 5){
         createZombie2(25,this.lane + 1, 0, this.x);
-        console.log("Hello")
       }
       this.spawnTimer = 900;
     }
@@ -1916,6 +1915,8 @@ class Zombie extends Entity{
         this.altSpeed = 0;
         this.eatSpeed = 0;
         this.altEatSpeed = 0;
+        this.health = 10000000;
+        this.maxHealth = 10000000;
         //Determine if brain is to be taken
         let laneTaken = false;
         for (let currentZombie of allZombies){
@@ -1937,7 +1938,6 @@ class Zombie extends Entity{
   //Calculate individual eat speed for zombies
   determineEatSpeed(currentGarg = null){
     if ((this.type === 18)||(this.type === 71)||(this.type === 74)){//Gargantuar Smash
-      console.log(this.reload);
       if (this.reload <= 0){//Prepare to smash
         this.reload = 120;
         return 0;

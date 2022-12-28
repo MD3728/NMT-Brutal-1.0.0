@@ -1,9 +1,5 @@
 /* Main JS File */
-//Version Brutal 1.0.0
-//To Do:
-//Spawn Bugs
-//Remove Daemon Print
-//
+//Version: Brutal 1.0.0
 
 //Changeable Stats
 let seedSlots = 5;//Number of Seed Slots
@@ -114,12 +110,12 @@ function createZombie(type, lane = 5){//Keep in mind that lane 0 -> 4 are lanes 
   zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
 }
 
-function createZombie2(type, lane = 5, column = 9, specificX = null){
+function createZombie2(type, lane = 6, column = 9, specificX = null){
   let finalType = redirectZombieType(type);
   let zombieInfo = zombieStat[finalType];
   let finalLane = lane;
   let finalX;
-  if (lane === 5){//Random Lane Assignment
+  if (lane === 6){//Random Lane Assignment
     finalLane = Math.floor(Math.random()*5) + 1;
   }
   if (specificX !== null){
@@ -127,11 +123,9 @@ function createZombie2(type, lane = 5, column = 9, specificX = null){
   }else{
     finalX = 230 + column*80 + Math.floor(random(50));
   }
-  console.log(finalX)
   let nz = new Zombie(finalX, finalLane*100 + 20, finalLane, finalType, 
   zombieInfo["health"], zombieInfo["shield"], zombieInfo["degrade"], zombieInfo["speed"], 
   zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
-  console.log(nz)
 }
 
 //Finds reward from current level and returns final string
@@ -696,13 +690,14 @@ function setup(){
     unlockedLevels = ["l1"];
     saveData();
   }
-  let unPl = [];
-  for (let a = 0; a < 29; a++){
-    unPl.push(a+1);
-  }
-  localStorage.setItem("money_brutal_1.0.0",`30000`);
-  localStorage.setItem("unlockedPlants_brutal_1.0.0", unPl.join(","));
-  localStorage.setItem("unlockedLevels_brutal_1.0.0", "l36");
+  //Testing Setup
+  // let unPl = [];
+  // for (let a = 0; a < 29; a++){
+  //   unPl.push(a+1);
+  // }
+  // localStorage.setItem("money_brutal_1.0.0",`30000`);
+  // localStorage.setItem("unlockedPlants_brutal_1.0.0", unPl.join(","));
+  // localStorage.setItem("unlockedLevels_brutal_1.0.0", "l21");
   money = parseInt(localStorage.getItem("money_brutal_1.0.0"));
   unlockedPackets = localStorage.getItem("unlockedPlants_brutal_1.0.0").split(",");
   for (let currentPacket in unlockedPackets){
@@ -720,7 +715,7 @@ function draw(){
       noStroke();
       fill(200);
       textSize(80);
-      text('NMT',width/2,200);
+      text('NMT Brutal',width/2,200);
       textSize(20);
       text('MD/DP Production',width/2,250);
       fill(120);

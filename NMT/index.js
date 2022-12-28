@@ -396,12 +396,12 @@ function levelMainloop(){
               break;
             case 4://Phase 6 (Arcade)
               if (Math.floor(Math.random()*2) === 0){//Normal Zombies
-                for (let a = 0; a < 12; a++){
+                for (let a = 0; a < 13; a++){
                   let zombieType = Math.floor(Math.random()*2) + 16;
                   createZombie(zombieType);//Spawn 8-bit Normal or 8-bit Conehead
                 }
               }else{//Themed Zombies
-                for (let a = 0; a < 2; a++){
+                for (let a = 0; a < 3; a++){
                   createZombie(15);//Spawn Arcade
                 }
               }

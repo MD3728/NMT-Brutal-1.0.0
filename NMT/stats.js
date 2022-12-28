@@ -16,7 +16,7 @@
 // 14: I, Zombie
 
 /*
-New Zombies
+New Zombies:
 51-Conehead Squash
 52-Buckethead Screendoor
 53-Discohead Conehead Squash

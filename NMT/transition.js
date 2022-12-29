@@ -88,7 +88,7 @@ function chooseSeeds(){
 //Loop for Choose Your Seeds
 function chooseSeedLoop(){
   //General Looks
-  background('rgba(0,0,0,0.2)');
+  background('rgba(0,0,0,0.15)');
   fill(255,255,255);
   noStroke();
   textSize(30);

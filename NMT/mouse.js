@@ -255,10 +255,10 @@ document.addEventListener("mouseup",function(e){
           money -= 1000;
         }
       }
-      if(pointBox(mouseX,mouseY,50,350,100,50)&&(displayPlant.type>1)){
+      if(pointBox(mouseX,mouseY,50,350,100,50)&&(displayPlant.type > 1)){
         displayPlant.type--;
       }
-      if(pointBox(mouseX,mouseY,width-150,350,100,50)&&(displayPlant.type<29)){
+      if(pointBox(mouseX,mouseY,width-150,350,100,50)&&(displayPlant.type < plantStat.length)){
         displayPlant.type++;
       }
       if(pointBox(mouseX,mouseY,50,50,100,50)){
@@ -267,16 +267,22 @@ document.addEventListener("mouseup",function(e){
       }
       break;
     case "almanacZombie"://Zombie Almanac
-      if(pointBox(mouseX,mouseY,50,350,100,50)&&(displayZombie.type>0)){
+      if(pointBox(mouseX,mouseY,50,350,100,50)&&(displayZombie.type > 0)){
         displayZombie.type--;
+        //Points To Skip Zombies
         if (displayZombie.type === 24){
           displayZombie.type = 23;
+        }else if (displayZombie.type === 51){
+          displayZombie.type = 31;
         }
       }
+      //Points To Skip Zombies
       if(pointBox(mouseX,mouseY,width-150,350,100,50)&&(displayZombie.type<zombieStat.length-1)){
         displayZombie.type++;
         if (displayZombie.type === 24){
           displayZombie.type = 25;
+        }else if (displayZombie.type === 32){
+          displayZombie.type = 51;
         }
       }
       if(pointBox(mouseX,mouseY,50,50,100,50)){
@@ -291,9 +297,11 @@ document.addEventListener("mouseup",function(e){
       }
       for(let a=0;a<displayPlants.length;a++){
         if(pointBox(mouseX,mouseY,displayPlants[a].x-20,displayPlants[a].y-20,100,100)&&money>=10000){
-          money-=10000
-          displayPlants[a].y+=99999
-          unlockedPackets.push(displayPlants[a].type)
+          money -= 10000;
+          unlockedPackets.push(displayPlants[a].type);
+          displayPlants[a].y += 99999;
+          displayPlants.splice(a,1);
+          a--;
         }
       }
       break;

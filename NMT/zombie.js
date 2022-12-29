@@ -69,17 +69,17 @@ class Zombie extends Entity{
 
       performDraw = true;
     }
-    if (performDraw){//Zombies not drawn in Invisighoul
+    if (performDraw){//Zombies Not Drawn in Invisighoul
       switch(this.type){
-        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars*/ case 52: case 54: case 57: case 68: case 69:
-          if(this.type==69){
-            translate(0,-15)
-            fill(255,150,0)
-            triangle(9,-33,15,-33,12,-18)
-            fill(125)
-            rect(7,-36,10,3)
-            fill(150)
-            rect(6,-60,12,24)
+        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 32: /*Regulars or Normals*/ case 52: case 54: case 57: case 68: case 69:
+          if(this.type === 69){//Jetpack Conehead
+            translate(0,-15);
+            fill(255,150,0);
+            triangle(9,-33,15,-33,12,-18);
+            fill(115);
+            rect(7,-36,10,3);
+            fill(130);
+            rect(6,-60,12,24);
           }
           stroke(60,80,100,this.fade)
           strokeWeight(4)
@@ -87,7 +87,7 @@ class Zombie extends Entity{
           line(4,-30,8+sin(this.rate[0]*18)*3,0)
           stroke(120,80,40,this.fade)
           line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-          if((this.health>100)||((this.health > 175)&&(this.type === 3))){//Flag Zombie
+          if((this.health>100)||((this.health > this.maxHealth/2)&&(this.type === 3))){//Flag Zombie
             line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
           }
           noStroke()
@@ -938,7 +938,7 @@ class Zombie extends Entity{
           ellipse(-4,-72,5,5)
           ellipse(-12,-72,5,5)
           line(-6.5,-72,-9.5,-72)
-        break
+        break;
         case 23: case 67://Boombox
           stroke(255,100,0,this.fade);
           strokeWeight(4);
@@ -1310,8 +1310,8 @@ class Zombie extends Entity{
             ellipse(-48,-46,6,6);
           }
         break
-        case 72: case 73:
-          if(this.type==73){
+        case 72: case 73://Dancer and Angry Dancer Zombie
+          if(this.type===73){
             scale(-1,1)
           }
           stroke(180,160,140,this.fade);
@@ -1341,7 +1341,44 @@ class Zombie extends Entity{
           if(this.type==73){
             scale(-1,1)
           }
-        break
+        break;
+        case 56: //Giga Football
+          stroke(200,this.fade)
+          strokeWeight(4)
+          line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
+          line(4,-30,8+sin(this.rate[0]*18)*3,0)
+          stroke(40,this.fade)
+          line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
+          if(this.health>100){
+            line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
+          }
+          noStroke()
+          fill(40,this.fade)
+          ellipse(0,-45,18,36)
+          fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
+          ellipse(0,-75,30,30)
+          fill(0,this.fade) 
+          ellipse(-4,-72,4,4)
+          ellipse(-12,-72,4,4)
+          if(this.health>2200){
+            fill(40,this.fade)
+            arc(0,-75,36,36,-180,90)
+            fill(120,this.fade)
+            rect(-15,-71,15,2)
+            rect(-15,-75,2,4)
+            rect(-9,-75,2,4)
+          }else if(this.health>1200){
+            fill(40,this.fade)
+            arc(0,-75,36,36,-180,60)
+            fill(120,this.fade)
+            rect(-15,-71,8,2)
+            rect(-15,-75,2,4)
+            rect(-9,-75,2,4)
+          }else if(this.health>200){
+            fill(40,this.fade)
+            arc(0,-75,36,36,-150,15)
+          }
+          break;
         case 9999://Test
           stroke(40,50,40,this.fade);
           strokeWeight(4);
@@ -1361,48 +1398,11 @@ class Zombie extends Entity{
           ellipse(-4,-72,4,4);
           ellipse(-12,-72,4,4);
           break;
-          case 56: //gig futbol
-            stroke(200,this.fade)
-            strokeWeight(4)
-            line(-4,-30,-8-sin(this.rate[0]*18)*3,0)
-            line(4,-30,8+sin(this.rate[0]*18)*3,0)
-            stroke(40,this.fade)
-            line(-6,-45,-24,-39-sin(this.rate[1]*9)*3)
-            if(this.health>100){
-              line(-6,-51,-24,-57+sin(this.rate[1]*9)*3)
-            }
-            noStroke()
-            fill(40,this.fade)
-            ellipse(0,-45,18,36)
-            fill(this.determineColor()[0],this.determineColor()[1],this.determineColor()[2],this.fade)
-            ellipse(0,-75,30,30)
-            fill(0,this.fade) 
-            ellipse(-4,-72,4,4)
-            ellipse(-12,-72,4,4)
-            if(this.health>2200){
-              fill(40,this.fade)
-              arc(0,-75,36,36,-180,90)
-              fill(120,this.fade)
-              rect(-15,-71,15,2)
-              rect(-15,-75,2,4)
-              rect(-9,-75,2,4)
-            }else if(this.health>1200){
-              fill(40,this.fade)
-              arc(0,-75,36,36,-180,60)
-              fill(120,this.fade)
-              rect(-15,-71,8,2)
-              rect(-15,-75,2,4)
-              rect(-9,-75,2,4)
-            }else if(this.health>200){
-              fill(40,this.fade)
-              arc(0,-75,36,36,-150,15)
-            }
-          break
-          default://Placeholder Hitbox for Nonexistent Zombies
-            scale(1/this.size);
-            translate(-this.x-15,-this.y-80);
-            fill(0,0,0);
-            rect(this.x, this.y,30,80);
+        default://Placeholder Hitbox for Nonexistent Zombies
+          scale(1/this.size);
+          translate(-this.x-15,-this.y-80);
+          fill(0,0,0);
+          rect(this.x, this.y,30,80);
           return;
       }
     }else if(this.determineColor()[0]!==0||this.determineColor()[1]!==0||this.determineColor()[2]!==0){

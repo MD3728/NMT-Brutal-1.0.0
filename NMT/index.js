@@ -83,13 +83,8 @@ function createPlant(type, tier, x, y){
   let plantData;
   for (let currentPlant of plantStat){//Find correct plant
     if (currentPlant.type === type){
-      // if (tier === 1){//Tier 1
       plantData = currentPlant["t1"];
       break;
-      // }else{//Tier 2
-      //   plantData = currentPlant["t2"];
-      //   break;
-      // }
     }
   }
   let newPlant = new Plant(type, x, y, plantData.sun, plantData.damage, plantData.health, plantData.eatable, 
@@ -123,7 +118,7 @@ function createZombie2(type, lane = 6, column = 9, specificX = null){
   }else{
     finalX = 230 + column*80 + Math.floor(random(50));
   }
-  let nz = new Zombie(finalX, finalLane*100 + 20, finalLane, finalType, 
+  new Zombie(finalX, finalLane*100 + 20, finalLane, finalType, 
   zombieInfo["health"], zombieInfo["shield"], zombieInfo["degrade"], zombieInfo["speed"], 
   zombieInfo["eatSpeed"], zombieInfo["altSpeed"], zombieInfo["altEatSpeed"], zombieInfo["jam"], 0);
 }
@@ -673,15 +668,6 @@ function setup(){
   displayZombie.fade = 255;
   displayZombie.health = 99999;
   displayZombie.size = 2.4;
-  displayPlants=[];
-  useless=[3,8,9,13,21,24,27];//Shop Plants
-  for(let a=0;a<7;a++){
-    displayPlants.push(new Plant(useless[a], width/2-320+(a%4)*200+floor(a/4)*100,250+floor(a/4)*200, 0,0,99999, 
-    0, 0, 0, 0, 0))
-  }
-  allPlants = [];
-  allZombies = [];
-  allEntities = [];
   //Set and Read Save Data
   money = localStorage.getItem("money_brutal_1.0.0");
   if (money === null){//If Save Data Does Not Exist
@@ -704,6 +690,18 @@ function setup(){
     unlockedPackets[currentPacket] = parseInt(unlockedPackets[currentPacket]);
   }
   unlockedLevels = localStorage.getItem("unlockedLevels_brutal_1.0.0").split(",");
+  //Create Shop Data
+  displayPlants = [];
+  shopPlantList = [3,8,9,13,21,24,27];//Shop Plants
+  for(let a = 0; a < 7; a++){
+    if (!unlockedPackets.includes(shopPlantList[a])){
+      displayPlants.push(new Plant(shopPlantList[a], width/2-320+(a%4)*200+floor(a/4)*100,250+floor(a/4)*200, 0,0,99999, 
+      0, 0, 0, 0, 0));
+    }
+  }
+  allPlants = [];
+  allZombies = [];
+  allEntities = [];
 }
 
 //Draw/Mainloop
@@ -969,26 +967,29 @@ function draw(){
       rect(width-150,350,100,50,5);
       rect(50,50,100,50,5);
       fill(0);
-      textSize(60);//Temp Solution
-      let finalType = redirectZombieType[displayZombie.type];
-      text(zombieStat[finalType].name,width/2, 100);
+      textSize(60);//Shows All Zombies, Not Just Brutal Zombies
+      let currentDisplayZombie = zombieStat[displayZombie.type];
+      text(currentDisplayZombie.name,width/2, 100);
       textSize(20);
-      text(zombieStat[finalType].description,width/2, 550);
+      text(currentDisplayZombie.description,width/2, 550);
       textAlign(CENTER,TOP);
-      if(zombieStat[finalType].health>0){
-        genText[0]+='\nHealth: '+ zombieStat[finalType].health;
+      if(currentDisplayZombie.health>0){
+        genText[0]+='\nHealth: '+ currentDisplayZombie.health;
       }
-      if(zombieStat[finalType].shield>0){
-        genText[0]+='\nShield: '+ zombieStat[finalType].shield;
+      if(currentDisplayZombie.shield>0){
+        genText[0]+='\nShield: '+ currentDisplayZombie.shield;
       }
-      if(zombieStat[finalType].speed>0){
-        genText[0]+='\nSpeed: '+ zombieStat[finalType].speed;
+      if(currentDisplayZombie.speed>0){
+        genText[0]+='\nSpeed: '+ currentDisplayZombie.speed;
       }
-      if(zombieStat[finalType].eatSpeed>0){
-        genText[0]+='\nEat Speed: '+ zombieStat[finalType].eatSpeed;
+      if((currentDisplayZombie.altSpeed > 0)&&(currentDisplayZombie.altSpeed !== currentDisplayZombie.speed)){
+        genText[0]+='\nAlternate Speed: '+ currentDisplayZombie.altSpeed;
       }
-      if((zombieStat[finalType].altEatSpeed > 0)&&(zombieStat[finalType].altEatSpeed !== zombieStat[finalType].eatSpeed)){
-        genText[0]+='\nAlternate Eat Speed: '+ zombieStat[finalType].altEatSpeed;
+      if(currentDisplayZombie.eatSpeed>0){
+        genText[0]+='\nEat Speed: '+ currentDisplayZombie.eatSpeed;
+      }
+      if((currentDisplayZombie.altEatSpeed > 0)&&(currentDisplayZombie.altEatSpeed !== currentDisplayZombie.eatSpeed)){
+        genText[0]+='\nAlternate Eat Speed: '+ currentDisplayZombie.altEatSpeed;
       }
       textSize(16);
       text(genText[0], width/2,400);

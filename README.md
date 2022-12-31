@@ -4,7 +4,7 @@
 Based off of NMT_RR-1.1.5    
 
 # Description
-A collaboration remake of one of Hayden's former games code remade from the ground up.         
+A collaboration remake of one of Hayden's (DuckyProgramming) former games code remade from the ground up.         
 
 # Changes Compared to NMT_RR-1.1.5:
 <ul>

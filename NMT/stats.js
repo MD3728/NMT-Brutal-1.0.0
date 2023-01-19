@@ -1493,9 +1493,9 @@ const plantStat = [
   {//10 Dazey
     type: 10,
     name: "Dazey",
-    description: "Stuns and poisons zombies in a 3x3 area\nSpecial: Tier 2 damages zombies denoted by splashDamage field",
+    description: "Stuns and poisons zombies in a 3x3 area",
     t1:{
-      sun: 25,
+      sun: 50,
       recharge: 900,
       startingRecharge: 300,
       health: 100000,
@@ -1712,8 +1712,8 @@ const plantStat = [
     description: "Simple attacking plant, shoots peas at zombies",
     t1:{
       sun: 125,
-      recharge: 480,
-      startingRecharge: 480,
+      recharge: 600,
+      startingRecharge: 600,
       health: 300,
       eatable: true,
       damage: 20,
@@ -1873,7 +1873,7 @@ const plantStat = [
     name: "Pepper Cannon",
     description: "Fires fiery peppers which deal splash damage in a 3x3 area",
     t1:{
-      sun: 150,
+      sun: 125,
       recharge: 600,
       startingRecharge: 600,
       health: 300,

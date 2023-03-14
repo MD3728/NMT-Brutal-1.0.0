@@ -26,7 +26,14 @@ class Zombie extends Entity{
     this.playedMusic = false;//For Boombox (Cannot Play Music Twice)
     this.permanentDamage = 0;//For Valley Lily Damage Over Time
     this.offSetY=0;
-    this.spawnTimer = 480;//Time for creating new zombies (Qigong Garg and Dancing Zombie)
+    //Determine Spawn Timing (Time for creating new zombies (Qigong Garg and Dancing Zombies))
+    switch(this.type){
+      case 73://Angry Dancer
+        this.spawnTimer = 240;
+        break;
+      default:
+        this.spawnTimer = 480;
+    }
     //Determine Reload and Max Shield Health
     switch (this.type){
       case 18: case 71: case 74://Gargantuar
@@ -1506,7 +1513,7 @@ class Zombie extends Entity{
       this.graphical.previousAttackAnim=20;
       for (let currentPlant of allPlants){
         if ((currentPlant.lane === this.lane)&&(currentPlant.x + 60 > this.x - 400)&&(currentPlant.x < this.x)&&(currentPlant.eatable)){
-          currentPlant.take(30);
+          currentPlantcreateZombie2.take(30);
         }
       }
     }
@@ -1538,8 +1545,7 @@ class Zombie extends Entity{
     }
     //Qigong Garg Spawn
     if ((this.spawnTimer <= 0)&&(this.type === 74)){
-      createZombie2(51,this.lane, 0, this.x + 80);
-      createZombie2(51,this.lane, 0, this.x - 40);
+      createZombie2(51, this.lane, 0, this.x + 40);
       this.spawnTimer = 720;
     }
     //Dancing Zombie Spawn
@@ -1557,7 +1563,7 @@ class Zombie extends Entity{
     //Angry Dancing Zombie Spawn
     if ((this.spawnTimer <= 0)&&(this.type === 73)){
       createZombie2(25,this.lane, 0, this.x + 40);
-      this.spawnTimer = 360;
+      this.spawnTimer = 240;
     }
     //Techie shield only on during jam
     if ((this.type === 21)&&(!this.inJam())){
@@ -1918,11 +1924,15 @@ class Zombie extends Entity{
         this.altEatSpeed = 0;
         this.health = 10000000;
         this.maxHealth = 10000000;
+        this.spawnTimer = 10000000;
+        this.reload = 10000000;
         //Determine if brain is to be taken
         let laneTaken = false;
         for (let currentZombie of allZombies){
           if (((currentZombie.x < 50)&&(currentZombie.y === this.y))&&(currentZombie !== this)){
             laneTaken = true;
+            currentZombie.health = 0;
+            
             break;
           }
         }
